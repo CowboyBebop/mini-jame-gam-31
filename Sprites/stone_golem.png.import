@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df0xv88axy4od"
-path="res://.godot/imported/Square-0004.png-6bfbf8d1445b8595f77b26d7ad3f2315.ctex"
+uid="uid://b4ibrsu2s5rf7"
+path="res://.godot/imported/stone_golem.png-a8700a7d6b2c39279aa38ac21c642be4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Placeholders/Square/Square-0004.png"
-dest_files=["res://.godot/imported/Square-0004.png-6bfbf8d1445b8595f77b26d7ad3f2315.ctex"]
+source_file="res://Sprites/stone_golem.png"
+dest_files=["res://.godot/imported/stone_golem.png-a8700a7d6b2c39279aa38ac21c642be4.ctex"]
 
 [params]
 

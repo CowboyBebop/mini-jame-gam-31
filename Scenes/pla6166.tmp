@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cubnym6hycq0g"]
+[gd_scene load_steps=8 format=3 uid="uid://cubnym6hycq0g"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_xnbnj"]
 [ext_resource type="Texture2D" uid="uid://dnxy2dc6j2tnp" path="res://Sprites/sword placeholder.png" id="2_li5c0"]
 [ext_resource type="Script" path="res://Scenes/SwordPlaceholder.gd" id="3_ynqf6"]
-[ext_resource type="Texture2D" uid="uid://bcks6adlcuq4r" path="res://Sprites/player.png" id="4_ym4x6"]
 
 [sub_resource type="Curve" id="Curve_spu1l"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -14,61 +13,55 @@ curve = SubResource("Curve_spu1l")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_25ayd"]
 particle_flag_disable_z = true
-initial_velocity_min = 16.65
-initial_velocity_max = 16.65
 gravity = Vector3(0, 0, 0)
+scale_min = 12.0
+scale_max = 12.0
 color = Color(0.808998, 0.808998, 0.808998, 1)
 alpha_curve = SubResource("CurveTexture_rfus2")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_irpos"]
-radius = 2.5
-height = 9.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_ia7pj"]
+radius = 6.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("dash_timer", "dash_cooldown_timer", "sword_area_2d", "dash_particles_2d")]
-collision_mask = 13
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("dash_timer", "dash_cooldown_timer", "sword_area_2d")]
 script = ExtResource("1_xnbnj")
 dash_timer = NodePath("DashTimer")
 dash_cooldown_timer = NodePath("DashCooldownTimer")
 sword_area_2d = NodePath("SwordPlaceholder/SwordArea2D")
-dash_particles_2d = NodePath("DashParticles2D")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-1, -5)
+scale = Vector2(0.732626, 0.732626)
+polygon = PackedVector2Array(-7, -13, 9, -13, 9, 9, -7, 9)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Polygon2D"]
+position = Vector2(1, 5)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(5, -9, 7, -7, 5, -5)
 
 [node name="SwordPlaceholder" type="Sprite2D" parent="."]
-position = Vector2(6, -6)
+position = Vector2(8, -3)
 rotation = -0.141627
-scale = Vector2(0.0674134, 0.0674134)
+scale = Vector2(0.115385, 0.115385)
 texture = ExtResource("2_li5c0")
 script = ExtResource("3_ynqf6")
 
 [node name="SwordArea2D" type="Area2D" parent="SwordPlaceholder"]
 
-[node name="SwordCollider" type="CollisionPolygon2D" parent="SwordPlaceholder/SwordArea2D"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="SwordPlaceholder/SwordArea2D"]
 scale = Vector2(1, 1)
 polygon = PackedVector2Array(82, -122.4, 82, -111.4, 69.6, -94.2, 83, -47.1, 83, -41.6, 77.3, 17, 74.8, 17, 59.8, 63, 56.8, 63, 23.8, 103, 18.6, 103, -48, 128.7, -48, 112.6, 3.10001, 63.5, 16.3, 6.2, 5.2, -46.6, -11.9, -58.9, -28.4, -47, -35.7, -47, -51.4, -59.2, -49, -66.2, -49, -80, -40.6, -80, 57, -122.2, 62.4728, -131.162)
 
 [node name="DashParticles2D" type="GPUParticles2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -4.5)
 emitting = false
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_25ayd")
-texture = ExtResource("4_ym4x6")
 lifetime = 0.25
 trail_lifetime = 0.25
 
-[node name="PlayerSprite" type="Sprite2D" parent="."]
-position = Vector2(0, -10)
-texture = ExtResource("4_ym4x6")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_irpos")
-
-[node name="HurtBox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(-1, 0)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_irpos")
+visible = false
+shape = SubResource("CircleShape2D_ia7pj")
 
 [node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -81,9 +74,6 @@ one_shot = true
 [node name="DashCooldownTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
 
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

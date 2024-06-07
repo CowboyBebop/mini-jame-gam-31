@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4h46ct6643i"
-path="res://.godot/imported/Square-0003.png-b3c745ee9b09d87228cd7ccb085c896e.ctex"
+uid="uid://dnxy2dc6j2tnp"
+path="res://.godot/imported/sword placeholder.png-08d2facf507592e65785c97f22b62887.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Placeholders/Square/Square-0003.png"
-dest_files=["res://.godot/imported/Square-0003.png-b3c745ee9b09d87228cd7ccb085c896e.ctex"]
+source_file="res://Sprites/sword placeholder.png"
+dest_files=["res://.godot/imported/sword placeholder.png-08d2facf507592e65785c97f22b62887.ctex"]
 
 [params]
 
