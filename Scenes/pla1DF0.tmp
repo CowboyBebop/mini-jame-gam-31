@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cubnym6hycq0g"]
+
+[ext_resource type="Script" path="res://Scenes/player.gd" id="1_xnbnj"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iouh1"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_xnbnj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("CompressedTexture2D_iouh1")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-1, -5)
+scale = Vector2(0.732626, 0.732626)
+polygon = PackedVector2Array(-7, -13, 9, -13, 9, 9, -7, 9)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Polygon2D"]
+position = Vector2(1, 5)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(5, -9, 7, -7, 5, -5)
