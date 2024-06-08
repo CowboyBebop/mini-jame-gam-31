@@ -82,6 +82,7 @@ func _on_attack_timer_timeout() -> void:
 	pass # Replace with function body
 
 
+
 func _on_damage_taken(damage:int) -> void:
 	health -= damage
 	health_bar.value = health

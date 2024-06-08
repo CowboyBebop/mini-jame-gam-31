@@ -235,7 +235,7 @@ _data = {
 "run": SubResource("Animation_m1da4")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("dash_timer", "dash_cooldown_timer", "sword_area_2d", "dash_particles_right", "dash_particles_left", "animation_player", "player_hurt_box")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("dash_timer", "dash_cooldown_timer", "sword_area_2d", "dash_particles_right", "dash_particles_left", "animation_player")]
 z_index = 2
 collision_mask = 13
 script = ExtResource("1_xnbnj")
@@ -245,7 +245,6 @@ sword_area_2d = NodePath("SwordPlaceholder/SwordArea2D")
 dash_particles_right = NodePath("DashParticles2DRight")
 dash_particles_left = NodePath("DashParticles2DLeft")
 animation_player = NodePath("AnimationPlayer")
-player_hurt_box = NodePath("PlayerHurtBox")
 
 [node name="SwordPlaceholder" type="Sprite2D" parent="."]
 visible = false

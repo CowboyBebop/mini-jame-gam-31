@@ -26,6 +26,8 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 @export var dash_particles_right: GPUParticles2D
 @export var dash_particles_left: GPUParticles2D
 @export var animation_player: AnimationPlayer
+@export var player_hurt_box: PlayerHurtBox
+
 @export var ui_canvas_script: CardUICanvas
 @export var health_bar: ProgressBar 
 
@@ -33,12 +35,12 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 @onready var sword_placeholder: Sprite2D = $SwordPlaceholder
 @onready var sword_collider: CollisionPolygon2D = $SwordPlaceholder/SwordArea2D/SwordCollider
 @onready var player_sprite: Sprite2D = $PlayerSprite
-
 @onready var attack_timer: Timer = $AttackTimer
 
 func _ready():
 	player = self
 	ui_canvas_script.card_swapped.connect(_on_ui_card_swapped)
+	player_hurt_box.damage_taken.connect(on_player_damage_taken)
 	health = MAX_HEALTH
 	health_bar.value = MAX_HEALTH
 	#remove_child(sword_placeholder)
@@ -155,7 +157,7 @@ func _on_sword_area_2d_area_entered(area: Area2D) -> void:
 func _on_attack_animation_end():
 	current_player_state = PlayerStates.IDLE
 	
-func player_take_damage(damage: int, element:ElementTypes):
+func on_player_damage_taken(damage: int, element:ElementTypes):
 	print("player damaged")
 	if not current_element_resistance == element:
 		health_bar.value -= damage
