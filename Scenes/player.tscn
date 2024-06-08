@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cubnym6hycq0g"]
+[gd_scene load_steps=10 format=3 uid="uid://cubnym6hycq0g"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_xnbnj"]
 [ext_resource type="Texture2D" uid="uid://dnxy2dc6j2tnp" path="res://Sprites/sword placeholder.png" id="2_li5c0"]
 [ext_resource type="Script" path="res://Scenes/SwordPlaceholder.gd" id="3_ynqf6"]
-[ext_resource type="Texture2D" uid="uid://bcks6adlcuq4r" path="res://Sprites/player.png" id="4_ym4x6"]
+[ext_resource type="Texture2D" uid="uid://dhn7oolnuo7gw" path="res://Sprites/player_right.png" id="4_mcwbr"]
+[ext_resource type="Texture2D" uid="uid://dfm2kvcrdwesa" path="res://Sprites/player_left.png" id="5_ydnxh"]
 
 [sub_resource type="Curve" id="Curve_spu1l"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -24,13 +25,15 @@ alpha_curve = SubResource("CurveTexture_rfus2")
 radius = 2.5
 height = 9.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("dash_timer", "dash_cooldown_timer", "sword_area_2d", "dash_particles_2d")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("dash_timer", "dash_cooldown_timer", "sword_area_2d", "dash_particles_right", "dash_particles_left")]
+z_index = 2
 collision_mask = 13
 script = ExtResource("1_xnbnj")
 dash_timer = NodePath("DashTimer")
 dash_cooldown_timer = NodePath("DashCooldownTimer")
 sword_area_2d = NodePath("SwordPlaceholder/SwordArea2D")
-dash_particles_2d = NodePath("DashParticles2D")
+dash_particles_right = NodePath("DashParticles2DRight")
+dash_particles_left = NodePath("DashParticles2DLeft")
 
 [node name="SwordPlaceholder" type="Sprite2D" parent="."]
 position = Vector2(6, -6)
@@ -45,18 +48,27 @@ script = ExtResource("3_ynqf6")
 scale = Vector2(1, 1)
 polygon = PackedVector2Array(82, -122.4, 82, -111.4, 69.6, -94.2, 83, -47.1, 83, -41.6, 77.3, 17, 74.8, 17, 59.8, 63, 56.8, 63, 23.8, 103, 18.6, 103, -48, 128.7, -48, 112.6, 3.10001, 63.5, 16.3, 6.2, 5.2, -46.6, -11.9, -58.9, -28.4, -47, -35.7, -47, -51.4, -59.2, -49, -66.2, -49, -80, -40.6, -80, 57, -122.2, 62.4728, -131.162)
 
-[node name="DashParticles2D" type="GPUParticles2D" parent="."]
+[node name="DashParticles2DRight" type="GPUParticles2D" parent="."]
 position = Vector2(0, -10)
 emitting = false
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_25ayd")
-texture = ExtResource("4_ym4x6")
+texture = ExtResource("4_mcwbr")
+lifetime = 0.25
+trail_lifetime = 0.25
+
+[node name="DashParticles2DLeft" type="GPUParticles2D" parent="."]
+position = Vector2(0, -10)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_25ayd")
+texture = ExtResource("5_ydnxh")
 lifetime = 0.25
 trail_lifetime = 0.25
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -10)
-texture = ExtResource("4_ym4x6")
+texture = ExtResource("4_mcwbr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)

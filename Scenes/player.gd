@@ -19,11 +19,13 @@ var current_player_state:PlayerStates = PlayerStates.IDLE
 @export var dash_timer: Timer
 @export var dash_cooldown_timer: Timer
 @export var sword_area_2d: Area2D
-@export var dash_particles_2d: GPUParticles2D
+@export var dash_particles_right: GPUParticles2D
+@export var dash_particles_left: GPUParticles2D
 @export var animated_sprite_2d: AnimatedSprite2D
 
 @onready var sword_placeholder: Sprite2D = $SwordPlaceholder
 @onready var sword_collider: CollisionPolygon2D = $SwordPlaceholder/SwordArea2D/SwordCollider
+@onready var player_sprite: Sprite2D = $PlayerSprite
 
 @onready var attack_timer: Timer = $AttackTimer
 
@@ -80,14 +82,14 @@ func _physics_process(delta):
 
 func start_dash_timer():
 	print("dash timer started")
-	dash_particles_2d.emitting = true
+	toggle_dash_particles(true)
 	
 	dash_timer.start()
 
 
 func _on_dash_timer_timeout() -> void:
 	print("dash timer finished")
-	dash_particles_2d.emitting = false
+	toggle_dash_particles(false)
 	
 	dash_cooldown_timer.start()
 	if direction:
@@ -99,20 +101,27 @@ func _on_dash_timer_timeout() -> void:
 		
 
 
+func toggle_dash_particles(switch_to:bool):
+	if switch_to == false:
+		dash_particles_left.emitting = false
+		dash_particles_right.emitting = false
+	else:
+		print(direction.x)
+		if direction.x < -0.6:
+			dash_particles_left.emitting = true
+		elif direction.x > 0.6:
+			dash_particles_right.emitting = true
+
 func check_flipping():
 	#flip to left + flip to right respectively
 	if direction.x < -0.6 and  !is_flipped:
-		scale.x = -1
-		dash_particles_2d.scale =  Vector2(-1, 1)
-		print(dash_particles_2d.scale)
+		#scale.x = -1
 		is_flipped = true
-		#animated_sprite_2d.flip_h = true
+		player_sprite.flip_h = true
 	elif direction.x > 0.6 and is_flipped:
-		scale.x = -1
-		print(dash_particles_2d.scale)
-		dash_particles_2d.scale =  Vector2(-1, 1)
+		#scale.x = -1
 		is_flipped = false
-		#animated_sprite_2d.flip_h = false 
+		player_sprite.flip_h = false 
 
 
 func check_animations():
