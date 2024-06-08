@@ -21,30 +21,34 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Card1TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
+offset_left = -222.0
+offset_top = -144.0
+offset_right = -126.0
 texture = ExtResource("2_ahas1")
 stretch_mode = 2
 
 [node name="Card2TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
+offset_left = -106.0
+offset_top = -144.0
+offset_right = -10.0
 texture = ExtResource("3_ocnev")
 stretch_mode = 2
 
 [node name="Card3TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
+offset_left = 10.0
+offset_top = -144.0
+offset_right = 106.0
 texture = ExtResource("4_dxbqt")
 stretch_mode = 2
 
 [node name="Card4TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
+offset_left = 126.0
+offset_top = -144.0
+offset_right = 222.0
 texture = ExtResource("5_140o6")
 stretch_mode = 2
 
