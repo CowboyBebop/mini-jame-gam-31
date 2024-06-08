@@ -23,26 +23,24 @@ func _process(delta: float) -> void:
 				animation_player.play("card_1_enter")
 				card_entered = true
 			
-			print("num_key_pressed:   ",num_key_pressed," current_card_selected:  ",current_card_selected, "eq", num_key_pressed != current_card_selected)
+			#print("num_key_pressed:   ",num_key_pressed," current_card_selected:  ",current_card_selected, "eq", num_key_pressed != current_card_selected)
 			
 			if num_key_pressed != current_card_selected:
 				animation_player.play("card_1_exit")
 			
 		CardSelected.CARD2:
-			current_card_selected = num_key_pressed
 			
+			print(card_entered)
 			if !card_entered: 
 				print("entered 2")
-				#animation_player.play("card_2_enter")
+				animation_player.play("card_2_enter")
 				card_entered = true
-			print("num_key_pressed:   ",num_key_pressed," current_card_selected:  ",current_card_selected, "eq", num_key_pressed != current_card_selected)
+			#print("num_key_pressed:   ",num_key_pressed," current_card_selected:  ",current_card_selected, "eq", num_key_pressed != current_card_selected)
 			if num_key_pressed != current_card_selected:
 				animation_player.play("card_2_exit")
 			
 		CardSelected.CARD3:
 				
-			current_card_selected = num_key_pressed
-			print("not if entered 3")
 			
 			if !card_entered: 
 				print("entered 3")
@@ -54,7 +52,6 @@ func _process(delta: float) -> void:
 			
 		CardSelected.CARD4:
 				
-			current_card_selected = num_key_pressed
 			
 			if !card_entered: 
 				animation_player.play("card_4_enter")
