@@ -1,7 +1,9 @@
-extends CanvasLayer
+class_name CardUICanvas extends CanvasLayer
 
 
 enum CardSelected {NONE = -1, CARD1 = 1, CARD2 = 2, CARD3 = 3 , CARD4 = 4}
+
+signal card_swapped(ElementType)
 
 @export var animation_player: AnimationPlayer
 
@@ -9,9 +11,9 @@ var current_card_selected = CardSelected.NONE
 var card_entered:bool = false
 var num_key_pressed:int = -1
 
-func _process(delta: float) -> void:
-	
+func _process(_delta: float) -> void:
 	num_key_pressed = check_card_input()
+	
 	match current_card_selected:
 		CardSelected.NONE:
 			
@@ -20,22 +22,20 @@ func _process(delta: float) -> void:
 		CardSelected.CARD1:
 			
 			if !card_entered: 
+				card_swapped.emit(current_card_selected-1)
 				animation_player.play("card_1_enter")
 				card_entered = true
 			
-			#print("num_key_pressed:   ",num_key_pressed," current_card_selected:  ",current_card_selected, "eq", num_key_pressed != current_card_selected)
 			
 			if num_key_pressed != current_card_selected:
 				animation_player.play("card_1_exit")
 			
 		CardSelected.CARD2:
 			
-			print(card_entered)
 			if !card_entered: 
-				print("entered 2")
+				card_swapped.emit(current_card_selected-1)
 				animation_player.play("card_2_enter")
 				card_entered = true
-			#print("num_key_pressed:   ",num_key_pressed," current_card_selected:  ",current_card_selected, "eq", num_key_pressed != current_card_selected)
 			if num_key_pressed != current_card_selected:
 				animation_player.play("card_2_exit")
 			
@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 				
 			
 			if !card_entered: 
-				print("entered 3")
+				card_swapped.emit(current_card_selected-1)
 				animation_player.play("card_3_enter")
 				card_entered = true
 			
@@ -54,6 +54,7 @@ func _process(delta: float) -> void:
 				
 			
 			if !card_entered: 
+				card_swapped.emit(current_card_selected-1)
 				animation_player.play("card_4_enter")
 				card_entered = true
 			
@@ -95,8 +96,6 @@ func check_any_card_input() -> bool:
 		
 		
 func change_selected_card():
-	print("to change", num_key_pressed)
 	current_card_selected = num_key_pressed
 	card_entered = false
-	print("card_entered changed to false")
 	

@@ -899,7 +899,8 @@ collision_layer = 8
 position = Vector2(0, 0.415584)
 shape = SubResource("RectangleShape2D_td4ok")
 
-[node name="Player" parent="." instance=ExtResource("1_kw5oa")]
+[node name="Player" parent="." node_paths=PackedStringArray("ui_canvas_script") instance=ExtResource("1_kw5oa")]
+ui_canvas_script = NodePath("../UICanvas")
 
 [node name="StoneEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("3_n1bq3")]
 position = Vector2(188, -26)

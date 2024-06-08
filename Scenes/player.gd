@@ -24,6 +24,8 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 @export var dash_particles_right: GPUParticles2D
 @export var dash_particles_left: GPUParticles2D
 @export var animation_player: AnimationPlayer
+@export var ui_canvas_script: CardUICanvas
+
 
 @onready var sword_placeholder: Sprite2D = $SwordPlaceholder
 @onready var sword_collider: CollisionPolygon2D = $SwordPlaceholder/SwordArea2D/SwordCollider
@@ -33,10 +35,11 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 
 func _ready():
 	player = self
+	ui_canvas_script.card_swapped.connect(_on_ui_card_swapped)
 	#remove_child(sword_placeholder)
 	
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	direction = Input.get_vector("move_left", "move_right","move_up","move_down")  
 	dash_input = Input.is_action_pressed("dash")
@@ -149,3 +152,8 @@ func _on_attack_animation_end():
 	
 func player_take_damage(damage: int, element:ElementTypes):
 	pass
+
+
+func _on_ui_card_swapped(element_type_int:int):
+	current_element_resistance = element_type_int
+	print(current_element_resistance)
