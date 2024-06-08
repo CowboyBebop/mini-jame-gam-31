@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody2D
 
 enum PlayerStates {IDLE,RUN,DASH,ATTACK}
+enum ElementTypes {NONE,FIRE,ICE,EARTH,WIND}
 
 static var player:Player
 
@@ -15,6 +16,7 @@ var is_sword_exists: bool = false
 
 
 var current_player_state:PlayerStates = PlayerStates.IDLE
+var current_element_resistance:ElementTypes = ElementTypes.NONE
 
 @export var dash_timer: Timer
 @export var dash_cooldown_timer: Timer
@@ -137,9 +139,13 @@ func _on_attack_timer_timeout() -> void:
 
 
 func _on_sword_area_2d_area_entered(area: Area2D) -> void:
-	sword_collider.disabled = true
+	#dsword_collider.set_deferred("disabled", true)
+	#sword_collider.disabled = true	
 	if area is HurtBox:
 		area.take_damage(1)
 	
 func _on_attack_animation_end():
 	current_player_state = PlayerStates.IDLE
+	
+func player_take_damage(damage: int, element:ElementTypes):
+	pass
