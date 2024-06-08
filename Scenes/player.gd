@@ -21,7 +21,7 @@ var current_player_state:PlayerStates = PlayerStates.IDLE
 @export var sword_area_2d: Area2D
 @export var dash_particles_right: GPUParticles2D
 @export var dash_particles_left: GPUParticles2D
-@export var animated_sprite_2d: AnimatedSprite2D
+@export var animation_player: AnimationPlayer
 
 @onready var sword_placeholder: Sprite2D = $SwordPlaceholder
 @onready var sword_collider: CollisionPolygon2D = $SwordPlaceholder/SwordArea2D/SwordCollider
@@ -31,7 +31,7 @@ var current_player_state:PlayerStates = PlayerStates.IDLE
 
 func _ready():
 	player = self
-	remove_child(sword_placeholder)
+	#remove_child(sword_placeholder)
 	
 
 func _physics_process(delta):
@@ -41,18 +41,25 @@ func _physics_process(delta):
 	
 	match current_player_state:
 		PlayerStates.IDLE:
+			animation_player.play("idle")
 			
 			velocity = velocity.move_toward(Vector2.ZERO, SPEED)
-			
+			if Input.is_action_just_pressed("attack"):
+				current_player_state = PlayerStates.ATTACK
+				
+				
 			if direction:
 				check_flipping()
 				if dash_input and dash_cooldown_timer.is_stopped():
 					current_player_state = PlayerStates.DASH
 				current_player_state = PlayerStates.RUN
+				
 		PlayerStates.RUN:
-			
 			check_flipping()
+			if Input.is_action_just_pressed("attack"):
+				current_player_state = PlayerStates.ATTACK
 			velocity = direction * SPEED
+			animation_player.play("run")
 			
 			if direction:
 				if dash_input and dash_cooldown_timer.is_stopped():
@@ -66,16 +73,16 @@ func _physics_process(delta):
 			var dash_velocity:Vector2 = DASH_SPEED * direction
 			velocity = velocity.move_toward(dash_velocity, SPEED)
 			
-			pass
-		PlayerStates.ATTACK:
 			
-			pass
+		PlayerStates.ATTACK:
+			animation_player.play("attack")
+				
+			
 	
 	
-	if Input.is_action_just_pressed("attack"):
-		if (!is_sword_exists):
-			add_child(sword_placeholder)
-			attack_timer.start()
+			#add_child(sword_placeholder)
+			#attack_timer.start()
+			#is_sword_exists = true
 	
 	move_and_slide()
 
@@ -94,10 +101,8 @@ func _on_dash_timer_timeout() -> void:
 	dash_cooldown_timer.start()
 	if direction:
 		current_player_state = PlayerStates.RUN
-		print("changed from dash")
 	else:
 		current_player_state = PlayerStates.IDLE
-		print("changed from dash")
 		
 
 
@@ -106,7 +111,6 @@ func toggle_dash_particles(switch_to:bool):
 		dash_particles_left.emitting = false
 		dash_particles_right.emitting = false
 	else:
-		print(direction.x)
 		if direction.x < -0.6:
 			dash_particles_left.emitting = true
 		elif direction.x > 0.6:
@@ -115,30 +119,27 @@ func toggle_dash_particles(switch_to:bool):
 func check_flipping():
 	#flip to left + flip to right respectively
 	if direction.x < -0.6 and  !is_flipped:
-		#scale.x = -1
+		scale.x = -1
 		is_flipped = true
-		player_sprite.flip_h = true
 	elif direction.x > 0.6 and is_flipped:
-		#scale.x = -1
+		scale.x = -1
 		is_flipped = false
-		player_sprite.flip_h = false 
-
-
-func check_animations():
-	if direction:
-		animated_sprite_2d.play("run")
-	else: 
-		animated_sprite_2d.play("idle")
-
 
 func _on_dash_cooldown_timer_timeout():
 	pass # Replace with function body.
 
-
-
 func _on_attack_timer_timeout() -> void:
 	is_sword_exists = false
 	remove_child(sword_placeholder)
+	sword_collider.disabled = false
 	pass # Replace with function body.
 
 
+
+func _on_sword_area_2d_area_entered(area: Area2D) -> void:
+	sword_collider.disabled = true
+	if area is HurtBox:
+		area.take_damage(1)
+	
+func _on_attack_animation_end():
+	current_player_state = PlayerStates.IDLE
