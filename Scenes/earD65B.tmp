@@ -56,7 +56,6 @@ offset_top = -71.0
 offset_right = 39.0
 offset_bottom = -66.0
 max_value = 5.0
-step = 1.0
 value = 5.0
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

@@ -7,7 +7,9 @@ static var player:Player
 
 const SPEED:float = 140
 const DASH_SPEED:float = 400
+const MAX_HEALTH:float = 3
 
+var health:float = 0
 var is_flipped: bool = false
 var dash_input: bool = false
 var direction: Vector2 = Vector2.ZERO
@@ -25,6 +27,7 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 @export var dash_particles_left: GPUParticles2D
 @export var animation_player: AnimationPlayer
 @export var ui_canvas_script: CardUICanvas
+@export var health_bar: ProgressBar 
 
 
 @onready var sword_placeholder: Sprite2D = $SwordPlaceholder
@@ -36,6 +39,8 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 func _ready():
 	player = self
 	ui_canvas_script.card_swapped.connect(_on_ui_card_swapped)
+	health = MAX_HEALTH
+	health_bar.value = MAX_HEALTH
 	#remove_child(sword_placeholder)
 	
 
@@ -151,7 +156,11 @@ func _on_attack_animation_end():
 	current_player_state = PlayerStates.IDLE
 	
 func player_take_damage(damage: int, element:ElementTypes):
-	pass
+	print("player damaged")
+	if not current_element_resistance == element:
+		health_bar.value -= damage
+	else:
+		print("damage negated") #add some effect or something to show that damage is negated
 
 
 func _on_ui_card_swapped(element_type_int:int):
