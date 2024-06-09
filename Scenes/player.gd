@@ -7,13 +7,14 @@ enum ElementTypes {NONE,ICE,FIRE,EARTH,WIND}
 
 static var player:Player
 
-const SLOW_SPEED:float = 50
+const SLOW_SPEED:float = 60
 const NORMAL_SPEED:float = 140
 const DASH_SPEED:float = 400
 const MAX_HEALTH:float = 3
 
-var current_speed :float = 300
-var health:float = 0
+var damage:int = 1
+var current_speed :float = 140
+var health:float = 3
 var is_flipped: bool = false
 var dash_input: bool = false
 var direction: Vector2 = Vector2.ZERO
@@ -192,7 +193,7 @@ func _on_sword_area_2d_area_entered(area: Area2D) -> void:
 	
 	#word_collider.disabled = true
 	if area is HurtBox:
-		area.take_damage(5)
+		area.take_damage(damage)
 	
 func _on_attack_animation_end():
 	current_player_state = PlayerStates.IDLE
@@ -224,6 +225,9 @@ func _on_card_change_check_slow(element_type_int:int):
 	else:
 		current_speed = SLOW_SPEED
 		
+func add_health(heal:int):
+	health += heal
+	health_bar.value = health
 
 func check_health():
 	if health <= 0 and not current_player_state == PlayerStates.DYING and not current_player_state == PlayerStates.DEAD:

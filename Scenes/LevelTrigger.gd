@@ -34,8 +34,6 @@ func _on_area_entered(area: Area2D) -> void:
 	level_trigger_collider.set_deferred("disabled",true)
 	#level_trigger_collider.disabled = true
 	level_started()
-	
-	
 
 
 func level_started():
@@ -49,6 +47,7 @@ func level_started():
 
 func level_finished():
 	print("colliders asd",gate_2_collider.disabled)
+	Player.player.add_health(1)
 	
 	gate_1.visible = false
 	gate_2.visible = false
