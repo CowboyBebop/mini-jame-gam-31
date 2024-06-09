@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqoccr1w2mfpt"]
+
+[ext_resource type="Script" path="res://Scenes/LevelTrigger.gd" id="1_ejgju"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td4ok"]
+size = Vector2(29.2571, 29.9221)
+
+[node name="LevelTrigger" type="Area2D"]
+position = Vector2(57, -1)
+scale = Vector2(1.09375, 2.40625)
+collision_layer = 8
+script = ExtResource("1_ejgju")
+
+[node name="LevelTriggerCollider" type="CollisionShape2D" parent="."]
+z_index = 2
+position = Vector2(0, 0.415584)
+shape = SubResource("RectangleShape2D_td4ok")
+debug_color = Color(0.959761, 0.212446, 0.490621, 0.42)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

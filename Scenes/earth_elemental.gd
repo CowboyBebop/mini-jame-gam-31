@@ -16,7 +16,7 @@ var margin_distance: float = 30
 @export var attack_timer: Timer
 @export var enemy_health_bar: ProgressBar
 
-@export var level_trigger: Area2D
+@export var level_trigger: LevelTrigger
 
 @onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
 @onready var sword_placeholder: Sprite2D = $SwordPlaceholder
@@ -25,6 +25,7 @@ var margin_distance: float = 30
 
 
 func _ready():
+	level_trigger.add_enemy_to_level(self)
 	level_trigger.area_entered.connect(_on_level_trigger_area_entered)
 	hurt_box.damage_taken.connect(_on_damage_taken)
 	sword_placeholder.visible=false

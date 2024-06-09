@@ -1,16 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://xg8xhs60r0fg"]
+[gd_scene load_steps=13 format=3 uid="uid://xg8xhs60r0fg"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_fl02j"]
 [ext_resource type="PackedScene" uid="uid://cubnym6hycq0g" path="res://Scenes/player.tscn" id="1_kw5oa"]
-[ext_resource type="Script" path="res://Scenes/LevelTrigger.gd" id="1_mktfg"]
+[ext_resource type="PackedScene" uid="uid://bqoccr1w2mfpt" path="res://Scenes/level_trigger.tscn" id="2_phkqb"]
 [ext_resource type="Texture2D" uid="uid://qtnpvscrdbwu" path="res://Sprites/tiles_dungeon.png" id="4_os3lu"]
 [ext_resource type="PackedScene" uid="uid://bl5yvl48s5h3o" path="res://Scenes/UI/ui_canvas.tscn" id="5_278sf"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="6_dpsnj"]
 [ext_resource type="PackedScene" uid="uid://d1qsfyynlbqto" path="res://Scenes/earth_enemy.tscn" id="7_dpull"]
 [ext_resource type="PackedScene" uid="uid://dmhqwg5u48ief" path="res://Scenes/fire_enemy.tscn" id="8_llbal"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_td4ok"]
-size = Vector2(29.2571, 29.9221)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uvg0c"]
 texture = ExtResource("4_os3lu")
@@ -929,17 +926,7 @@ script = ExtResource("1_fl02j")
 [node name="GameRestartTimer" type="Timer" parent="."]
 wait_time = 3.0
 
-[node name="LevelTrigger" type="Area2D" parent="."]
-position = Vector2(57, -1)
-scale = Vector2(1.09375, 2.40625)
-collision_layer = 8
-script = ExtResource("1_mktfg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelTrigger"]
-z_index = 2
-position = Vector2(0, 0.415584)
-shape = SubResource("RectangleShape2D_td4ok")
-debug_color = Color(0.959761, 0.212446, 0.490621, 0.42)
+[node name="LevelTrigger" parent="." instance=ExtResource("2_phkqb")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("ui_canvas_script", "health_bar") instance=ExtResource("1_kw5oa")]
 ui_canvas_script = NodePath("../UICanvas")
@@ -1012,4 +999,3 @@ position = Vector2(-65, 9)
 level_trigger = NodePath("../LevelTrigger")
 
 [connection signal="timeout" from="GameRestartTimer" to="." method="_on_game_restart_timer_timeout"]
-[connection signal="area_entered" from="LevelTrigger" to="LevelTrigger" method="_on_area_entered"]
