@@ -226,7 +226,7 @@ func _on_card_change_check_slow(element_type_int:int):
 		
 
 func check_health():
-	if health <= 0:
+	if health <= 0 and not current_player_state == PlayerStates.DYING and not current_player_state == PlayerStates.DEAD:
 		current_player_state = PlayerStates.DYING
 		print("died")
 
