@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://buujabbngech0"]
 
-[ext_resource type="Script" path="res://fire_projectile.gd" id="1_q6eud"]
+[ext_resource type="Script" path="res://ice_projectile.gd" id="1_68i78"]
 [ext_resource type="Texture2D" uid="uid://1bfyrrgw07nw" path="res://Sprites/dust smoke particles sheet 8x8.png" id="2_4qdyb"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_chvq0"]
@@ -17,26 +17,26 @@ particles_anim_loop = false
 _data = [Vector2(0, 1), 0.0, 0.194359, 0, 0, Vector2(1, 0), -2.05987, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_d1x1f"]
+[sub_resource type="CurveTexture" id="CurveTexture_x0ah6"]
 curve = SubResource("Curve_yxvto")
 
 [sub_resource type="Gradient" id="Gradient_qwrnk"]
 colors = PackedColorArray(1, 0.164063, 0, 1, 0.804688, 0.301758, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_oowht"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hhfgf"]
 gradient = SubResource("Gradient_qwrnk")
 
 [sub_resource type="Gradient" id="Gradient_tftsu"]
 colors = PackedColorArray(1, 0.257813, 0, 1, 0.945313, 0.909107, 0.0184631, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_gyq4c"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wut6u"]
 gradient = SubResource("Gradient_tftsu")
 
 [sub_resource type="Curve" id="Curve_5hwav"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.68357), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_77wde"]
+[sub_resource type="CurveTexture" id="CurveTexture_g0ga7"]
 curve = SubResource("Curve_5hwav")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvi28"]
@@ -49,19 +49,19 @@ angular_velocity_max = 1.0
 radial_velocity_min = -0.5
 radial_velocity_max = 0.5
 gravity = Vector3(0, -1.5, 0)
-scale_curve = SubResource("CurveTexture_77wde")
-color_ramp = SubResource("GradientTexture1D_gyq4c")
-color_initial_ramp = SubResource("GradientTexture1D_oowht")
-alpha_curve = SubResource("CurveTexture_d1x1f")
+scale_curve = SubResource("CurveTexture_g0ga7")
+color_ramp = SubResource("GradientTexture1D_wut6u")
+color_initial_ramp = SubResource("GradientTexture1D_hhfgf")
+alpha_curve = SubResource("CurveTexture_x0ah6")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fp6lg"]
 radius = 3.0
 
-[node name="FireProjectile" type="Area2D"]
+[node name="IceProjectile" type="Area2D"]
 top_level = true
 z_index = 1
 collision_layer = 0
-script = ExtResource("1_q6eud")
+script = ExtResource("1_68i78")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.541176, 0.054902, 0.686275)

@@ -2,7 +2,7 @@ extends Area2D
 
 @export var attack_element:Player.ElementTypes = Player.ElementTypes.FIRE
 
-const BULLET_SPEED:int = 50
+const BULLET_SPEED:int = 60
 #const PROJECTILE_GRAVITY:float = 0.0005 #to simulate the flamethrower gravity
 const RANGE:int = 600
 const DAMAGE:int = 1
