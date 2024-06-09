@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 		CardSelected.CARD1:
 			
 			if !card_entered: 
-				card_swapped.emit(current_card_selected-1)
+				card_swapped.emit(current_card_selected)
 				animation_player.play("card_1_enter")
 				card_entered = true
 			
@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 		CardSelected.CARD2:
 			
 			if !card_entered: 
-				card_swapped.emit(current_card_selected-1)
+				card_swapped.emit(current_card_selected)
 				animation_player.play("card_2_enter")
 				card_entered = true
 			if num_key_pressed != current_card_selected:
@@ -43,7 +43,7 @@ func _process(_delta: float) -> void:
 				
 			
 			if !card_entered: 
-				card_swapped.emit(current_card_selected-1)
+				card_swapped.emit(current_card_selected)
 				animation_player.play("card_3_enter")
 				card_entered = true
 			
@@ -54,7 +54,7 @@ func _process(_delta: float) -> void:
 				
 			
 			if !card_entered: 
-				card_swapped.emit(current_card_selected-1)
+				card_swapped.emit(current_card_selected)
 				animation_player.play("card_4_enter")
 				card_entered = true
 			

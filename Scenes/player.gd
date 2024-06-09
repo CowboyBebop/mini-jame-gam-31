@@ -1,7 +1,7 @@
 class_name Player extends CharacterBody2D
 
 enum PlayerStates {IDLE,RUN,DASH,ATTACK}
-enum ElementTypes {NONE,FIRE,ICE,EARTH,WIND}
+enum ElementTypes {NONE,ICE,FIRE,EARTH,WIND}
 
 static var player:Player
 
@@ -170,7 +170,7 @@ func on_player_damage_taken(damage: int, element:ElementTypes):
 
 func _on_ui_card_swapped(element_type_int:int):
 	current_element_resistance = element_type_int
-	print(current_element_resistance)
+	print(ElementTypes.keys()[current_element_resistance])
 	
 func _on_player_slow_state_changed(changed_to:bool):
 	if changed_to:
