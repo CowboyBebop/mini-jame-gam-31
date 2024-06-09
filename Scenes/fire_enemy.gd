@@ -38,6 +38,7 @@ func _physics_process(delta: float) -> void:
 	
 	match current_enemy_state:
 		EnemyStates.IDLE:
+			check_flipping()
 			velocity = velocity.move_toward(Vector2.ZERO, SPEED)
 			pass
 			
@@ -45,16 +46,21 @@ func _physics_process(delta: float) -> void:
 			check_flipping()
 			
 			velocity = direction_to_player * SPEED
-			if distance_to_player < attack_distance:
+			if distance_to_player <= attack_distance:
 				current_enemy_state = EnemyStates.ATTACK
 				
 		EnemyStates.ATTACK:
+			check_flipping()
 			velocity = Vector2.ZERO
 			
 			if not is_on_cooldown:
 				shoot_projectile()
 				attack_timer.start()
 				is_on_cooldown = true
+				
+			if distance_to_player > attack_distance:
+				current_enemy_state = EnemyStates.TRIGGERED
+			
 	
 	#print(distance_to_player, attack_distance, distance_to_player < attack_distance)
 	

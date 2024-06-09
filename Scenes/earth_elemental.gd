@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 			check_flipping()
 			
 			velocity = direction_to_player * SPEED
-			if distance_to_player < attack_distance:
+			if distance_to_player <= attack_distance:
 				current_enemy_state = EnemyStates.ATTACK
 				
 		EnemyStates.ATTACK:
@@ -55,7 +55,8 @@ func _physics_process(delta: float) -> void:
 				attack_timer.start()
 				is_sword_exists = true
 				
-			
+			if distance_to_player > attack_distance:
+				current_enemy_state = EnemyStates.TRIGGERED
 			
 	move_and_slide()
 

@@ -906,7 +906,6 @@ health_bar = NodePath("../UICanvas/HealthBar")
 
 [node name="FireEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("4_8gvjv")]
 position = Vector2(168, 70)
-attack_distance = 150.0
 level_trigger = NodePath("../LevelTriggerSprite/LevelTrigger")
 
 [node name="TileMap" type="TileMap" parent="."]
