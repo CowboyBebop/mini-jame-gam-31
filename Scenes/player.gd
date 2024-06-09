@@ -5,10 +5,12 @@ enum ElementTypes {NONE,FIRE,ICE,EARTH,WIND}
 
 static var player:Player
 
-const SPEED:float = 140
+const SLOW_SPEED:float = 50
+const NORMAL_SPEED:float = 140
 const DASH_SPEED:float = 400
 const MAX_HEALTH:float = 3
 
+var current_speed :float = 140
 var health:float = 0
 var is_flipped: bool = false
 var dash_input: bool = false
@@ -41,6 +43,7 @@ func _ready():
 	player = self
 	ui_canvas_script.card_swapped.connect(_on_ui_card_swapped)
 	player_hurt_box.damage_taken.connect(on_player_damage_taken)
+	player_hurt_box.slow_state_changed.connect(_on_player_slow_state_changed)
 	health = MAX_HEALTH
 	health_bar.value = MAX_HEALTH
 	#remove_child(sword_placeholder)
@@ -55,7 +58,7 @@ func _physics_process(_delta):
 		PlayerStates.IDLE:
 			animation_player.play("idle")
 			
-			velocity = velocity.move_toward(Vector2.ZERO, SPEED)
+			velocity = velocity.move_toward(Vector2.ZERO, current_speed)
 			if Input.is_action_just_pressed("attack"):
 				current_player_state = PlayerStates.ATTACK
 				
@@ -70,7 +73,7 @@ func _physics_process(_delta):
 			check_flipping()
 			if Input.is_action_just_pressed("attack"):
 				current_player_state = PlayerStates.ATTACK
-			velocity = direction * SPEED
+			velocity = direction * current_speed
 			animation_player.play("run")
 			
 			if direction:
@@ -83,7 +86,7 @@ func _physics_process(_delta):
 			if dash_timer.is_stopped():
 				start_dash_timer()
 			var dash_velocity:Vector2 = DASH_SPEED * direction
-			velocity = velocity.move_toward(dash_velocity, SPEED)
+			velocity = velocity.move_toward(dash_velocity, current_speed)
 			
 			
 		PlayerStates.ATTACK:
@@ -168,3 +171,9 @@ func on_player_damage_taken(damage: int, element:ElementTypes):
 func _on_ui_card_swapped(element_type_int:int):
 	current_element_resistance = element_type_int
 	print(current_element_resistance)
+	
+func _on_player_slow_state_changed(changed_to:bool):
+	if changed_to:
+		current_speed = SLOW_SPEED
+	else:
+		current_speed = NORMAL_SPEED

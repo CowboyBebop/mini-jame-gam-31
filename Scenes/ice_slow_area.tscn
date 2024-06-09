@@ -77,3 +77,11 @@ visibility_rect = Rect2(-55.6749, -62.5848, 110.806, 117.503)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CircleShape2D_x5wnw")
+
+[node name="SlowAreaTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="timeout" from="SlowAreaTimer" to="." method="_on_slow_area_timer_timeout"]

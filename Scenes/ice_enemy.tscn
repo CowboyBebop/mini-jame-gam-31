@@ -1,44 +1,29 @@
-[gd_scene load_steps=9 format=3 uid="uid://buifawuhs83b2"]
+[gd_scene load_steps=6 format=3 uid="uid://gym838j02ixp"]
 
-[ext_resource type="Script" path="res://Scenes/earth_elemental.gd" id="1_ct4wd"]
+[ext_resource type="Script" path="res://Scenes/ice_enemy.gd" id="1_twoip"]
 [ext_resource type="Texture2D" uid="uid://d2yxe2c147a4i" path="res://Sprites/temp_ice_golem.png" id="2_n2gmq"]
-[ext_resource type="Texture2D" uid="uid://dnxy2dc6j2tnp" path="res://Sprites/sword placeholder.png" id="3_8h04x"]
-[ext_resource type="Script" path="res://Scenes/SwordPlaceholder.gd" id="4_bdef2"]
-[ext_resource type="Script" path="res://Scenes/EnemySwordArea2D.gd" id="5_0gdrn"]
 [ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="6_8jggr"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="7_5waoy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
 radius = 7.0
 
-[node name="IceEnemy" type="CharacterBody2D" node_paths=PackedStringArray("attack_timer", "health_bar")]
+[node name="IceEnemy" type="CharacterBody2D" node_paths=PackedStringArray("attack_timer", "enemy_health_bar")]
 z_index = 2
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("1_ct4wd")
-attack_distance = 35.0
+script = ExtResource("1_twoip")
+attack_distance = 450.0
 attack_timer = NodePath("AttackTimer")
-health_bar = NodePath("HealthBar")
+enemy_health_bar = NodePath("HealthBar")
+
+[node name="ProjectileMarker2D" type="Marker2D" parent="."]
+position = Vector2(27, -25)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -28)
+position = Vector2(2, -28)
 texture = ExtResource("2_n2gmq")
-
-[node name="SwordPlaceholder" type="Sprite2D" parent="."]
-position = Vector2(22, -12)
-rotation = -0.141627
-scale = Vector2(0.137545, 0.137546)
-texture = ExtResource("3_8h04x")
-script = ExtResource("4_bdef2")
-
-[node name="SwordArea2D" type="Area2D" parent="SwordPlaceholder"]
-collision_layer = 0
-script = ExtResource("5_0gdrn")
-attack_element = 3
-
-[node name="SwordCollider" type="CollisionPolygon2D" parent="SwordPlaceholder/SwordArea2D"]
-polygon = PackedVector2Array(82, -122.4, 82, -111.4, 69.6, -94.2, 83, -47.1, 83, -41.6, 77.3, 17, 74.8, 17, 59.8, 63, 56.8, 63, 23.8, 103, 18.6, 103, -48, 128.7, -48, 112.6, 3.10001, 63.5, 16.3, 6.2, 5.2, -46.6, -11.9, -58.9, -28.4, -47, -35.7, -47, -51.4, -59.2, -49, -66.2, -49, -80, -40.6, -80, 57, -122.2, 62.4728, -131.162)
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("6_8jggr")
@@ -52,6 +37,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_f7sw8")
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 4.5
 one_shot = true
 
 [node name="HealthBar" parent="." instance=ExtResource("7_5waoy")]
@@ -64,5 +50,4 @@ max_value = 5.0
 step = 1.0
 value = 5.0
 
-[connection signal="area_entered" from="SwordPlaceholder/SwordArea2D" to="SwordPlaceholder/SwordArea2D" method="_on_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
