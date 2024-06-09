@@ -18,6 +18,7 @@ var distance_to_player: float = 0
 
 @export var level_trigger: Area2D
 
+@onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
 @onready var sword_placeholder: Sprite2D = $SwordPlaceholder
 @onready var hurt_box: HurtBox = $HurtBox
 
@@ -45,11 +46,15 @@ func _physics_process(delta: float) -> void:
 			
 			velocity = direction_to_player * SPEED
 			if distance_to_player <= attack_distance:
-				current_enemy_state = EnemyStates.ATTACK
+				print("player in distance",attack_cooldown_timer.is_stopped())
+				
+				if attack_cooldown_timer.is_stopped():
+					
+					current_enemy_state = EnemyStates.ATTACK
 				
 		EnemyStates.ATTACK:
 			velocity = Vector2.ZERO
-			
+			print("changed to attack")
 			if (!is_sword_exists):
 				add_child(sword_placeholder)
 				attack_timer.start()
@@ -77,6 +82,7 @@ func check_flipping():
 func _on_attack_timer_timeout() -> void:
 	#print("tuneiy")
 	remove_child(sword_placeholder)
+	attack_cooldown_timer.start()
 	is_sword_exists = false
 	current_enemy_state = EnemyStates.TRIGGERED
 	

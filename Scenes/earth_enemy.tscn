@@ -52,6 +52,10 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_f7sw8")
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="HealthBar" parent="." instance=ExtResource("6_6liub")]
