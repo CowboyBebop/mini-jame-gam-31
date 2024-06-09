@@ -11,6 +11,8 @@ class_name LevelTrigger extends Area2D
 
 var level_enemies: Array[Node2D]
 
+var has_started_level:bool = false
+
 func _ready() -> void:
 	pass
 
@@ -22,8 +24,9 @@ func remove_enemy_from_level(enemy:Node2D):
 
 func _physics_process(delta: float) -> void:
 	#print(level_enemies.size(),level_enemies[0],level_enemies[1])
-	print(level_enemies.size())
-	if level_enemies.size() == 0:
+	
+	#print(level_enemies.size())
+	if has_started_level and level_enemies.size() == 0:
 		level_finished()
 		pass
 
@@ -36,6 +39,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func level_started():
+	has_started_level = true
 	gate_1.visible = true
 	gate_2.visible = true
 	gate_1_collider.set_deferred("disabled",false)
