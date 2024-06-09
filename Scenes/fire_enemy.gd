@@ -19,7 +19,6 @@ var distance_to_player: float = 0
 @export var enemy_health_bar: ProgressBar
 
 
-@onready var sword_placeholder: Sprite2D = $SwordPlaceholder
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var projectile_marker_2d: Marker2D = $ProjectileMarker2D
 

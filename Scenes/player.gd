@@ -91,9 +91,21 @@ func _physics_process(_delta):
 			
 		PlayerStates.ATTACK:
 			animation_player.play("attack")
+			
+			check_flipping()
+			
+			
+			
+			print("direction: ", direction, direction == Vector2(0,0))
+			
+			if direction:
+				if dash_input and dash_cooldown_timer.is_stopped():
+					print("passed")
+					current_player_state = PlayerStates.DASH
+				else:
+					current_player_state = PlayerStates.RUN
 				
 			
-	
 	
 			#add_child(sword_placeholder)
 			#attack_timer.start()
