@@ -1,10 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmhqwg5u48ief"]
+[gd_scene load_steps=6 format=3 uid="uid://dmhqwg5u48ief"]
 
 [ext_resource type="Script" path="res://Scenes/fire_enemy.gd" id="1_t5vqi"]
-[ext_resource type="Texture2D" uid="uid://d2yxe2c147a4i" path="res://Sprites/temp_ice_golem.png" id="2_lqy1w"]
-[ext_resource type="Texture2D" uid="uid://dnxy2dc6j2tnp" path="res://Sprites/sword placeholder.png" id="3_amvv8"]
-[ext_resource type="Script" path="res://Scenes/SwordPlaceholder.gd" id="4_kihu7"]
-[ext_resource type="Script" path="res://Scenes/EnemySwordArea2D.gd" id="5_8oiys"]
+[ext_resource type="Texture2D" uid="uid://rcirtno2qcyu" path="res://Sprites/temp_fire_golem.png" id="2_akxfw"]
 [ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="6_7a5h8"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="7_vc3o4"]
 
@@ -16,27 +13,13 @@ z_index = 2
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_t5vqi")
+attack_distance = 70.0
 attack_timer = NodePath("AttackTimer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -28)
-texture = ExtResource("2_lqy1w")
-
-[node name="SwordPlaceholder" type="Sprite2D" parent="."]
-position = Vector2(22, -12)
-rotation = -0.141627
-scale = Vector2(0.137545, 0.137546)
-texture = ExtResource("3_amvv8")
-script = ExtResource("4_kihu7")
-
-[node name="SwordArea2D" type="Area2D" parent="SwordPlaceholder"]
-collision_layer = 0
-script = ExtResource("5_8oiys")
-attack_element = 3
-
-[node name="SwordCollider" type="CollisionPolygon2D" parent="SwordPlaceholder/SwordArea2D"]
-polygon = PackedVector2Array(82, -122.4, 82, -111.4, 69.6, -94.2, 83, -47.1, 83, -41.6, 77.3, 17, 74.8, 17, 59.8, 63, 56.8, 63, 23.8, 103, 18.6, 103, -48, 128.7, -48, 112.6, 3.10001, 63.5, 16.3, 6.2, 5.2, -46.6, -11.9, -58.9, -28.4, -47, -35.7, -47, -51.4, -59.2, -49, -66.2, -49, -80, -40.6, -80, 57, -122.2, 62.4728, -131.162)
+texture = ExtResource("2_akxfw")
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("6_7a5h8")
@@ -62,5 +45,4 @@ max_value = 5.0
 step = 1.0
 value = 5.0
 
-[connection signal="area_entered" from="SwordPlaceholder/SwordArea2D" to="SwordPlaceholder/SwordArea2D" method="_on_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
