@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/LevelTrigger.gd" id="1_ejgju"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td4ok"]
-size = Vector2(29.2571, 29.9221)
+size = Vector2(29.2571, 144.623)
 
 [node name="LevelTrigger" type="Area2D"]
 position = Vector2(57, -1)

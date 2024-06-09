@@ -1,13 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://xg8xhs60r0fg"]
+[gd_scene load_steps=16 format=3 uid="uid://xg8xhs60r0fg"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_fl02j"]
 [ext_resource type="PackedScene" uid="uid://cubnym6hycq0g" path="res://Scenes/player.tscn" id="1_kw5oa"]
-[ext_resource type="PackedScene" uid="uid://bqoccr1w2mfpt" path="res://Scenes/level_trigger.tscn" id="2_phkqb"]
+[ext_resource type="Script" path="res://Scenes/LevelTrigger.gd" id="2_owia3"]
+[ext_resource type="Texture2D" uid="uid://d23gh1i7wxtfd" path="res://Sprites/side_wall.png" id="3_i82k3"]
 [ext_resource type="Texture2D" uid="uid://dte6sfahlf4a4" path="res://Sprites/tiles_dungeon2.png" id="4_yo61k"]
 [ext_resource type="PackedScene" uid="uid://bl5yvl48s5h3o" path="res://Scenes/UI/ui_canvas.tscn" id="5_278sf"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="6_dpsnj"]
 [ext_resource type="PackedScene" uid="uid://d1qsfyynlbqto" path="res://Scenes/earth_enemy.tscn" id="7_dpull"]
 [ext_resource type="PackedScene" uid="uid://dmhqwg5u48ief" path="res://Scenes/fire_enemy.tscn" id="8_llbal"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td4ok"]
+size = Vector2(29.2571, 144.623)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3qus"]
+size = Vector2(7.03043, 102.377)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p1207"]
 texture = ExtResource("4_yo61k")
@@ -1226,10 +1233,153 @@ script = ExtResource("1_fl02j")
 [node name="GameRestartTimer" type="Timer" parent="."]
 wait_time = 3.0
 
-[node name="LevelTrigger" parent="." instance=ExtResource("2_phkqb")]
+[node name="LevelTrigger" type="Area2D" parent="." node_paths=PackedStringArray("gate_1", "gate_2", "gate_1_collider", "gate_2_collider")]
+position = Vector2(1257, -230)
+scale = Vector2(1.09375, 2.40625)
+collision_layer = 8
+script = ExtResource("2_owia3")
+gate_1 = NodePath("Gate1")
+gate_2 = NodePath("Gate2")
+gate_1_collider = NodePath("Gate1/CollisionShape2D")
+gate_2_collider = NodePath("Gate2/CollisionShape2D")
+
+[node name="LevelTriggerCollider" type="CollisionShape2D" parent="LevelTrigger"]
+z_index = 2
+position = Vector2(88.6857, -4.15583)
+shape = SubResource("RectangleShape2D_td4ok")
+debug_color = Color(0.959761, 0.212446, 0.490621, 0.42)
+
+[node name="Gate1" type="StaticBody2D" parent="LevelTrigger"]
+visible = false
+disable_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelTrigger/Gate1"]
+z_index = 5
+position = Vector2(-0.00012207, -3.94804)
+shape = SubResource("RectangleShape2D_c3qus")
+disabled = true
+debug_color = Color(2.11775e-06, 0.591773, 0.745058, 0.42)
+
+[node name="SideWall" type="Sprite2D" parent="LevelTrigger/Gate1"]
+modulate = Color(0.621094, 0.54086, 0.49736, 1)
+z_index = 5
+position = Vector2(0, -7.06494)
+scale = Vector2(0.914286, 0.415584)
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall2" type="Sprite2D" parent="LevelTrigger/Gate1"]
+modulate = Color(0.621094, 0.54086, 0.49736, 1)
+z_index = 5
+position = Vector2(0, -0.415592)
+scale = Vector2(0.914286, 0.415584)
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall5" type="Sprite2D" parent="LevelTrigger/Gate1"]
+modulate = Color(0.621094, 0.54086, 0.49736, 1)
+z_index = 5
+position = Vector2(0, -20.3636)
+scale = Vector2(0.914286, 0.415584)
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall6" type="Sprite2D" parent="LevelTrigger/Gate1"]
+modulate = Color(0.621094, 0.54086, 0.49736, 1)
+z_index = 5
+position = Vector2(0, -13.7143)
+scale = Vector2(0.914286, 0.415584)
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall3" type="Sprite2D" parent="LevelTrigger/Gate1"]
+modulate = Color(0.621094, 0.54086, 0.49736, 1)
+z_index = 5
+position = Vector2(0, 6.23377)
+scale = Vector2(0.914286, 0.415584)
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall4" type="Sprite2D" parent="LevelTrigger/Gate1"]
+modulate = Color(0.621094, 0.54086, 0.49736, 1)
+z_index = 5
+position = Vector2(0, 12.8831)
+scale = Vector2(0.914286, 0.415584)
+texture = ExtResource("3_i82k3")
+
+[node name="Gate2" type="StaticBody2D" parent="LevelTrigger"]
+visible = false
+position = Vector2(467.2, -62.7532)
+disable_mode = 1
+
+[node name="Node2D" type="Node2D" parent="LevelTrigger/Gate2"]
+z_index = 5
+position = Vector2(0, -18.2857)
+rotation = 0.00641823
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelTrigger/Gate2"]
+z_index = 5
+position = Vector2(3.14713e-05, -18.2857)
+rotation = 1.57079
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_c3qus")
+disabled = true
+debug_color = Color(2.11775e-06, 0.591773, 0.745058, 0.42)
+
+[node name="SideWall" type="Sprite2D" parent="LevelTrigger/Gate2"]
+z_index = 5
+position = Vector2(-44.218, -17.9534)
+rotation = 1.57081
+scale = Vector2(0.454545, 1.001)
+skew = -1.51396e-05
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall2" type="Sprite2D" parent="LevelTrigger/Gate2"]
+z_index = 5
+position = Vector2(-28.4258, -17.9532)
+rotation = 1.57081
+scale = Vector2(0.454545, 1.001)
+skew = -1.51396e-05
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall3" type="Sprite2D" parent="LevelTrigger/Gate2"]
+z_index = 5
+position = Vector2(-12.6335, -17.9531)
+rotation = 1.57081
+scale = Vector2(0.454545, 1.001)
+skew = -1.51396e-05
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall4" type="Sprite2D" parent="LevelTrigger/Gate2"]
+z_index = 5
+position = Vector2(3.15869, -17.953)
+rotation = 1.57081
+scale = Vector2(0.454545, 1.001)
+skew = -1.51396e-05
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall5" type="Sprite2D" parent="LevelTrigger/Gate2"]
+z_index = 5
+position = Vector2(12.7172, -17.9529)
+rotation = 1.57081
+scale = Vector2(0.454545, 1.001)
+skew = -1.51396e-05
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall6" type="Sprite2D" parent="LevelTrigger/Gate2"]
+z_index = 5
+position = Vector2(28.5095, -17.9529)
+rotation = 1.57081
+scale = Vector2(0.454545, 1.001)
+skew = -1.51396e-05
+texture = ExtResource("3_i82k3")
+
+[node name="SideWall7" type="Sprite2D" parent="LevelTrigger/Gate2"]
+z_index = 5
+position = Vector2(44.3016, -17.9529)
+rotation = 1.57081
+scale = Vector2(0.454545, 1.001)
+skew = -1.51396e-05
+texture = ExtResource("3_i82k3")
 
 [node name="Player" parent="." node_paths=PackedStringArray("ui_canvas_script", "health_bar") instance=ExtResource("1_kw5oa")]
-position = Vector2(837, -243)
+position = Vector2(819, -218)
 ui_canvas_script = NodePath("../UICanvas")
 health_bar = NodePath("../UICanvas/HealthBar")
 
@@ -1292,11 +1442,12 @@ step = 1.0
 value = 3.0
 
 [node name="EarthEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("7_dpull")]
-position = Vector2(158, -58)
+position = Vector2(1812, -235)
 level_trigger = NodePath("../LevelTrigger")
 
 [node name="FireEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("8_llbal")]
-position = Vector2(-65, 9)
+position = Vector2(1589, -168)
 level_trigger = NodePath("../LevelTrigger")
 
 [connection signal="timeout" from="GameRestartTimer" to="." method="_on_game_restart_timer_timeout"]
+[connection signal="area_entered" from="LevelTrigger" to="LevelTrigger" method="_on_area_entered"]

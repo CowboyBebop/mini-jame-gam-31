@@ -103,4 +103,5 @@ func check_health():
 	if health <= 0:
 		# do death anim here
 		#animation_player.play("death")
+		level_trigger.remove_enemy_from_level(self)
 		queue_free()
