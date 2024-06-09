@@ -11,11 +11,11 @@ shader = ExtResource("2_b3cyn")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/modulate = Color(1, 1, 1, 1)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
-radius = 7.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b06dx"]
 size = Vector2(28, 46.9957)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
+radius = 7.0
 
 [sub_resource type="Animation" id="Animation_uhfxo"]
 length = 0.001
@@ -213,11 +213,6 @@ texture = ExtResource("2_y266d")
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("3_wqgoc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-visible = false
-rotation = 1.57079
-shape = SubResource("CapsuleShape2D_f7sw8")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(1.26308, -10)
