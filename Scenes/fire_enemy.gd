@@ -80,11 +80,12 @@ func _on_attack_timer_timeout() -> void:
 
 
 func shoot_projectile():
-	const PROJECTILE = preload("uid://cmrc5hawu0s3l")
-	var new_projectile = PROJECTILE.instantiate()
-	new_projectile.global_position = projectile_marker_2d.global_position
-	new_projectile.rotation = rotation
-	add_child(new_projectile)
+	pass
+	#const PROJECTILE = preload("uid://cmrc5hawu0s3l")
+	#var new_projectile = PROJECTILE.instantiate()
+	#new_projectile.global_position = projectile_marker_2d.global_position
+	#new_projectile.rotation = rotation
+	#add_child(new_projectile)
 			
 
 func _on_damage_taken(damage:int) -> void:
