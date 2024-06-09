@@ -16,7 +16,7 @@ func add_enemy_to_level(enemy:Node2D):
 
 func _ready() -> void:
 	#level_started()
-
+	pass
 
 func _physics_process(delta: float) -> void:
 	for i in level_enemies.size():
