@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0ymugj4ar501"
-path="res://.godot/imported/Square-0001.png-82150c76158fe0e53e58fdb283d84951.ctex"
+uid="uid://c2oepu1to6w03"
+path="res://.godot/imported/Square-0006.png-0ea4870674a5315d39e076e2b9d75fe7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Placeholders/Triangle/Square/Square-0001.png"
-dest_files=["res://.godot/imported/Square-0001.png-82150c76158fe0e53e58fdb283d84951.ctex"]
+source_file="res://Sprites/Placeholders/Square/Square-0006.png"
+dest_files=["res://.godot/imported/Square-0006.png-0ea4870674a5315d39e076e2b9d75fe7.ctex"]
 
 [params]
 
