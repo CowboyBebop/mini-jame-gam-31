@@ -957,7 +957,6 @@ layer_1/tile_data = PackedInt32Array(327667, 1, 11, 262131, 1, 12, 196595, 1, 13
 [node name="UICanvas" parent="." instance=ExtResource("5_278sf")]
 
 [node name="Game_OverUI" type="MarginContainer" parent="UICanvas"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -1,6 +1,8 @@
 class_name Player extends CharacterBody2D
 
-enum PlayerStates {IDLE,RUN,DASH,ATTACK}
+signal player_died
+
+enum PlayerStates {IDLE,RUN,DASH,ATTACK,DYING,DEAD}
 enum ElementTypes {NONE,ICE,FIRE,EARTH,WIND}
 
 static var player:Player
@@ -74,6 +76,7 @@ func _physics_process(_delta):
 					current_player_state = PlayerStates.DASH
 				current_player_state = PlayerStates.RUN
 				
+				move_and_slide()
 		PlayerStates.RUN:
 			check_flipping()
 			animation_player.play("run")
@@ -90,6 +93,8 @@ func _physics_process(_delta):
 					current_player_state = PlayerStates.DASH
 			else:
 				current_player_state = PlayerStates.IDLE
+				
+			move_and_slide()
 		PlayerStates.DASH:
 			
 			if dash_timer.is_stopped():
@@ -97,6 +102,7 @@ func _physics_process(_delta):
 			var dash_velocity:Vector2 = DASH_SPEED * direction
 			velocity = velocity.move_toward(dash_velocity, current_speed)
 			
+			move_and_slide()
 			
 		PlayerStates.ATTACK:
 			print(" velocity ", velocity)
@@ -117,13 +123,19 @@ func _physics_process(_delta):
 				else:
 					current_player_state = PlayerStates.RUN
 				
+			move_and_slide()
 			
-	
+		PlayerStates.DYING:
+			velocity = Vector2.ZERO
+			animation_player.play("death")
+			current_player_state = PlayerStates.DEAD
+			
+		PlayerStates.DEAD:
+			pass
 			#add_child(sword_placeholder)
 			#attack_timer.start()
 			#is_sword_exists = true
 	
-	move_and_slide()
 
 
 func start_dash_timer():
@@ -188,7 +200,8 @@ func _on_attack_animation_end():
 func on_player_damage_taken(damage: int, element:ElementTypes):
 	print("player damaged")
 	if not current_element_resistance == element:
-		health_bar.value -= damage
+		health -=damage
+		health_bar.value = health
 		check_health()
 	else:
 		print("damage negated") #add some effect or something to show that damage is negated
@@ -212,8 +225,10 @@ func _on_card_change_check_slow(element_type_int:int):
 		current_speed = SLOW_SPEED
 		
 
-
-
 func check_health():
 	if health <= 0:
-		animation_player.play("death")
+		current_player_state = PlayerStates.DYING
+		print("died")
+
+func played_death_anim_finished():
+	player_died.emit()
