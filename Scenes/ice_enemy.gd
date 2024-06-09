@@ -93,4 +93,11 @@ func shoot_projectile():
 func _on_damage_taken(damage:int) -> void:
 	health -= damage
 	enemy_health_bar.value = health
+	check_health()
 	print("damage taken: ", health)
+	
+func check_health():
+	if health <= 0:
+		# do death anim here
+		#animation_player.play("death")
+		queue_free()

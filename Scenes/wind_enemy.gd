@@ -113,7 +113,14 @@ func _on_attack_timer_timeout() -> void:
 func _on_damage_taken(damage:int) -> void:
 	health -= damage
 	enemy_health_bar.value = health
+	check_health()
 	print("damage taken: ", health)
+	
+func check_health():
+	if health <= 0:
+		# do death anim here
+		#animation_player.play("death")
+		queue_free()
 	
 	
 func dash_start():
