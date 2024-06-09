@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://xg8xhs60r0fg"]
+[gd_scene load_steps=11 format=3 uid="uid://xg8xhs60r0fg"]
 
 [ext_resource type="PackedScene" uid="uid://cubnym6hycq0g" path="res://Scenes/player.tscn" id="1_kw5oa"]
 [ext_resource type="Texture2D" uid="uid://mqvpohccpspr" path="res://Sprites/Square-0001.png" id="2_cwepp"]
+[ext_resource type="PackedScene" uid="uid://dmhqwg5u48ief" path="res://Scenes/fire_enemy.tscn" id="4_8gvjv"]
 [ext_resource type="Texture2D" uid="uid://qtnpvscrdbwu" path="res://Sprites/tiles_dungeon.png" id="4_os3lu"]
 [ext_resource type="PackedScene" uid="uid://bl5yvl48s5h3o" path="res://Scenes/UI/ui_canvas.tscn" id="5_278sf"]
 [ext_resource type="PackedScene" uid="uid://gym838j02ixp" path="res://Scenes/ice_enemy.tscn" id="6_5hcro"]
@@ -972,3 +973,6 @@ offset_bottom = 35.0
 max_value = 3.0
 step = 1.0
 value = 3.0
+
+[node name="FireEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("4_8gvjv")]
+level_trigger = NodePath("../LevelTriggerSprite/LevelTrigger")

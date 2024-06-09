@@ -88,7 +88,7 @@ func shoot_projectile():
 	const PROJECTILE = preload("uid://blub8c8xms2op")
 	var new_projectile = PROJECTILE.instantiate()
 	new_projectile.global_position = projectile_marker_2d.global_position
-	new_projectile.direction = direction_to_player
+	new_projectile.direction = projectile_marker_2d.global_position.direction_to(Player.player.global_position)
 	add_child(new_projectile)
 			
 
