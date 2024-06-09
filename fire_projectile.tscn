@@ -49,13 +49,17 @@ angular_velocity_max = 1.0
 radial_velocity_min = -0.5
 radial_velocity_max = 0.5
 gravity = Vector3(0, -1.5, 0)
+scale_min = 2.0
+scale_max = 2.0
 scale_curve = SubResource("CurveTexture_77wde")
 color_ramp = SubResource("GradientTexture1D_gyq4c")
 color_initial_ramp = SubResource("GradientTexture1D_oowht")
 alpha_curve = SubResource("CurveTexture_d1x1f")
+turbulence_enabled = true
+turbulence_noise_strength = 10.1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fp6lg"]
-radius = 3.0
+radius = 5.0
 
 [node name="FireProjectile" type="Area2D"]
 top_level = true
@@ -66,13 +70,14 @@ script = ExtResource("1_1mj4n")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.541176, 0.054902, 0.686275)
 material = SubResource("CanvasItemMaterial_chvq0")
+scale = Vector2(2.75, 2.75)
 texture = ExtResource("2_2k85p")
 hframes = 3
 frame = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_020c3")
-amount = 250
+amount = 600
 process_material = SubResource("ParticleProcessMaterial_rvi28")
 texture = ExtResource("2_2k85p")
 lifetime = 4.0

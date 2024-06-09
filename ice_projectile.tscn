@@ -43,12 +43,14 @@ angular_velocity_max = 1.0
 radial_velocity_min = -0.5
 radial_velocity_max = 0.5
 gravity = Vector3(0, -1.5, 0)
+scale_min = 2.0
+scale_max = 2.0
 scale_curve = SubResource("CurveTexture_g0ga7")
 color_ramp = SubResource("GradientTexture1D_wut6u")
 alpha_curve = SubResource("CurveTexture_x0ah6")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fp6lg"]
-radius = 3.0
+radius = 6.0
 
 [node name="IceProjectile" type="Area2D"]
 top_level = true
@@ -60,6 +62,7 @@ script = ExtResource("1_68i78")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.541176, 0.054902, 0.686275)
 material = SubResource("CanvasItemMaterial_chvq0")
+scale = Vector2(2, 2.125)
 texture = ExtResource("2_4qdyb")
 hframes = 3
 frame = 2

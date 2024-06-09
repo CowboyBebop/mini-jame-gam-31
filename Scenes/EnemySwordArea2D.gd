@@ -6,4 +6,5 @@ extends Area2D
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is PlayerHurtBox:
+		sword_collider.set_deferred("disable", true)
 		area.take_damage(damage,attack_element)

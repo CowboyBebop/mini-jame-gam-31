@@ -20,7 +20,6 @@ var margin_distance: float = 30
 @export var level_trigger: LevelTrigger
 
 @onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
-@onready var sword_placeholder: Sprite2D = $SwordPlaceholder
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 

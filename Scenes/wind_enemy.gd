@@ -131,3 +131,5 @@ func dash_start():
 	position_to_dash_to = Player.player.global_position + direction_to_dash * (100) # a slight offset beyond player pos
 	#print("Player.player.global_position: ", Player.player.global_position, "position_to_dash_to: ", position_to_dash_to)
 	current_enemy_state = EnemyStates.DASH
+
+
