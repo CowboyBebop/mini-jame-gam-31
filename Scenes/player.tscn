@@ -1,23 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://cubnym6hycq0g"]
+[gd_scene load_steps=17 format=3 uid="uid://cubnym6hycq0g"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_xnbnj"]
-[ext_resource type="Texture2D" uid="uid://dnxy2dc6j2tnp" path="res://Sprites/sword placeholder.png" id="2_li5c0"]
 [ext_resource type="Texture2D" uid="uid://dhn7oolnuo7gw" path="res://Sprites/player_right.png" id="4_mcwbr"]
 [ext_resource type="Texture2D" uid="uid://dfm2kvcrdwesa" path="res://Sprites/player_left.png" id="5_ydnxh"]
 [ext_resource type="Texture2D" uid="uid://dqgilij6ajujw" path="res://Sprites/player_animations.png" id="6_x773a"]
 [ext_resource type="Shader" path="res://Scenes/player.gdshader" id="6_yrytk"]
 [ext_resource type="Script" path="res://Scenes/PlayerHurtBox.gd" id="7_g11bm"]
 
-[sub_resource type="GDScript" id="GDScript_6mckb"]
-script/source = "extends Sprite2D
-
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	#print(\"exists\")
-	pass
-"
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uoiph"]
+shader = ExtResource("6_yrytk")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/modulate = Color(1, 1, 1, 1)
 
 [sub_resource type="Curve" id="Curve_spu1l"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -34,11 +27,6 @@ gravity = Vector3(0, 0, 0)
 color = Color(0.808998, 0.808998, 0.808998, 1)
 alpha_curve = SubResource("CurveTexture_rfus2")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uoiph"]
-shader = ExtResource("6_yrytk")
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/modulate = Color(1, 1, 1, 1)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_irpos"]
 radius = 2.5
 height = 9.0
@@ -48,98 +36,81 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SwordPlaceholder:visible")
+tracks/0/path = NodePath("SwordArea2D/SwordCollider:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SwordPlaceholder/SwordArea2D/SwordCollider:disabled")
+tracks/1/path = NodePath("PlayerSprite:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [14]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerSprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
 }
 
 [sub_resource type="Animation" id="Animation_2vle2"]
 resource_name = "attack"
-length = 0.3
+length = 0.6
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SwordPlaceholder:visible")
+tracks/0/path = NodePath("SwordArea2D/SwordCollider:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [true, false, true]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SwordPlaceholder/SwordArea2D/SwordCollider:disabled")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"_on_attack_animation_end"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_dl2g2"]
-resource_name = "idle"
-length = 1.00001
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SwordPlaceholder:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerSprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_x773a")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -151,7 +122,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [8]
+"values": [14]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -163,7 +134,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [2]
+"values": [4]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -172,18 +143,72 @@ tracks/4/path = NodePath("PlayerSprite:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [27, 34]
+}
+
+[sub_resource type="Animation" id="Animation_dl2g2"]
+resource_name = "idle"
+length = 1.00001
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_x773a")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerSprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0, 3]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("SwordPlaceholder/SwordArea2D/SwordCollider:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SwordArea2D/SwordCollider:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -197,70 +222,58 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SwordPlaceholder:visible")
+tracks/0/path = NodePath("PlayerSprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [ExtResource("6_x773a")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerSprite:texture")
+tracks/1/path = NodePath("PlayerSprite:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_x773a")]
+"values": [14]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerSprite:hframes")
+tracks/2/path = NodePath("PlayerSprite:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [8]
+"values": [4]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerSprite:vframes")
+tracks/3/path = NodePath("PlayerSprite:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [14, 22]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerSprite:frame")
+tracks/4/path = NodePath("SwordArea2D/SwordCollider:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [8, 15]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("SwordPlaceholder/SwordArea2D/SwordCollider:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -281,26 +294,30 @@ collision_mask = 13
 script = ExtResource("1_xnbnj")
 dash_timer = NodePath("DashTimer")
 dash_cooldown_timer = NodePath("DashCooldownTimer")
-sword_area_2d = NodePath("SwordPlaceholder/SwordArea2D")
+sword_area_2d = NodePath("SwordArea2D")
 dash_particles_right = NodePath("DashParticles2DRight")
 dash_particles_left = NodePath("DashParticles2DLeft")
 animation_player = NodePath("AnimationPlayer")
 player_hurt_box = NodePath("PlayerHurtBox")
 
-[node name="SwordPlaceholder" type="Sprite2D" parent="."]
-visible = false
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_uoiph")
+position = Vector2(0, -10)
+texture = ExtResource("6_x773a")
+hframes = 14
+vframes = 4
+frame = 14
+
+[node name="SwordArea2D" type="Area2D" parent="."]
 position = Vector2(6, -6)
 rotation = -0.141627
 scale = Vector2(0.0674134, 0.0674134)
-texture = ExtResource("2_li5c0")
-script = SubResource("GDScript_6mckb")
-
-[node name="SwordArea2D" type="Area2D" parent="SwordPlaceholder"]
 collision_layer = 0
 collision_mask = 2
 
-[node name="SwordCollider" type="CollisionPolygon2D" parent="SwordPlaceholder/SwordArea2D"]
-polygon = PackedVector2Array(82, -122.4, 82, -111.4, 69.6, -94.2, 83, -47.1, 83, -41.6, 77.3, 17, 74.8, 17, 59.8, 63, 56.8, 63, 23.8, 103, 18.6, 103, -48, 128.7, -48, 112.6, 3.10001, 63.5, 16.3, 6.2, 5.2, -46.6, -11.9, -58.9, -28.4, -47, -35.7, -47, -51.4, -59.2, -49, -66.2, -49, -80, -40.6, -80, 57, -122.2, 62.4728, -131.162)
+[node name="SwordCollider" type="CollisionPolygon2D" parent="SwordArea2D"]
+polygon = PackedVector2Array(44.0276, -98.6096, 79.7082, -33.5867, 67.1451, 54.5253, 29.399, 109.079, -67.0884, 155.257, -58.713, 96.5157, -23.0608, 56.6474, -10.4976, -31.4645, -48.272, -81.802, -119.605, -106.957, -113.323, -151.013, -23.1174, -153.135)
+disabled = true
 
 [node name="DashParticles2DRight" type="GPUParticles2D" parent="."]
 position = Vector2(0, -10)
@@ -319,14 +336,6 @@ process_material = SubResource("ParticleProcessMaterial_25ayd")
 texture = ExtResource("5_ydnxh")
 lifetime = 0.25
 trail_lifetime = 0.25
-
-[node name="PlayerSprite" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_uoiph")
-position = Vector2(0, -10)
-texture = ExtResource("6_x773a")
-hframes = 8
-vframes = 2
-frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -365,7 +374,7 @@ libraries = {
 }
 autoplay = "idle"
 
-[connection signal="area_entered" from="SwordPlaceholder/SwordArea2D" to="." method="_on_sword_area_2d_area_entered"]
+[connection signal="area_entered" from="SwordArea2D" to="." method="_on_sword_area_2d_area_entered"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]

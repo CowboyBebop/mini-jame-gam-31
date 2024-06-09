@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 			if(distance_to_dash_target < 100):
 				velocity = Vector2.ZERO
 				global_position = global_position.move_toward(position_to_dash_to, distance_to_dash_target/8)
-				print("distance_to_dash_target: ", distance_to_dash_target)
+				#print("distance_to_dash_target: ", distance_to_dash_target)
 				if(distance_to_dash_target < 5):
 					velocity = Vector2.ZERO
 					current_enemy_state = EnemyStates.CHARGE

@@ -10,7 +10,7 @@ const NORMAL_SPEED:float = 140
 const DASH_SPEED:float = 400
 const MAX_HEALTH:float = 3
 
-var current_speed :float = 500
+var current_speed :float = 140
 var health:float = 0
 var is_flipped: bool = false
 var dash_input: bool = false
@@ -33,9 +33,7 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 @export var ui_canvas_script: CardUICanvas
 @export var health_bar: ProgressBar 
 
-
-@onready var sword_placeholder: Sprite2D = $SwordPlaceholder
-@onready var sword_collider: CollisionPolygon2D = $SwordPlaceholder/SwordArea2D/SwordCollider
+@onready var sword_collider: CollisionPolygon2D = $SwordArea2D/SwordCollider
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @onready var attack_timer: Timer = $AttackTimer
 
@@ -147,7 +145,6 @@ func _on_dash_cooldown_timer_timeout():
 
 func _on_attack_timer_timeout() -> void:
 	is_sword_exists = false
-	remove_child(sword_placeholder)
 	sword_collider.disabled = false
 	pass # Replace with function body.
 
@@ -168,6 +165,7 @@ func on_player_damage_taken(damage: int, element:ElementTypes):
 	print("player damaged")
 	if not current_element_resistance == element:
 		health_bar.value -= damage
+		check_health()
 	else:
 		print("damage negated") #add some effect or something to show that damage is negated
 
@@ -188,3 +186,8 @@ func _on_card_change_check_slow(element_type_int:int):
 		current_speed = NORMAL_SPEED
 	else:
 		current_speed = SLOW_SPEED
+		
+		
+func check_health():
+	if health <= 0:
+		animation_player.play("death")
