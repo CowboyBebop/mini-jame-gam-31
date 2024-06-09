@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bl5yvl48s5h3o"]
+[gd_scene load_steps=9 format=3 uid="uid://bl5yvl48s5h3o"]
 
 [ext_resource type="Script" path="res://Scenes/UI/card_ui_canvas.gd" id="1_xd1q2"]
 [ext_resource type="Texture2D" uid="uid://blmeswgv8ie03" path="res://Sprites/Placeholders/Playing Cards/card-back1.png" id="2_ahas1"]
@@ -6,6 +6,21 @@
 [ext_resource type="Texture2D" uid="uid://b4yknrt78518r" path="res://Sprites/Placeholders/Playing Cards/card-back3.png" id="4_dxbqt"]
 [ext_resource type="Texture2D" uid="uid://dsboet4t3sclr" path="res://Sprites/Placeholders/Playing Cards/card-back4.png" id="5_140o6"]
 [ext_resource type="AnimationLibrary" uid="uid://deobmgwb5cydg" path="res://card_anims.res" id="6_6mq1n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gegi"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.408329, 0.408329, 0.408329, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 4
+shadow_size = 64
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_87w2f"]
 
@@ -22,6 +37,14 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_left = -240.0
+offset_top = -106.0
+offset_right = 238.0
+offset_bottom = 49.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3gegi")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 visible = false
