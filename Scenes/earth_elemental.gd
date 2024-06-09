@@ -11,7 +11,7 @@ var is_flipped: bool = false
 var is_sword_exists: bool = false
 var direction_to_player: Vector2 = Vector2.ZERO
 var distance_to_player: float = 0
-
+var margin_distance: float = 30
 @export var attack_distance:float
 @export var attack_timer: Timer
 @export var health_bar: ProgressBar
@@ -44,7 +44,12 @@ func _physics_process(delta: float) -> void:
 		EnemyStates.TRIGGERED:
 			check_flipping()
 			
-			velocity = direction_to_player * SPEED
+			
+			if distance_to_player >= margin_distance:
+				velocity = direction_to_player * SPEED
+			else:
+				velocity = Vector2.ZERO
+			
 			if distance_to_player <= attack_distance:
 				print("player in distance",attack_cooldown_timer.is_stopped())
 				
