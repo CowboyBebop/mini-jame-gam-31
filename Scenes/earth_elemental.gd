@@ -14,7 +14,7 @@ var distance_to_player: float = 0
 var margin_distance: float = 30
 @export var attack_distance:float
 @export var attack_timer: Timer
-@export var health_bar: ProgressBar
+@export var enemy_health_bar: ProgressBar
 
 @export var level_trigger: Area2D
 
@@ -33,7 +33,7 @@ func _ready():
 	#remove_child(sword_placeholder)
 	
 	health = MAX_HEALTH
-	health_bar.max_value = MAX_HEALTH
+	enemy_health_bar.max_value = MAX_HEALTH
 
 func _physics_process(delta: float) -> void:
 
@@ -98,6 +98,14 @@ func _on_attack_timer_timeout() -> void:
 	
 func _on_damage_taken(damage:int) -> void:
 	health -= damage
-	health_bar.value = health
+	enemy_health_bar.value = health
+	check_health()
+	print("damage taken: ", health)
+	
+func check_health():
+	if health <= 0:
+		# do death anim here
+		#animation_player.play("death")
+		queue_free()
 
 

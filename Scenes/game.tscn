@@ -1,14 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://xg8xhs60r0fg"]
+[gd_scene load_steps=11 format=3 uid="uid://xg8xhs60r0fg"]
 
 [ext_resource type="PackedScene" uid="uid://cubnym6hycq0g" path="res://Scenes/player.tscn" id="1_kw5oa"]
 [ext_resource type="Script" path="res://Scenes/LevelTrigger.gd" id="1_mktfg"]
 [ext_resource type="Texture2D" uid="uid://qtnpvscrdbwu" path="res://Sprites/tiles_dungeon.png" id="4_os3lu"]
 [ext_resource type="PackedScene" uid="uid://bl5yvl48s5h3o" path="res://Scenes/UI/ui_canvas.tscn" id="5_278sf"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="6_dpsnj"]
-[ext_resource type="PackedScene" uid="uid://c5rqgwjdj85e2" path="res://Scenes/wind_enemy.tscn" id="6_nibko"]
 [ext_resource type="PackedScene" uid="uid://d1qsfyynlbqto" path="res://Scenes/earth_enemy.tscn" id="7_dpull"]
 [ext_resource type="PackedScene" uid="uid://dmhqwg5u48ief" path="res://Scenes/fire_enemy.tscn" id="8_llbal"]
-[ext_resource type="PackedScene" uid="uid://gym838j02ixp" path="res://Scenes/ice_enemy.tscn" id="9_s61jk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td4ok"]
 size = Vector2(29.2571, 29.9221)
@@ -971,20 +969,12 @@ max_value = 3.0
 step = 1.0
 value = 3.0
 
-[node name="WindEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("6_nibko")]
-position = Vector2(-120, 73)
-level_trigger = NodePath("../LevelTrigger")
-
 [node name="EarthEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("7_dpull")]
 position = Vector2(158, -58)
 level_trigger = NodePath("../LevelTrigger")
 
 [node name="FireEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("8_llbal")]
-position = Vector2(-129, -30)
-level_trigger = NodePath("../LevelTrigger")
-
-[node name="IceEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("9_s61jk")]
-position = Vector2(146, 83)
+position = Vector2(-65, 9)
 level_trigger = NodePath("../LevelTrigger")
 
 [connection signal="area_entered" from="LevelTrigger" to="LevelTrigger" method="_on_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c5rqgwjdj85e2"]
+[gd_scene load_steps=16 format=3 uid="uid://c5rqgwjdj85e2"]
 
 [ext_resource type="Script" path="res://Scenes/wind_enemy.gd" id="1_25j2k"]
 [ext_resource type="Shader" path="res://Scenes/player.gdshader" id="2_b3cyn"]
@@ -13,6 +13,9 @@ shader_parameter/modulate = Color(1, 1, 1, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
 radius = 7.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b06dx"]
+size = Vector2(28, 46.9957)
 
 [sub_resource type="Animation" id="Animation_uhfxo"]
 length = 0.001
@@ -212,8 +215,20 @@ collision_mask = 0
 script = ExtResource("3_wqgoc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+visible = false
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_f7sw8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(1.26308, -10)
+rotation = 1.57079
+scale = Vector2(0.970117, 0.882503)
+shape = SubResource("RectangleShape2D_b06dx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtBox"]
+position = Vector2(0, 10.5481)
+scale = Vector2(1.03528, 1.16549)
+polygon = PackedVector2Array(-13.5229, -30.3249, 15.4548, -30.3249, 0, -43)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

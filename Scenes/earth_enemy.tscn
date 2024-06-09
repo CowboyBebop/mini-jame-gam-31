@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1qsfyynlbqto"]
+[gd_scene load_steps=10 format=3 uid="uid://d1qsfyynlbqto"]
 
 [ext_resource type="Script" path="res://Scenes/earth_elemental.gd" id="1_aep0b"]
 [ext_resource type="Texture2D" uid="uid://b4ibrsu2s5rf7" path="res://Sprites/stone_golem.png" id="2_pjyaa"]
@@ -18,17 +18,21 @@ func _process(delta: float) -> void:
 	pass
 "
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6gcs"]
+size = Vector2(28, 43)
 
-[node name="EarthEnemy" type="CharacterBody2D" node_paths=PackedStringArray("attack_timer", "health_bar")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
+radius = 16.0
+height = 38.0
+
+[node name="EarthEnemy" type="CharacterBody2D" node_paths=PackedStringArray("attack_timer", "enemy_health_bar")]
 z_index = 2
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_aep0b")
 attack_distance = 35.0
 attack_timer = NodePath("AttackTimer")
-health_bar = NodePath("HealthBar")
+enemy_health_bar = NodePath("HealthBar")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -55,11 +59,19 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_x8rpk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-0.500014, -10)
 rotation = 1.57079
-shape = SubResource("CapsuleShape2D_f7sw8")
+scale = Vector2(0.970117, 0.882503)
+shape = SubResource("RectangleShape2D_b6gcs")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtBox"]
+position = Vector2(0, 5)
+scale = Vector2(1.03528, 0.95631)
+polygon = PackedVector2Array(-13.5229, -30.3249, 15.4548, -30.3249, 0, -43)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_f7sw8")
 
