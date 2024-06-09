@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5rqgwjdj85e2"]
+
+[ext_resource type="Script" path="res://Scenes/wind_enemy.gd" id="1_25j2k"]
+[ext_resource type="Texture2D" uid="uid://dnnjyijvpekpc" path="res://Sprites/temp_wind_golem.png" id="2_pxm8k"]
+[ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="3_wqgoc"]
+[ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="4_ao7pq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
+radius = 7.0
+
+[node name="WindEnemy" type="CharacterBody2D"]
+z_index = 2
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_25j2k")
+
+[node name="ProjectileMarker2D" type="Marker2D" parent="."]
+position = Vector2(27, -25)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2, -28)
+texture = ExtResource("2_pxm8k")
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("3_wqgoc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_f7sw8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_f7sw8")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 4.5
+one_shot = true
+
+[node name="HealthBar" parent="." instance=ExtResource("4_ao7pq")]
+visible = false
+offset_left = -38.0
+offset_top = -71.0
+offset_right = 39.0
+offset_bottom = -66.0
+max_value = 5.0
+step = 1.0
+value = 5.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

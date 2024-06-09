@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum EnemyStates {IDLE,CHARGE,DASH}
+enum EnemyStates {IDLE,TRIGGERED,ATTACK}
 
 const SPEED = 40
 const MAX_HEALTH:float = 4.0
@@ -20,7 +20,6 @@ var distance_to_player: float = 0
 
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var projectile_marker_2d: Marker2D = $ProjectileMarker2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func _ready():
@@ -41,25 +40,24 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(Vector2.ZERO, SPEED)
 			pass
 			
-		EnemyStates.CHARGE:
+		EnemyStates.TRIGGERED:
 			check_flipping()
-			animation_player.play("charge")
 			
-			#velocity = direction_to_player * SPEED
-			#if distance_to_player <= attack_distance:
-				#current_enemy_state = EnemyStates.ATTACK
+			velocity = direction_to_player * SPEED
+			if distance_to_player <= attack_distance:
+				current_enemy_state = EnemyStates.ATTACK
 				
-		EnemyStates.DASH:
+		EnemyStates.ATTACK:
 			check_flipping()
-			#velocity = Vector2.ZERO
-			#
-			#if not is_on_cooldown:
-				#shoot_projectile()
-				#attack_timer.start()
-				#is_on_cooldown = true
-				#
-			#if distance_to_player > attack_distance:
-				#current_enemy_state = EnemyStates.TRIGGERED
+			velocity = Vector2.ZERO
+			
+			if not is_on_cooldown:
+				shoot_projectile()
+				attack_timer.start()
+				is_on_cooldown = true
+				
+			if distance_to_player > attack_distance:
+				current_enemy_state = EnemyStates.TRIGGERED
 			
 	
 	#print(distance_to_player, attack_distance, distance_to_player < attack_distance)
@@ -67,7 +65,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_level_trigger_area_entered(body:Node2D):
-	current_enemy_state = EnemyStates.CHARGE
+	current_enemy_state = EnemyStates.TRIGGERED
 
 func check_flipping():
 	if direction_to_player.x < -0.6 and  !is_flipped:
