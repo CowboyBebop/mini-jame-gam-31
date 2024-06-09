@@ -12,6 +12,7 @@ const NORMAL_SPEED:float = 140
 const DASH_SPEED:float = 400
 const MAX_HEALTH:float = 3
 
+
 var damage:int = 1
 var current_speed :float = 140
 var health:float = 3
@@ -20,6 +21,7 @@ var dash_input: bool = false
 var direction: Vector2 = Vector2.ZERO
 var is_dashing: bool = false
 var is_sword_exists: bool = false
+var is_inside_slow_area = false
 
 var current_player_state:PlayerStates = PlayerStates.IDLE
 var current_element_resistance:ElementTypes = ElementTypes.NONE
@@ -43,9 +45,9 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 func _ready():
 	player = self
 	ui_canvas_script.card_swapped.connect(_on_ui_card_swapped)
-	ui_canvas_script.card_swapped.connect(_on_card_change_check_slow)
+	#ui_canvas_script.card_swapped.connect(_on_card_change_check_slow)
 	player_hurt_box.damage_taken.connect(on_player_damage_taken)
-	player_hurt_box.slow_state_changed.connect(_on_player_slow_state_changed)
+	player_hurt_box.slow_area_changed.connect(_on_player_slow_area_changed)
 	
 	health = MAX_HEALTH
 	health_bar.value = MAX_HEALTH
@@ -53,7 +55,7 @@ func _ready():
 	
 
 func _physics_process(_delta):
-	
+	calculate_slow_effect()
 	
 	
 	if !is_ignoring_input:
@@ -212,19 +214,24 @@ func _on_ui_card_swapped(element_type_int:int):
 	current_element_resistance = element_type_int
 	print(ElementTypes.keys()[current_element_resistance])
 	
-func _on_player_slow_state_changed(changed_to:bool):
-	if changed_to and current_element_resistance != ElementTypes.ICE:
+func _on_player_slow_area_changed(changed_to:bool):
+	is_inside_slow_area = changed_to
+
+
+func calculate_slow_effect():
+	if is_inside_slow_area and current_element_resistance != ElementTypes.ICE:
 		current_speed = SLOW_SPEED
 	else:
 		current_speed = NORMAL_SPEED
 
-func _on_card_change_check_slow(element_type_int:int):
-	print("check")
-	if current_element_resistance == ElementTypes.ICE:
-		current_speed = NORMAL_SPEED
-	else:
-		current_speed = SLOW_SPEED
-		
+
+#func _on_card_change_check_slow(element_type_int:int):
+	#print("check")
+	##if current_element_resistance == ElementTypes.ICE:
+		##current_speed = NORMAL_SPEED
+	##else:
+		##current_speed = SLOW_SPEED
+		##
 func add_health(heal:int):
 	health += heal
 	health_bar.value = health

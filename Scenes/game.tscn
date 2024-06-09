@@ -1317,12 +1317,8 @@ scale = Vector2(0.454545, 1.001)
 skew = -1.51396e-05
 texture = ExtResource("3_i82k3")
 
-[node name="FireEnemy2" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("8_llbal")]
-position = Vector2(1772, -158)
-level_trigger = NodePath("../LevelTrigger")
-
 [node name="IceEnemy5" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("6_4c6jd")]
-position = Vector2(1769, -289)
+position = Vector2(1702, -219)
 level_trigger = NodePath("../LevelTrigger")
 
 [node name="LevelTrigger2" type="Area2D" parent="." node_paths=PackedStringArray("gate_1", "gate_2", "gate_1_collider", "gate_2_collider")]
