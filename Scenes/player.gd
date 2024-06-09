@@ -18,7 +18,6 @@ var direction: Vector2 = Vector2.ZERO
 var is_dashing: bool = false
 var is_sword_exists: bool = false
 
-
 var current_player_state:PlayerStates = PlayerStates.IDLE
 var current_element_resistance:ElementTypes = ElementTypes.NONE
 
@@ -29,6 +28,7 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 @export var dash_particles_left: GPUParticles2D
 @export var animation_player: AnimationPlayer
 @export var player_hurt_box: PlayerHurtBox
+@export var is_ignoring_input:bool = false
 
 @export var ui_canvas_script: CardUICanvas
 @export var health_bar: ProgressBar 
@@ -51,7 +51,12 @@ func _ready():
 
 func _physics_process(_delta):
 	
-	direction = Input.get_vector("move_left", "move_right","move_up","move_down")  
+	
+	
+	if !is_ignoring_input:
+		direction = Input.get_vector("move_left", "move_right","move_up","move_down")
+	else:
+		direction = Vector2.ZERO
 	dash_input = Input.is_action_pressed("dash")
 	
 	match current_player_state:
@@ -71,10 +76,14 @@ func _physics_process(_delta):
 				
 		PlayerStates.RUN:
 			check_flipping()
-			if Input.is_action_just_pressed("attack"):
-				current_player_state = PlayerStates.ATTACK
-			velocity = direction * current_speed
 			animation_player.play("run")
+			
+			if Input.is_action_just_pressed("attack"):
+				is_ignoring_input = true;
+				velocity = Vector2.ZERO
+				current_player_state = PlayerStates.ATTACK
+			else:
+				velocity = direction * current_speed
 			
 			if direction:
 				if dash_input and dash_cooldown_timer.is_stopped():
@@ -90,13 +99,16 @@ func _physics_process(_delta):
 			
 			
 		PlayerStates.ATTACK:
+			print(" velocity ", velocity)
 			animation_player.play("attack")
 			
 			check_flipping()
 			
 			
 			
-			print("direction: ", direction, direction == Vector2(0,0))
+			print("direction: ", direction, direction == Vector2(0,0), 
+			" ignoring input? ", is_ignoring_input,
+			" velocity ", velocity)
 			
 			if direction:
 				if dash_input and dash_cooldown_timer.is_stopped():
@@ -199,7 +211,9 @@ func _on_card_change_check_slow(element_type_int:int):
 	else:
 		current_speed = SLOW_SPEED
 		
-		
+
+
+
 func check_health():
 	if health <= 0:
 		animation_player.play("death")
