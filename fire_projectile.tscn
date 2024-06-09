@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://blub8c8xms2op"]
+[gd_scene load_steps=15 format=3 uid="uid://blub8c8xms2op"]
 
-[ext_resource type="Texture2D" uid="uid://r0onhjl4o0wb" path="res://Sprites/Placeholders/Circle/Circle-0001.png" id="1_85o0m"]
+[ext_resource type="Script" path="res://fire_projectile.gd" id="1_1mj4n"]
 [ext_resource type="Texture2D" uid="uid://1bfyrrgw07nw" path="res://Sprites/dust smoke particles sheet 8x8.png" id="2_2k85p"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fp6lg"]
-radius = 3.0
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_chvq0"]
+blend_mode = 1
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_020c3"]
 blend_mode = 1
@@ -42,32 +42,43 @@ curve = SubResource("Curve_5hwav")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvi28"]
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 3.0
+emission_sphere_radius = 5.0
 velocity_pivot = Vector3(0, 1, 0)
+angular_velocity_min = -1.0
+angular_velocity_max = 1.0
+radial_velocity_min = -0.5
+radial_velocity_max = 0.5
 gravity = Vector3(0, -1.5, 0)
-scale_min = 0.5
-scale_max = 0.5
 scale_curve = SubResource("CurveTexture_77wde")
 color_ramp = SubResource("GradientTexture1D_gyq4c")
 color_initial_ramp = SubResource("GradientTexture1D_oowht")
 alpha_curve = SubResource("CurveTexture_d1x1f")
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_fp6lg"]
+radius = 3.0
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_fp6lg")
+[node name="FireProjectile" type="Area2D"]
+top_level = true
+z_index = 1
+collision_layer = 0
+script = ExtResource("1_1mj4n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.541176, 0.054902, 0.686275)
-scale = Vector2(0.1875, 0.1875)
-texture = ExtResource("1_85o0m")
+material = SubResource("CanvasItemMaterial_chvq0")
+texture = ExtResource("2_2k85p")
+hframes = 3
+frame = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_020c3")
-amount = 100
+amount = 250
 process_material = SubResource("ParticleProcessMaterial_rvi28")
 texture = ExtResource("2_2k85p")
 lifetime = 4.0
-preprocess = 4.0
+preprocess = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fp6lg")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

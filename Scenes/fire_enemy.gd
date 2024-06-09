@@ -3,7 +3,7 @@ extends CharacterBody2D
 enum EnemyStates {IDLE,TRIGGERED,ATTACK}
 
 const SPEED = 50
-const MAX_HEALTH = 5
+const MAX_HEALTH:float = 5.0
 
 var health:int = 0
 var current_enemy_state = EnemyStates.IDLE
@@ -15,19 +15,18 @@ var distance_to_player: float = 0
 
 @export var attack_distance:float
 @export var attack_timer: Timer
-
 @export var level_trigger: Area2D
+@export var enemy_health_bar: ProgressBar
+
 
 @onready var sword_placeholder: Sprite2D = $SwordPlaceholder
 @onready var hurt_box: HurtBox = $HurtBox
-@onready var enemy_health_bar: ProgressBar = $EnemyHealthBar
 @onready var projectile_marker_2d: Marker2D = $ProjectileMarker2D
 
 
 func _ready():
 	level_trigger.area_entered.connect(_on_level_trigger_area_entered)
 	hurt_box.damage_taken.connect(_on_damage_taken)
-	remove_child(sword_placeholder)
 	health = MAX_HEALTH
 	enemy_health_bar.max_value = MAX_HEALTH
 	enemy_health_bar.value = health
@@ -80,12 +79,11 @@ func _on_attack_timer_timeout() -> void:
 
 
 func shoot_projectile():
-	pass
-	#const PROJECTILE = preload("uid://cmrc5hawu0s3l")
-	#var new_projectile = PROJECTILE.instantiate()
-	#new_projectile.global_position = projectile_marker_2d.global_position
-	#new_projectile.rotation = rotation
-	#add_child(new_projectile)
+	const PROJECTILE = preload("uid://blub8c8xms2op")
+	var new_projectile = PROJECTILE.instantiate()
+	new_projectile.global_position = projectile_marker_2d.global_position
+	new_projectile.rotation = rotation
+	add_child(new_projectile)
 			
 
 func _on_damage_taken(damage:int) -> void:
