@@ -55,12 +55,15 @@ alpha_curve = SubResource("CurveTexture_d1x1f")
 radius = 32.0
 
 [node name="IceSlowArea" type="Area2D"]
+modulate = Color(0.262745, 0.670588, 0.784314, 1)
 z_index = 1
 z_as_relative = false
+scale = Vector2(2, 2)
 collision_layer = 0
 script = ExtResource("1_7wqne")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.372549)
 self_modulate = Color(0.509286, 0.509286, 0.509286, 1)
 material = SubResource("CanvasItemMaterial_0fc60")
 scale = Vector2(2.1, 2.1)

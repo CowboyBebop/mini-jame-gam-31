@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmhqwg5u48ief"]
 
 [ext_resource type="Script" path="res://Scenes/fire_enemy.gd" id="1_t5vqi"]
-[ext_resource type="Texture2D" uid="uid://rcirtno2qcyu" path="res://Sprites/temp_fire_golem.png" id="2_akxfw"]
+[ext_resource type="Texture2D" uid="uid://vnr50o16gkfy" path="res://Sprites/fire_golem.png" id="2_o0nat"]
 [ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="6_7a5h8"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="7_vc3o4"]
 
@@ -26,7 +26,9 @@ position = Vector2(27, -25)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(2, -28)
-texture = ExtResource("2_akxfw")
+texture = ExtResource("2_o0nat")
+hframes = 12
+vframes = 4
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
@@ -61,5 +63,7 @@ offset_bottom = -66.0
 max_value = 5.0
 step = 1.0
 value = 5.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

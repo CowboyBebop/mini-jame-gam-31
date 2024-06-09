@@ -8,7 +8,6 @@ const MAX_HEALTH:float = 4.0
 var health:int = 0
 var current_enemy_state = EnemyStates.IDLE
 var is_flipped: bool = false
-var is_on_cooldown: bool = false
 var direction_to_player: Vector2 = Vector2.ZERO
 var distance_to_player: float = 0
 
@@ -20,6 +19,7 @@ var distance_to_player: float = 0
 
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var projectile_marker_2d: Marker2D = $ProjectileMarker2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func _ready():
@@ -37,11 +37,14 @@ func _physics_process(delta: float) -> void:
 	
 	match current_enemy_state:
 		EnemyStates.IDLE:
+			animation_player.play("idle")
 			check_flipping()
 			velocity = velocity.move_toward(Vector2.ZERO, SPEED)
 			pass
 			
 		EnemyStates.TRIGGERED:
+			animation_player.play("walk")
+			
 			check_flipping()
 			
 			velocity = direction_to_player * SPEED
@@ -52,10 +55,8 @@ func _physics_process(delta: float) -> void:
 			check_flipping()
 			velocity = Vector2.ZERO
 			
-			if not is_on_cooldown:
-				shoot_projectile()
-				attack_timer.start()
-				is_on_cooldown = true
+			if  attack_timer.is_stopped():
+				animation_player.play("attack")
 				
 			if distance_to_player > attack_distance:
 				current_enemy_state = EnemyStates.TRIGGERED
@@ -78,11 +79,6 @@ func check_flipping():
 		is_flipped = false
 		#animated_sprite_2d.flip_h = false 
 
-
-func _on_attack_timer_timeout() -> void:
-	is_on_cooldown = false
-
-
 func shoot_projectile():
 	const PROJECTILE = preload("uid://buujabbngech0")
 	var new_projectile = PROJECTILE.instantiate()
@@ -103,3 +99,8 @@ func check_health():
 		#animation_player.play("death")
 		level_trigger.remove_enemy_from_level(self)
 		queue_free()
+
+func on_shoot_animation_frame():
+	shoot_projectile()
+	attack_timer.start()
+	

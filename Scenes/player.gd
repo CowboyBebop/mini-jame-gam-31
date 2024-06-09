@@ -7,7 +7,7 @@ enum ElementTypes {NONE,ICE,FIRE,EARTH,WIND}
 
 static var player:Player
 
-const SLOW_SPEED:float = 60
+const SLOW_SPEED:float = 25
 const NORMAL_SPEED:float = 140
 const DASH_SPEED:float = 400
 const MAX_HEALTH:float = 3
