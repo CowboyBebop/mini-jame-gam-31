@@ -16,7 +16,6 @@ var distance_to_player: float = 0
 #dash logic
 var position_to_dash_to: Vector2 = Vector2.ZERO
 var starting_dash_pos: Vector2 = Vector2.ZERO
-var half_dash_target: Vector2 = Vector2.ZERO
 var direction_to_dash: Vector2 = Vector2.ZERO
 
 @export var attack_distance:float
@@ -51,7 +50,6 @@ func _physics_process(delta: float) -> void:
 		EnemyStates.CHARGE:
 			check_flipping()
 			animation_player.play("charge")
-			print("state is charge")
 			#velocity = direction_to_player * SPEED
 			#if distance_to_player <= attack_distance:
 				#current_enemy_state = EnemyStates.ATTACK
@@ -61,7 +59,6 @@ func _physics_process(delta: float) -> void:
 			animation_player.play("dash")
 			
 			var distance_to_dash_target:float = (position_to_dash_to - global_position).length()
-			#var velocity_to_move_to = 
 			#velocity = velocity.move_toward(velocity_to_move_to, 100)
 			
 				
@@ -69,13 +66,14 @@ func _physics_process(delta: float) -> void:
 			
 			#print("distance_to_dash_target: ", distance_to_dash_target)
 			if(distance_to_dash_target < 100):
-				#velocity = velocity.move_toward(velocity_to_move_to, 100)
-				
-				print("velocity t 0")
 				velocity = Vector2.ZERO
-				current_enemy_state = EnemyStates.CHARGE
+				global_position = global_position.move_toward(position_to_dash_to, distance_to_dash_target/8)
+				print("distance_to_dash_target: ", distance_to_dash_target)
+				if(distance_to_dash_target < 5):
+					velocity = Vector2.ZERO
+					current_enemy_state = EnemyStates.CHARGE
 			else:
-				velocity = (position_to_dash_to - global_position).normalized() * 150
+				velocity = (position_to_dash_to - global_position).normalized() * DASH_SPEED
 				
 			#velocity = velocity.move_toward(DASH_SPEED * direction_to_player, 100)
 			
@@ -118,12 +116,9 @@ func _on_damage_taken(damage:int) -> void:
 	print("damage taken: ", health)
 	
 	
-func played_dash():
-	print("played dash")
-	
 func dash_start():
 	starting_dash_pos = global_position
 	direction_to_dash = starting_dash_pos.direction_to(Player.player.global_position)
-	position_to_dash_to = Player.player.global_position + direction_to_dash * 150 # a slight offset beyond player pos
-	print("Player.player.global_position: ", Player.player.global_position, "position_to_dash_to: ", position_to_dash_to)
+	position_to_dash_to = Player.player.global_position + direction_to_dash * (100) # a slight offset beyond player pos
+	#print("Player.player.global_position: ", Player.player.global_position, "position_to_dash_to: ", position_to_dash_to)
 	current_enemy_state = EnemyStates.DASH
