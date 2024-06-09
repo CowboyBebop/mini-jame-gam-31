@@ -10,7 +10,7 @@ const NORMAL_SPEED:float = 140
 const DASH_SPEED:float = 400
 const MAX_HEALTH:float = 3
 
-var current_speed :float = 140
+var current_speed :float = 500
 var health:float = 0
 var is_flipped: bool = false
 var dash_input: bool = false
@@ -155,7 +155,7 @@ func _on_attack_timer_timeout() -> void:
 
 func _on_sword_area_2d_area_entered(area: Area2D) -> void:
 	#dsword_collider.set_deferred("disabled", true)
-	#sword_collider.disabled = true	
+	sword_collider.disabled = true
 	if area is HurtBox:
 		area.take_damage(1)
 	
