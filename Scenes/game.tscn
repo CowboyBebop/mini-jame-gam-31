@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://xg8xhs60r0fg"]
+[gd_scene load_steps=18 format=3 uid="uid://xg8xhs60r0fg"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_fl02j"]
 [ext_resource type="PackedScene" uid="uid://cubnym6hycq0g" path="res://Scenes/player.tscn" id="1_kw5oa"]
@@ -6,8 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://d23gh1i7wxtfd" path="res://Sprites/side_wall.png" id="3_i82k3"]
 [ext_resource type="Texture2D" uid="uid://dte6sfahlf4a4" path="res://Sprites/tiles_dungeon2.png" id="4_yo61k"]
 [ext_resource type="PackedScene" uid="uid://bl5yvl48s5h3o" path="res://Scenes/UI/ui_canvas.tscn" id="5_278sf"]
+[ext_resource type="PackedScene" uid="uid://c5rqgwjdj85e2" path="res://Scenes/wind_enemy.tscn" id="5_sq1vi"]
+[ext_resource type="PackedScene" uid="uid://gym838j02ixp" path="res://Scenes/ice_enemy.tscn" id="6_4c6jd"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="6_dpsnj"]
 [ext_resource type="PackedScene" uid="uid://d1qsfyynlbqto" path="res://Scenes/earth_enemy.tscn" id="7_dpull"]
+[ext_resource type="PackedScene" uid="uid://dmhqwg5u48ief" path="res://Scenes/fire_enemy.tscn" id="8_llbal"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td4ok"]
 size = Vector2(29.2571, 144.623)
@@ -1320,10 +1323,6 @@ texture = ExtResource("3_i82k3")
 position = Vector2(1812, -235)
 level_trigger = NodePath("../LevelTrigger")
 
-[node name="EarthEnemy7" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("7_dpull")]
-position = Vector2(1612, -174)
-level_trigger = NodePath("../LevelTrigger")
-
 [node name="LevelTrigger2" type="Area2D" parent="." node_paths=PackedStringArray("gate_1", "gate_2", "gate_1_collider", "gate_2_collider")]
 position = Vector2(2007, -906)
 scale = Vector2(1.09375, 2.40625)
@@ -1466,8 +1465,12 @@ scale = Vector2(0.999988, 0.455025)
 skew = -0.00941741
 texture = ExtResource("3_i82k3")
 
-[node name="EarthEnemy8" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("7_dpull")]
-position = Vector2(2367, -911)
+[node name="EarthEnemy2" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("7_dpull")]
+position = Vector2(2408, -992)
+level_trigger = NodePath("../LevelTrigger2")
+
+[node name="WindEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("5_sq1vi")]
+position = Vector2(2556, -802)
 level_trigger = NodePath("../LevelTrigger2")
 
 [node name="LevelTrigger3" type="Area2D" parent="." node_paths=PackedStringArray("gate_1", "gate_2", "gate_1_collider", "gate_2_collider")]
@@ -1617,10 +1620,12 @@ scale = Vector2(0.454545, 1.001)
 skew = -1.51396e-05
 texture = ExtResource("3_i82k3")
 
-[node name="EarthEnemy3" parent="." node_paths=PackedStringArray("attack_timer", "enemy_health_bar", "level_trigger") instance=ExtResource("7_dpull")]
-position = Vector2(3586, -918)
-attack_timer = NodePath("../EarthEnemy/AttackTimer")
-enemy_health_bar = NodePath("../EarthEnemy/HealthBar")
+[node name="IceEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("6_4c6jd")]
+position = Vector2(3842, -1086)
+level_trigger = NodePath("../LevelTrigger3")
+
+[node name="WindEnemy2" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("5_sq1vi")]
+position = Vector2(3672, -810)
 level_trigger = NodePath("../LevelTrigger3")
 
 [node name="LevelTrigger4" type="Area2D" parent="." node_paths=PackedStringArray("gate_1", "gate_2", "gate_1_collider", "gate_2_collider")]
@@ -1771,10 +1776,16 @@ position = Vector2(0, 12.8831)
 scale = Vector2(0.914286, 0.415584)
 texture = ExtResource("3_i82k3")
 
-[node name="EarthEnemy4" parent="." node_paths=PackedStringArray("attack_timer", "enemy_health_bar", "level_trigger") instance=ExtResource("7_dpull")]
-position = Vector2(3754, -296)
-attack_timer = NodePath("../EarthEnemy/AttackTimer")
-enemy_health_bar = NodePath("../EarthEnemy/HealthBar")
+[node name="IceEnemy2" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("6_4c6jd")]
+position = Vector2(3534, -172)
+level_trigger = NodePath("../LevelTrigger4")
+
+[node name="WindEnemy3" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("5_sq1vi")]
+position = Vector2(3754, -88)
+level_trigger = NodePath("../LevelTrigger4")
+
+[node name="IceEnemy3" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("6_4c6jd")]
+position = Vector2(3992, -180)
 level_trigger = NodePath("../LevelTrigger4")
 
 [node name="LevelTrigger5" type="Area2D" parent="." node_paths=PackedStringArray("gate_1", "gate_2", "gate_1_collider", "gate_2_collider")]
@@ -1924,10 +1935,16 @@ position = Vector2(0, 12.8831)
 scale = Vector2(0.914286, 0.415584)
 texture = ExtResource("3_i82k3")
 
-[node name="EarthEnemy5" parent="." node_paths=PackedStringArray("attack_timer", "enemy_health_bar", "level_trigger") instance=ExtResource("7_dpull")]
-position = Vector2(4554, -318)
-attack_timer = NodePath("../EarthEnemy/AttackTimer")
-enemy_health_bar = NodePath("../EarthEnemy/HealthBar")
+[node name="EarthEnemy3" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("7_dpull")]
+position = Vector2(4541, -399)
+level_trigger = NodePath("../LevelTrigger5")
+
+[node name="EarthEnemy4" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("7_dpull")]
+position = Vector2(4390, -206)
+level_trigger = NodePath("../LevelTrigger5")
+
+[node name="WindEnemy4" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("5_sq1vi")]
+position = Vector2(4528, -217)
 level_trigger = NodePath("../LevelTrigger5")
 
 [node name="LevelTrigger6" type="Area2D" parent="." node_paths=PackedStringArray("gate_1", "gate_2", "gate_1_collider", "gate_2_collider")]
@@ -2101,10 +2118,20 @@ scale = Vector2(0.454545, 1.001)
 skew = -1.51396e-05
 texture = ExtResource("3_i82k3")
 
-[node name="EarthEnemy6" parent="." node_paths=PackedStringArray("attack_timer", "enemy_health_bar", "level_trigger") instance=ExtResource("7_dpull")]
-position = Vector2(5034, -889)
-attack_timer = NodePath("../EarthEnemy/AttackTimer")
-enemy_health_bar = NodePath("../EarthEnemy/HealthBar")
+[node name="EarthEnemy5" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("7_dpull")]
+position = Vector2(4444, -881)
+level_trigger = NodePath("../LevelTrigger6")
+
+[node name="FireEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("8_llbal")]
+position = Vector2(4963, -715)
+level_trigger = NodePath("../LevelTrigger6")
+
+[node name="IceEnemy4" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("6_4c6jd")]
+position = Vector2(4620, -1063)
+level_trigger = NodePath("../LevelTrigger6")
+
+[node name="WindEnemy5" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("5_sq1vi")]
+position = Vector2(5014, -1065)
 level_trigger = NodePath("../LevelTrigger6")
 
 [node name="Player" parent="." node_paths=PackedStringArray("ui_canvas_script", "health_bar") instance=ExtResource("1_kw5oa")]
