@@ -33,7 +33,9 @@ texture = ExtResource("3_fpouq")
 script = ExtResource("4_fb4q6")
 
 [node name="SwordArea2D" type="Area2D" parent="SwordPlaceholder"]
+collision_layer = 0
 script = ExtResource("5_iwdgx")
+attack_element = 3
 
 [node name="SwordCollider" type="CollisionPolygon2D" parent="SwordPlaceholder/SwordArea2D"]
 polygon = PackedVector2Array(82, -122.4, 82, -111.4, 69.6, -94.2, 83, -47.1, 83, -41.6, 77.3, 17, 74.8, 17, 59.8, 63, 56.8, 63, 23.8, 103, 18.6, 103, -48, 128.7, -48, 112.6, 3.10001, 63.5, 16.3, 6.2, 5.2, -46.6, -11.9, -58.9, -28.4, -47, -35.7, -47, -51.4, -59.2, -49, -66.2, -49, -80, -40.6, -80, 57, -122.2, 62.4728, -131.162)
@@ -61,5 +63,5 @@ max_value = 5.0
 step = 1.0
 value = 5.0
 
-[connection signal="area_entered" from="SwordPlaceholder/SwordArea2D" to="." method="_on_sword_area_2d_area_entered"]
+[connection signal="area_entered" from="SwordPlaceholder/SwordArea2D" to="SwordPlaceholder/SwordArea2D" method="_on_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

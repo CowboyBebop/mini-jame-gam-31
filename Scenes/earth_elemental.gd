@@ -87,3 +87,4 @@ func _on_damage_taken(damage:int) -> void:
 	health -= damage
 	health_bar.value = health
 	print("damage taken: ", health)
+

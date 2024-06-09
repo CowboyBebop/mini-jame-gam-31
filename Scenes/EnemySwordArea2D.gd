@@ -1,9 +1,9 @@
 extends Area2D
 
-#var attack_element:Player.ElementTypes
+@export var damage:int = 1
+@export var attack_element:Player.ElementTypes = Player.ElementTypes.NONE
 
-func _on_sword_area_2d_area_entered(area: Area2D) -> void:
-	#dsword_collider.set_deferred("disabled", true)
-	#sword_collider.disabled = true	
+func _on_area_entered(area: Area2D) -> void:
+	print("collided w/ pla")
 	if area is PlayerHurtBox:
-		area.take_damage(1)
+		area.take_damage(damage,attack_element)
