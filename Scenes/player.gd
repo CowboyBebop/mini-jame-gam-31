@@ -42,8 +42,10 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 func _ready():
 	player = self
 	ui_canvas_script.card_swapped.connect(_on_ui_card_swapped)
+	ui_canvas_script.card_swapped.connect(_on_card_change_check_slow)
 	player_hurt_box.damage_taken.connect(on_player_damage_taken)
 	player_hurt_box.slow_state_changed.connect(_on_player_slow_state_changed)
+	
 	health = MAX_HEALTH
 	health_bar.value = MAX_HEALTH
 	#remove_child(sword_placeholder)
@@ -173,7 +175,14 @@ func _on_ui_card_swapped(element_type_int:int):
 	print(ElementTypes.keys()[current_element_resistance])
 	
 func _on_player_slow_state_changed(changed_to:bool):
-	if changed_to:
+	if changed_to and current_element_resistance != ElementTypes.ICE:
 		current_speed = SLOW_SPEED
 	else:
 		current_speed = NORMAL_SPEED
+
+func _on_card_change_check_slow(element_type_int:int):
+	print("check")
+	if current_element_resistance == ElementTypes.ICE:
+		current_speed = NORMAL_SPEED
+	else:
+		current_speed = SLOW_SPEED
