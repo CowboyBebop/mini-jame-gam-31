@@ -154,8 +154,10 @@ func _on_attack_timer_timeout() -> void:
 
 
 func _on_sword_area_2d_area_entered(area: Area2D) -> void:
-	#dsword_collider.set_deferred("disabled", true)
-	sword_collider.disabled = true
+	print("colliding", sword_collider, sword_collider.disabled)
+	sword_collider.set_deferred("disabled", true)
+	
+	#word_collider.disabled = true
 	if area is HurtBox:
 		area.take_damage(1)
 	

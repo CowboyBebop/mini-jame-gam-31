@@ -63,13 +63,9 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2.ZERO
 			#print("not is_sword_exists: ", not is_sword_exists,"attack_cooldown_timer.is_stopped(): ", attack_cooldown_timer.is_stopped() )
 			
-			print("is sword collider enabled?:  ", !sword_collider.disabled)
-			
 			if not is_sword_exists and attack_cooldown_timer.is_stopped():
 				sword_placeholder.visible = true
 				sword_collider.disabled = false
-				print("attack, sword_placeholder.visible:  ", sword_placeholder.visible)
-				print("is sword collider enabled?:  ", !sword_collider.disabled)
 				
 				is_sword_exists = true
 				attack_timer.start()
@@ -95,8 +91,6 @@ func check_flipping():
 
 func _on_attack_timer_timeout() -> void:
 	attack_cooldown_timer.start()
-	#print("tuneiy")
-	#remove_child(sword_placeholder)
 	sword_placeholder.visible = false
 	sword_collider.disabled = true
 	is_sword_exists = false
@@ -105,12 +99,5 @@ func _on_attack_timer_timeout() -> void:
 func _on_damage_taken(damage:int) -> void:
 	health -= damage
 	health_bar.value = health
-	print("damage taken: ", health)
 
-#func _on_sword_area_2d_area_entered(area: Area2D) -> void:
-
-
-func _on_attack_cooldown_timer_timeout() -> void:
-	pass
-	#sword_collider.disabled = false
 

@@ -5,10 +5,7 @@ extends Area2D
 @onready var sword_collider: CollisionPolygon2D = $SwordCollider
 
 func _on_area_entered(area: Area2D) -> void:
-	print("colliding")
-	#sword_collider.disabled = true
 	sword_collider.set_deferred("disabled",true)
-	print("disabled collider", sword_collider.disabled)
 	
 	if area is PlayerHurtBox:
 		area.take_damage(damage,attack_element)

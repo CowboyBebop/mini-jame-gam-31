@@ -3,10 +3,20 @@
 [ext_resource type="Script" path="res://Scenes/earth_elemental.gd" id="1_aep0b"]
 [ext_resource type="Texture2D" uid="uid://b4ibrsu2s5rf7" path="res://Sprites/stone_golem.png" id="2_pjyaa"]
 [ext_resource type="Texture2D" uid="uid://dnxy2dc6j2tnp" path="res://Sprites/sword placeholder.png" id="3_fpouq"]
-[ext_resource type="Script" path="res://Scenes/SwordPlaceholder.gd" id="4_fb4q6"]
 [ext_resource type="Script" path="res://Scenes/EnemySwordArea2D.gd" id="5_iwdgx"]
 [ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="5_x8rpk"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="6_6liub"]
+
+[sub_resource type="GDScript" id="GDScript_6mckb"]
+script/source = "extends Sprite2D
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	#print(\"exists\")
+	pass
+"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
 radius = 7.0
@@ -30,7 +40,7 @@ position = Vector2(22, -12)
 rotation = -0.141627
 scale = Vector2(0.137545, 0.137546)
 texture = ExtResource("3_fpouq")
-script = ExtResource("4_fb4q6")
+script = SubResource("GDScript_6mckb")
 
 [node name="SwordArea2D" type="Area2D" parent="SwordPlaceholder"]
 collision_layer = 0

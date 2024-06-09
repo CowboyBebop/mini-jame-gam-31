@@ -2,12 +2,22 @@
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_xnbnj"]
 [ext_resource type="Texture2D" uid="uid://dnxy2dc6j2tnp" path="res://Sprites/sword placeholder.png" id="2_li5c0"]
-[ext_resource type="Script" path="res://Scenes/SwordPlaceholder.gd" id="3_ynqf6"]
 [ext_resource type="Texture2D" uid="uid://dhn7oolnuo7gw" path="res://Sprites/player_right.png" id="4_mcwbr"]
 [ext_resource type="Texture2D" uid="uid://dfm2kvcrdwesa" path="res://Sprites/player_left.png" id="5_ydnxh"]
 [ext_resource type="Texture2D" uid="uid://dqgilij6ajujw" path="res://Sprites/player_animations.png" id="6_x773a"]
 [ext_resource type="Shader" path="res://Scenes/player.gdshader" id="6_yrytk"]
 [ext_resource type="Script" path="res://Scenes/PlayerHurtBox.gd" id="7_g11bm"]
+
+[sub_resource type="GDScript" id="GDScript_6mckb"]
+script/source = "extends Sprite2D
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	#print(\"exists\")
+	pass
+"
 
 [sub_resource type="Curve" id="Curve_spu1l"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -166,6 +176,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [0, 3]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SwordPlaceholder/SwordArea2D/SwordCollider:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_m1da4"]
 resource_name = "run"
@@ -231,6 +253,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [8, 15]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SwordPlaceholder/SwordArea2D/SwordCollider:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5jqh3"]
 _data = {
@@ -258,7 +292,7 @@ position = Vector2(6, -6)
 rotation = -0.141627
 scale = Vector2(0.0674134, 0.0674134)
 texture = ExtResource("2_li5c0")
-script = ExtResource("3_ynqf6")
+script = SubResource("GDScript_6mckb")
 
 [node name="SwordArea2D" type="Area2D" parent="SwordPlaceholder"]
 collision_layer = 0
@@ -291,7 +325,7 @@ position = Vector2(0, -10)
 texture = ExtResource("6_x773a")
 hframes = 8
 vframes = 2
-frame = 9
+frame = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
