@@ -1,22 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1qsfyynlbqto"]
+[gd_scene load_steps=15 format=3 uid="uid://d1qsfyynlbqto"]
 
 [ext_resource type="Script" path="res://Scenes/earth_elemental.gd" id="1_aep0b"]
 [ext_resource type="Texture2D" uid="uid://dr8iw0tyxm8nh" path="res://Sprites/stone_golem_spritesheet.png" id="2_tanno"]
-[ext_resource type="Texture2D" uid="uid://dnxy2dc6j2tnp" path="res://Sprites/sword placeholder.png" id="3_fpouq"]
 [ext_resource type="Script" path="res://Scenes/EnemySwordArea2D.gd" id="5_iwdgx"]
 [ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="5_x8rpk"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="6_6liub"]
 
-[sub_resource type="GDScript" id="GDScript_6mckb"]
-script/source = "extends Sprite2D
-
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	#print(\"exists\")
-	pass
-"
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v3qe6"]
+radius = 84.45
+height = 194.8
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6gcs"]
 size = Vector2(28, 43)
@@ -63,6 +55,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ujb1v"]
 resource_name = "idle"
@@ -103,9 +107,22 @@ tracks/2/keys = {
 "update": 0,
 "values": [0, 3]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_aaccb"]
 resource_name = "walk"
+length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -137,15 +154,149 @@ tracks/2/path = NodePath("Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [12, 23]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_e75gw"]
+resource_name = "attack"
+length = 1.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.65, 0.75, 0.8, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [24, 30, 31, 31, 36]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.75, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_attack_animation_end"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_62y07"]
+resource_name = "death"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.25, 0.4, 0.55, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [36, 37, 37, 38, 39, 47]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0n28j"]
 _data = {
 "RESET": SubResource("Animation_ejjal"),
+"attack": SubResource("Animation_e75gw"),
+"death": SubResource("Animation_62y07"),
 "idle": SubResource("Animation_ujb1v"),
 "walk": SubResource("Animation_aaccb")
 }
@@ -166,22 +317,22 @@ texture = ExtResource("2_tanno")
 hframes = 12
 vframes = 4
 
-[node name="SwordPlaceholder" type="Sprite2D" parent="."]
+[node name="SwordArea2D" type="Area2D" parent="."]
 position = Vector2(22, -12)
 rotation = -0.141627
 scale = Vector2(0.137545, 0.137546)
-texture = ExtResource("3_fpouq")
-script = SubResource("GDScript_6mckb")
-
-[node name="SwordArea2D" type="Area2D" parent="SwordPlaceholder"]
 collision_layer = 0
 script = ExtResource("5_iwdgx")
 attack_element = 3
 
-[node name="SwordCollider" type="CollisionPolygon2D" parent="SwordPlaceholder/SwordArea2D"]
-polygon = PackedVector2Array(82, -122.4, 82, -111.4, 69.6, -94.2, 83, -47.1, 83, -41.6, 77.3, 17, 74.8, 17, 59.8, 63, 56.8, 63, 23.8, 103, 18.6, 103, -48, 128.7, -48, 112.6, 3.10001, 63.5, 16.3, 6.2, 5.2, -46.6, -11.9, -58.9, -28.4, -47, -35.7, -47, -51.4, -59.2, -49, -66.2, -49, -80, -40.6, -80, 57, -122.2, 62.4728, -131.162)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordArea2D"]
+position = Vector2(3.0926, 29.8162)
+rotation = 0.229319
+shape = SubResource("CapsuleShape2D_v3qe6")
+disabled = true
 
 [node name="HurtBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_x8rpk")
@@ -223,8 +374,9 @@ value = 5.0
 libraries = {
 "": SubResource("AnimationLibrary_0n28j")
 }
+autoplay = "idle"
 
-[connection signal="area_entered" from="SwordPlaceholder/SwordArea2D" to="." method="_on_sword_area_2d_area_entered"]
-[connection signal="area_entered" from="SwordPlaceholder/SwordArea2D" to="SwordPlaceholder/SwordArea2D" method="_on_area_entered"]
+[connection signal="area_entered" from="SwordArea2D" to="." method="_on_sword_area_2d_area_entered"]
+[connection signal="area_entered" from="SwordArea2D" to="SwordArea2D" method="_on_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
