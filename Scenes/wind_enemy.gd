@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
-enum EnemyStates {IDLE,TRIGGERED,ATTACK}
+enum EnemyStates {IDLE,CHARGE,DASH}
 
 const SPEED = 40
+const DASH_SPEED = 500
 const MAX_HEALTH:float = 4.0
 
 var health:int = 0
@@ -12,6 +13,12 @@ var is_on_cooldown: bool = false
 var direction_to_player: Vector2 = Vector2.ZERO
 var distance_to_player: float = 0
 
+#dash logic
+var position_to_dash_to: Vector2 = Vector2.ZERO
+var starting_dash_pos: Vector2 = Vector2.ZERO
+var half_dash_target: Vector2 = Vector2.ZERO
+var direction_to_dash: Vector2 = Vector2.ZERO
+
 @export var attack_distance:float
 @export var attack_timer: Timer
 @export var level_trigger: Area2D
@@ -20,6 +27,7 @@ var distance_to_player: float = 0
 
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var projectile_marker_2d: Marker2D = $ProjectileMarker2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func _ready():
@@ -40,24 +48,46 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.move_toward(Vector2.ZERO, SPEED)
 			pass
 			
-		EnemyStates.TRIGGERED:
+		EnemyStates.CHARGE:
 			check_flipping()
-			
-			velocity = direction_to_player * SPEED
-			if distance_to_player <= attack_distance:
-				current_enemy_state = EnemyStates.ATTACK
+			animation_player.play("charge")
+			print("state is charge")
+			#velocity = direction_to_player * SPEED
+			#if distance_to_player <= attack_distance:
+				#current_enemy_state = EnemyStates.ATTACK
 				
-		EnemyStates.ATTACK:
+		EnemyStates.DASH:
 			check_flipping()
-			velocity = Vector2.ZERO
+			animation_player.play("dash")
 			
-			if not is_on_cooldown:
-				shoot_projectile()
-				attack_timer.start()
-				is_on_cooldown = true
+			var distance_to_dash_target:float = (position_to_dash_to - global_position).length()
+			#var velocity_to_move_to = 
+			#velocity = velocity.move_toward(velocity_to_move_to, 100)
+			
 				
-			if distance_to_player > attack_distance:
-				current_enemy_state = EnemyStates.TRIGGERED
+			#print("velocity: ", velocity)
+			
+			#print("distance_to_dash_target: ", distance_to_dash_target)
+			if(distance_to_dash_target < 100):
+				#velocity = velocity.move_toward(velocity_to_move_to, 100)
+				
+				print("velocity t 0")
+				velocity = Vector2.ZERO
+				current_enemy_state = EnemyStates.CHARGE
+			else:
+				velocity = (position_to_dash_to - global_position).normalized() * 150
+				
+			#velocity = velocity.move_toward(DASH_SPEED * direction_to_player, 100)
+			
+			#velocity = Vector2.ZERO
+			#
+			#if not is_on_cooldown:
+				#shoot_projectile()
+				#attack_timer.start()
+				#is_on_cooldown = true
+				#
+			#if distance_to_player > attack_distance:
+				#current_enemy_state = EnemyStates.TRIGGERED
 			
 	
 	#print(distance_to_player, attack_distance, distance_to_player < attack_distance)
@@ -65,7 +95,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_level_trigger_area_entered(body:Node2D):
-	current_enemy_state = EnemyStates.TRIGGERED
+	current_enemy_state = EnemyStates.CHARGE
 
 func check_flipping():
 	if direction_to_player.x < -0.6 and  !is_flipped:
@@ -82,15 +112,18 @@ func _on_attack_timer_timeout() -> void:
 	is_on_cooldown = false
 
 
-func shoot_projectile():
-	const PROJECTILE = preload("uid://buujabbngech0")
-	var new_projectile = PROJECTILE.instantiate()
-	new_projectile.global_position = projectile_marker_2d.global_position
-	new_projectile.direction = projectile_marker_2d.global_position.direction_to(Player.player.global_position)
-	add_child(new_projectile)
-			
-
 func _on_damage_taken(damage:int) -> void:
 	health -= damage
 	enemy_health_bar.value = health
 	print("damage taken: ", health)
+	
+	
+func played_dash():
+	print("played dash")
+	
+func dash_start():
+	starting_dash_pos = global_position
+	direction_to_dash = starting_dash_pos.direction_to(Player.player.global_position)
+	position_to_dash_to = Player.player.global_position + direction_to_dash * 150 # a slight offset beyond player pos
+	print("Player.player.global_position: ", Player.player.global_position, "position_to_dash_to: ", position_to_dash_to)
+	current_enemy_state = EnemyStates.DASH

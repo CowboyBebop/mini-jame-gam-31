@@ -26,6 +26,8 @@ position = Vector2(2, -28)
 texture = ExtResource("2_akxfw")
 
 [node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("6_7a5h8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]

@@ -1,8 +1,18 @@
 shader_type canvas_item;
 
 uniform vec4 outline_color : source_color;
+uniform vec4 modulate : source_color;
+
+
+void light()
+{
+    vec4 color = texture(TEXTURE, UV);
+    LIGHT = vec4(color.rgb * LIGHT_COLOR.rgb * LIGHT_ENERGY, LIGHT_COLOR.a);
+}
 
 void fragment(){
+    vec4 color = texture(TEXTURE, UV);
+	
 	float size_x = 1.0/float(textureSize(TEXTURE, 0).x);
 	float size_y = 1.0/float(textureSize(TEXTURE, 0).y);
 	vec4 sprite_color = texture(TEXTURE, UV);
@@ -17,6 +27,9 @@ void fragment(){
 	alpha += texture(TEXTURE, UV + vec2(-size_x, size_y)).a;
 	alpha += texture(TEXTURE, UV + vec2(-size_x, -size_y)).a;
 	alpha += texture(TEXTURE, UV + vec2(size_x, -size_y)).a;*/
-	vec4 final_color = mix(sprite_color, outline_color, clamp(alpha, 0.0, 1.0));
+	
+	
+	vec4 final_color = mix(sprite_color * modulate, outline_color, clamp(alpha, 0.0, 1.0));
 	COLOR = vec4(final_color.rgb, clamp(abs(alpha) + sprite_color.a, 0.0, 1.0));
 }
+
