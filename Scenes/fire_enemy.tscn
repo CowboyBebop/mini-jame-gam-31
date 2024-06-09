@@ -13,7 +13,7 @@ z_index = 2
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_t5vqi")
-attack_distance = 70.0
+attack_distance = 250.0
 attack_timer = NodePath("AttackTimer")
 enemy_health_bar = NodePath("HealthBar")
 
@@ -22,7 +22,7 @@ position = Vector2(27, -25)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -28)
+position = Vector2(2, -28)
 texture = ExtResource("2_akxfw")
 
 [node name="HurtBox" type="Area2D" parent="."]
@@ -37,7 +37,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_f7sw8")
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 3.5
+wait_time = 3.0
 one_shot = true
 
 [node name="HealthBar" parent="." instance=ExtResource("7_vc3o4")]
