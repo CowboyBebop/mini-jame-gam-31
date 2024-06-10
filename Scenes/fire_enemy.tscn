@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="7_vc3o4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f2ge0"]
-size = Vector2(28, 43)
+size = Vector2(30.9241, 55.5238)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
 radius = 7.0
@@ -252,8 +252,8 @@ scale = Vector2(0.970117, 0.882503)
 shape = SubResource("RectangleShape2D_f2ge0")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtBox"]
-position = Vector2(-3.55271e-15, 2)
-scale = Vector2(1.11809, 0.86981)
+position = Vector2(-0.727042, 19.7251)
+scale = Vector2(2.57218, 1.56761)
 polygon = PackedVector2Array(-13, -25, 14, -25, 0, -43)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -282,6 +282,6 @@ libraries = {
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="AudioStreamAttackPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = -16.0
+volume_db = -10.0
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

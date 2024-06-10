@@ -6,7 +6,7 @@ const SPEED = 40
 const DASH_SPEED = 500
 const MAX_HEALTH:float = 4.0
 
-var health:int = 0
+var health:float = 0
 var current_enemy_state = EnemyStates.IDLE
 var is_flipped: bool = false
 var is_on_cooldown: bool = false
@@ -38,7 +38,7 @@ func _ready():
 	enemy_health_bar.max_value = MAX_HEALTH
 	enemy_health_bar.value = health
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 
 	direction_to_player = global_position.direction_to(Player.player.global_position)
 	distance_to_player = global_position.distance_to(Player.player.global_position)
@@ -94,7 +94,7 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func _on_level_trigger_area_entered(body:Node2D):
+func _on_level_trigger_area_entered(_body:Node2D):
 	current_enemy_state = EnemyStates.CHARGE
 
 func check_flipping():

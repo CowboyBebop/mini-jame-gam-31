@@ -12,7 +12,7 @@ radius = 84.45
 height = 194.8
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6gcs"]
-size = Vector2(28, 43)
+size = Vector2(28, 49.8582)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7sw8"]
 radius = 16.0
@@ -364,20 +364,19 @@ shape = SubResource("CapsuleShape2D_v3qe6")
 disabled = true
 
 [node name="HurtBox" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_x8rpk")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(-0.500014, -10)
+position = Vector2(0, -10)
 rotation = 1.57079
 scale = Vector2(0.970117, 0.882503)
 shape = SubResource("RectangleShape2D_b6gcs")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtBox"]
-position = Vector2(0, 5)
-scale = Vector2(1.03528, 0.95631)
+position = Vector2(-2.47525, 38.7459)
+scale = Vector2(2.13919, 1.95103)
 polygon = PackedVector2Array(-13.5229, -30.3249, 15.4548, -30.3249, 0, -43)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

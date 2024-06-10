@@ -34,7 +34,7 @@ func _ready():
 	health = MAX_HEALTH
 	enemy_health_bar.max_value = MAX_HEALTH
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 
 	direction_to_player = global_position.direction_to(Player.player.global_position)
 	distance_to_player = global_position.distance_to(Player.player.global_position)
@@ -70,7 +70,7 @@ func _physics_process(delta: float) -> void:
 				
 	move_and_slide()
 
-func _on_level_trigger_area_entered(body:Node2D):
+func _on_level_trigger_area_entered(_body:Node2D):
 	current_enemy_state = EnemyStates.TRIGGERED
 
 func check_flipping():
