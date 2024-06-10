@@ -207,10 +207,10 @@ func _on_sword_area_2d_area_entered(area: Area2D) -> void:
 func _on_attack_animation_end():
 	current_player_state = PlayerStates.IDLE
 	
-func on_player_damage_taken(damage: int, element:ElementTypes):
+func on_player_damage_taken(damage_taken: int, element:ElementTypes):
 	print("player damaged")
 	if not current_element_resistance == element:
-		health -=damage
+		health -=damage_taken
 		health_bar.value = health
 		audio_stream_hurt_player.stream = preload("uid://df3123yfie12i") #player hurt sfx
 		audio_stream_hurt_player.play()
@@ -220,7 +220,7 @@ func on_player_damage_taken(damage: int, element:ElementTypes):
 
 
 func _on_ui_card_swapped(element_type_int:int):
-	current_element_resistance = element_type_int
+	current_element_resistance = element_type_int as ElementTypes
 	print(ElementTypes.keys()[current_element_resistance])
 	
 func _on_player_slow_area_changed(changed_to:bool):

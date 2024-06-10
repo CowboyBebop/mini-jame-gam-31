@@ -5,7 +5,7 @@ enum EnemyStates {IDLE,TRIGGERED,ATTACK}
 const SPEED = 50
 const MAX_HEALTH:float = 5.0
 
-var health:int = 0
+var health:float = 0
 var current_enemy_state = EnemyStates.IDLE
 var is_flipped: bool = false
 var is_sword_exists: bool = false
@@ -33,7 +33,7 @@ func _ready():
 	enemy_health_bar.max_value = MAX_HEALTH
 	enemy_health_bar.value = health
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 
 	direction_to_player = global_position.direction_to(Player.player.global_position)
 	distance_to_player = global_position.distance_to(Player.player.global_position)
@@ -70,7 +70,7 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func _on_level_trigger_area_entered(body:Node2D):
+func _on_level_trigger_area_entered(_body:Node2D):
 	current_enemy_state = EnemyStates.TRIGGERED
 
 func check_flipping():
@@ -91,7 +91,6 @@ func shoot_projectile():
 	new_projectile.global_position = projectile_marker_2d.global_position
 	new_projectile.direction = projectile_marker_2d.global_position.direction_to(Player.player.global_position)
 	get_parent().add_child(new_projectile)
-
 
 
 func _on_damage_taken(damage:int) -> void:

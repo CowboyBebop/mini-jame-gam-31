@@ -21,7 +21,7 @@ func _physics_process(delta):
 	if travelled_distance > RANGE:
 		queue_free()
 
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(_area: Area2D) -> void:
 	
 	print(get_parent())
 	const PROJECTILE = preload("uid://cocbdi33rhrjs")

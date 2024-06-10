@@ -22,7 +22,7 @@ func add_enemy_to_level(enemy:Node2D):
 func remove_enemy_from_level(enemy:Node2D):
 	level_enemies.erase(enemy)	
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	#print(level_enemies.size(),level_enemies[0],level_enemies[1])
 	
 	#print(level_enemies.size())
@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 		level_finished()
 		pass
 
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(_area: Area2D) -> void:
 	level_trigger_collider.set_deferred("disabled",true)
 	#level_trigger_collider.disabled = true
 	level_started()

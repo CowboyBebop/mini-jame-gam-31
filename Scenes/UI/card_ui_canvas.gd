@@ -22,7 +22,8 @@ func _process(_delta: float) -> void:
 	match current_card_selected:
 		CardSelected.NONE:
 			
-			current_card_selected = num_key_pressed
+			#
+			current_card_selected = num_key_pressed as Player.ElementTypes
 			
 		CardSelected.CARD1:
 			
@@ -101,6 +102,6 @@ func check_any_card_input() -> bool:
 		
 		
 func change_selected_card():
-	current_card_selected = num_key_pressed
+	current_card_selected = num_key_pressed as Player.ElementTypes
 	card_entered = false
 	
