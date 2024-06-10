@@ -22,7 +22,8 @@ var distance_to_player: float = 0
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var projectile_marker_2d: Marker2D = $ProjectileMarker2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var audio_stream_attack_player_2d: AudioStreamPlayer2D = $AudioStreamAttackPlayer2D
 
 func _ready():
 	level_trigger.add_enemy_to_level(self)
@@ -89,11 +90,13 @@ func shoot_projectile():
 	var new_projectile = PROJECTILE.instantiate()
 	new_projectile.global_position = projectile_marker_2d.global_position
 	new_projectile.direction = projectile_marker_2d.global_position.direction_to(Player.player.global_position)
-	add_child(new_projectile)
-			
+	get_parent().add_child(new_projectile)
+
 
 
 func _on_damage_taken(damage:int) -> void:
+	audio_stream_player_2d.stream = preload("uid://bfrqratkie3ns")
+	audio_stream_player_2d.play()
 	health -= damage
 	enemy_health_bar.value = health
 	check_health()

@@ -133,3 +133,5 @@ libraries = {
 "": ExtResource("6_6mq1n"),
 "card anims": SubResource("AnimationLibrary_87w2f")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

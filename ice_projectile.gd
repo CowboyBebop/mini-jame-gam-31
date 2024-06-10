@@ -27,8 +27,12 @@ func _on_area_entered(area: Area2D) -> void:
 	const PROJECTILE = preload("uid://cocbdi33rhrjs")
 	var new_projectile = PROJECTILE.instantiate()
 	
-	get_parent().add_child(new_projectile)
-	new_projectile.global_position = global_position
+	#get_parent().add_child(new_projectile)
+	#new_projectile.global_position = global_position
+	
+	get_parent().call_deferred("add_child",new_projectile)
+	new_projectile.set_deferred("global_position", global_position)
+	
 	queue_free()
 	
 

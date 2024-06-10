@@ -22,7 +22,7 @@ var margin_distance: float = 30
 @onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _ready():
 	level_trigger.add_enemy_to_level(self)
@@ -85,6 +85,8 @@ func check_flipping():
 
 
 func _on_damage_taken(damage:int) -> void:
+	audio_stream_player_2d.stream = preload("uid://bfrqratkie3ns")
+	audio_stream_player_2d.play()
 	health -= damage
 	enemy_health_bar.value = health
 	check_health()

@@ -3,13 +3,18 @@ class_name CardUICanvas extends CanvasLayer
 
 enum CardSelected {NONE = -1, CARD1 = 1, CARD2 = 2, CARD3 = 3 , CARD4 = 4}
 
-signal card_swapped(ElementType)
+signal card_swapped(element_type)
 
 @export var animation_player: AnimationPlayer
 
 var current_card_selected = CardSelected.NONE
 var card_entered:bool = false
 var num_key_pressed:int = -1
+
+static var card_ui_cancas:CardUICanvas
+
+func _ready() -> void:
+	card_ui_cancas = self	
 
 func _process(_delta: float) -> void:
 	num_key_pressed = check_card_input()

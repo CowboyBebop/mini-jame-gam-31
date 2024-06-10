@@ -27,6 +27,7 @@ var direction_to_dash: Vector2 = Vector2.ZERO
 @onready var hurt_box: HurtBox = $HurtBox
 @onready var projectile_marker_2d: Marker2D = $ProjectileMarker2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 func _ready():
@@ -112,6 +113,8 @@ func _on_attack_timer_timeout() -> void:
 
 
 func _on_damage_taken(damage:int) -> void:
+	audio_stream_player_2d.stream = preload("uid://bfrqratkie3ns")
+	audio_stream_player_2d.play()
 	health -= damage
 	enemy_health_bar.value = health
 	check_health()

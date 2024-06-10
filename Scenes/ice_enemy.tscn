@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://gym838j02ixp"]
+[gd_scene load_steps=14 format=3 uid="uid://gym838j02ixp"]
 
 [ext_resource type="Script" path="res://Scenes/ice_enemy.gd" id="1_twoip"]
 [ext_resource type="Texture2D" uid="uid://c8v3ppws606am" path="res://Sprites/ice_golem.png" id="2_o34gb"]
+[ext_resource type="AudioStream" uid="uid://buvmsw0pirk6u" path="res://Sounds/attack-fire.wav" id="5_4sei1"]
+[ext_resource type="AudioStream" uid="uid://b4kjt2ydnqr43" path="res://attack-ice.wav" id="5_rk8lt"]
 [ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="6_8jggr"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="7_5waoy"]
 
@@ -103,6 +105,48 @@ tracks/3/keys = {
 "args": [],
 "method": &"on_shoot_animation_frame"
 }]
+}
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [],
+"times": PackedFloat32Array()
+}
+tracks/4/use_blend = true
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer2DAttack")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 1.64783,
+"stream": ExtResource("5_4sei1")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_rk8lt")
+}],
+"times": PackedFloat32Array(0, 0.35)
+}
+tracks/5/use_blend = true
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioStreamPlayer2DAttack:volume_db")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.8),
+"transitions": PackedFloat32Array(1, 0.34151, 1),
+"update": 0,
+"values": [-20.0, -8.0, -8.0]
 }
 
 [sub_resource type="Animation" id="Animation_ehy64"]
@@ -214,6 +258,7 @@ hframes = 12
 vframes = 4
 
 [node name="HurtBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("6_8jggr")
@@ -251,5 +296,11 @@ value = 5.0
 libraries = {
 "": SubResource("AnimationLibrary_3dc7l")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -6.0
+
+[node name="AudioStreamPlayer2DAttack" type="AudioStreamPlayer2D" parent="."]
+volume_db = -8.0
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

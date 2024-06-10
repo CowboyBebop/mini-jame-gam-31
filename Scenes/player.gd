@@ -43,9 +43,11 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @onready var attack_timer: Timer = $AttackTimer
 
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
-@onready var audio_stream_hurt_player: AudioStreamPlayer2D = $AudioStreamHurtPlayer
-@onready var audio_stream_dash: AudioStreamPlayer2D = $AudioStreamDash
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreams/AudioStreamPlayer2D
+@onready var audio_stream_hurt_player: AudioStreamPlayer2D = $AudioStreams/AudioStreamHurtPlayer
+@onready var audio_stream_dash: AudioStreamPlayer2D = $AudioStreams/AudioStreamDash
+@onready var audio_stream_attack: AudioStreamPlayer2D = $AudioStreams/AudioStreamAttack
+
 
 func _ready():
 	player = self
@@ -250,3 +252,20 @@ func check_health():
 
 func played_death_anim_finished():
 	player_died.emit()
+
+func play_attack_sound():
+	
+	var rand:int = randi_range(1,4)
+	match rand:
+		1:
+			audio_stream_attack.stream = preload("uid://cn1mgyf5nwpyf")
+			audio_stream_attack.play()
+		2:
+			audio_stream_attack.stream = preload("uid://dvhoh1i5ucbvu")
+			audio_stream_attack.play()
+		3:
+			audio_stream_attack.stream = preload("uid://da5d20i23qqha")
+			audio_stream_attack.play()
+		4:
+			audio_stream_attack.stream = preload("uid://ycuirx0btw6r")
+			audio_stream_attack.play()
