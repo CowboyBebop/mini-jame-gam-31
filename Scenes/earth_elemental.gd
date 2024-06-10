@@ -10,10 +10,10 @@ var is_flipped: bool = false
 var is_sword_exists: bool = false
 var direction_to_player: Vector2 = Vector2.ZERO
 var distance_to_player: float = 0
-var margin_distance: float = 30
 
 @export var SPEED = 50
-@export var attack_distance:float
+@export var attack_distance: float
+@export var margin_distance: float 
 @export var attack_timer: Timer
 @export var enemy_health_bar: ProgressBar
 
@@ -28,8 +28,6 @@ func _ready():
 	level_trigger.add_enemy_to_level(self)
 	level_trigger.area_entered.connect(_on_level_trigger_area_entered)
 	hurt_box.damage_taken.connect(_on_damage_taken)
-	
-	#remove_child(sword_placeholder)
 	
 	health = MAX_HEALTH
 	enemy_health_bar.max_value = MAX_HEALTH
@@ -49,15 +47,15 @@ func _physics_process(_delta: float) -> void:
 			animation_player.play("walk")
 			check_flipping()
 			
-			
-			
 			if distance_to_player >= margin_distance:
 				velocity = direction_to_player * SPEED
-			else:
-				velocity = Vector2.ZERO
+				print("player in distance: ",distance_to_player)
+			#else:
+				#velocity = Vector2.ZERO
 			
 			if distance_to_player <= attack_distance:
-				#print("player in distance",attack_cooldown_timer.is_stopped())
+				check_flipping()
+				print("player in distance: ",distance_to_player)
 				#if attack_cooldown_timer.is_stopped():
 				current_enemy_state = EnemyStates.ATTACK
 				

@@ -2,14 +2,11 @@
 
 [ext_resource type="Script" path="res://Scenes/earth_elemental.gd" id="1_aep0b"]
 [ext_resource type="Texture2D" uid="uid://dr8iw0tyxm8nh" path="res://Sprites/stone_golem_spritesheet.png" id="2_tanno"]
+[ext_resource type="Texture2D" uid="uid://pjgrh7usg1a1" path="res://Scenes/earth attack collider.png" id="4_vdo6k"]
 [ext_resource type="Script" path="res://Scenes/EnemySwordArea2D.gd" id="5_iwdgx"]
 [ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="5_x8rpk"]
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="6_6liub"]
 [ext_resource type="AudioStream" uid="uid://bvepl1nisuljl" path="res://Sounds/attack-earth.wav" id="6_a641n"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v3qe6"]
-radius = 84.45
-height = 194.8
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6gcs"]
 size = Vector2(28, 49.8582)
@@ -59,10 +56,22 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath("SwordArea2D/EarthAttackCollider:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SwordArea2D/CollisionPolygon2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -72,7 +81,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_e75gw"]
 resource_name = "attack"
 length = 1.1
-step = 0.0005
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -109,25 +118,13 @@ tracks/2/keys = {
 "update": 0,
 "values": [24, 30, 31, 31, 36]
 }
-tracks/3/type = "value"
+tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.75, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(1.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -135,13 +132,13 @@ tracks/4/keys = {
 "method": &"on_attack_animation_end"
 }]
 }
-tracks/5/type = "audio"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("AudioStreamAttackPlayer2D")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamAttackPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "clips": [{
 "end_offset": 0.455732,
 "start_offset": 0.497991,
@@ -153,18 +150,42 @@ tracks/5/keys = {
 }],
 "times": PackedFloat32Array(0, 0.569022)
 }
-tracks/5/use_blend = true
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("AudioStreamAttackPlayer2D:volume_db")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/4/use_blend = true
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamAttackPlayer2D:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.568, 0.57, 1.1),
 "transitions": PackedFloat32Array(1, 1.93187, 1, 1),
 "update": 0,
 "values": [0.0, 8.525, 0.0, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SwordArea2D/EarthAttackCollider:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SwordArea2D/CollisionPolygon2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_62y07"]
@@ -210,7 +231,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath("SwordArea2D/CollisionPolygon2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -262,7 +283,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath("SwordArea2D/CollisionPolygon2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -314,7 +335,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SwordArea2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath("SwordArea2D/CollisionPolygon2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -338,11 +359,13 @@ z_index = 2
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_aep0b")
-attack_distance = 35.0
+attack_distance = 15.0
+margin_distance = 35.0
 attack_timer = NodePath("AttackTimer")
 enemy_health_bar = NodePath("HealthBar")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 texture_filter = 1
 position = Vector2(0, -28)
 texture = ExtResource("2_tanno")
@@ -357,13 +380,24 @@ collision_layer = 0
 script = ExtResource("5_iwdgx")
 attack_element = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordArea2D"]
-position = Vector2(3.0926, 29.8162)
-rotation = 0.229319
-shape = SubResource("CapsuleShape2D_v3qe6")
+[node name="EarthAttackCollider" type="Sprite2D" parent="SwordArea2D"]
+visible = false
+modulate = Color(0.968627, 0.278431, 0.278431, 0.25098)
+position = Vector2(-2.03857, 65.8038)
+rotation = 0.141626
+scale = Vector2(2.02271, 2.0227)
+texture = ExtResource("4_vdo6k")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwordArea2D"]
+visible = false
+position = Vector2(-2.03857, 65.8038)
+rotation = 0.141626
+scale = Vector2(2.02271, 2.0227)
+polygon = PackedVector2Array(6, -92.9, 49, -65.1, 74, -24, 74.5, 26, 54.3, 62, -7.18874, 93.4533, -68.2928, 97.0477, -93.4533, 61.1041, -43.1323, -7.18872, -93.4533, -57.5097, -79.0759, -97.0477)
 disabled = true
 
 [node name="HurtBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_x8rpk")
