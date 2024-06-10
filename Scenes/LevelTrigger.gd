@@ -47,7 +47,7 @@ func level_started():
 
 func level_finished():
 	print("colliders asd",gate_2_collider.disabled)
-	Player.player.add_health(1)
+	#Player.player.add_health(1)
 	
 	gate_1.visible = false
 	gate_2.visible = false

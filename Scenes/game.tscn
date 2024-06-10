@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://xg8xhs60r0fg"]
+[gd_scene load_steps=25 format=3 uid="uid://xg8xhs60r0fg"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_fl02j"]
 [ext_resource type="PackedScene" uid="uid://cubnym6hycq0g" path="res://Scenes/player.tscn" id="1_kw5oa"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://c7bma6c20vrys" path="res://Scenes/UI/health_bar.tscn" id="6_dpsnj"]
 [ext_resource type="PackedScene" uid="uid://d1qsfyynlbqto" path="res://Scenes/earth_enemy.tscn" id="7_dpull"]
 [ext_resource type="PackedScene" uid="uid://dmhqwg5u48ief" path="res://Scenes/fire_enemy.tscn" id="8_llbal"]
+[ext_resource type="AudioStream" uid="uid://b5hsfsp0lpx4k" path="res://Sounds/intro.ogg" id="12_6yjbf"]
+[ext_resource type="AudioStream" uid="uid://c7jsmuroinmkx" path="res://Sounds/track.ogg" id="13_dc7iy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td4ok"]
 size = Vector2(29.2571, 144.623)
@@ -1167,6 +1169,163 @@ bg_color = Color(0, 0, 0, 0.407843)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hc75"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
+[sub_resource type="Animation" id="Animation_mdlcx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Player/AudioStreamPlayer:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Player/AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [],
+"times": PackedFloat32Array()
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_5n0bu"]
+resource_name = "first_song"
+length = 8.5075
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Player/AudioStreamPlayer:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player/AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("12_6yjbf")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(8.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_first_song_ended"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_rh041"]
+resource_name = "second_song"
+length = 128.95
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Player/AudioStreamPlayer:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-10.0]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player/AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("13_dc7iy")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_godbf"]
+resource_name = "player_dead"
+length = 128.95
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player/AudioStreamPlayer:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-10.0]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player/AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player/AudioStreamPlayer:stream")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mhoy1"]
+_data = {
+"RESET": SubResource("Animation_mdlcx"),
+"first_song": SubResource("Animation_5n0bu"),
+"player_dead": SubResource("Animation_godbf"),
+"second_song": SubResource("Animation_rh041")
+}
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_fl02j")
 
@@ -1316,6 +1475,10 @@ rotation = 1.57081
 scale = Vector2(0.454545, 1.001)
 skew = -1.51396e-05
 texture = ExtResource("3_i82k3")
+
+[node name="EarthEnemy" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("7_dpull")]
+position = Vector2(1693, -305)
+level_trigger = NodePath("../LevelTrigger")
 
 [node name="IceEnemy5" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("6_4c6jd")]
 position = Vector2(1702, -219)
@@ -2126,6 +2289,9 @@ position = Vector2(819, -218)
 ui_canvas_script = NodePath("../UICanvas")
 health_bar = NodePath("../UICanvas/HealthBar")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="Player"]
+volume_db = -10.0
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ndwro")
 format = 2
@@ -2183,6 +2349,11 @@ offset_bottom = 35.0
 max_value = 3.0
 step = 1.0
 value = 3.0
+
+[node name="GameAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mhoy1")
+}
 
 [connection signal="timeout" from="GameRestartTimer" to="." method="_on_game_restart_timer_timeout"]
 [connection signal="area_entered" from="LevelTrigger" to="LevelTrigger" method="_on_area_entered"]

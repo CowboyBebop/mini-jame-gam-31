@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody2D
 
 signal player_died
+signal player_dying
 
 enum PlayerStates {IDLE,RUN,DASH,ATTACK,DYING,DEAD}
 enum ElementTypes {NONE,ICE,FIRE,EARTH,WIND}
@@ -41,6 +42,10 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 @onready var sword_collider: CollisionPolygon2D = $SwordArea2D/SwordCollider
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @onready var attack_timer: Timer = $AttackTimer
+
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var audio_stream_hurt_player: AudioStreamPlayer2D = $AudioStreamHurtPlayer
+@onready var audio_stream_dash: AudioStreamPlayer2D = $AudioStreamDash
 
 func _ready():
 	player = self
@@ -101,6 +106,8 @@ func _physics_process(_delta):
 		PlayerStates.DASH:
 			
 			if dash_timer.is_stopped():
+				audio_stream_dash.stream = preload("uid://c11u33l7v7wmk")
+				audio_stream_dash.play()
 				start_dash_timer()
 			var dash_velocity:Vector2 = DASH_SPEED * direction
 			velocity = velocity.move_toward(dash_velocity, current_speed)
@@ -130,14 +137,12 @@ func _physics_process(_delta):
 			
 		PlayerStates.DYING:
 			velocity = Vector2.ZERO
+			player_dying.emit()
 			animation_player.play("death")
 			current_player_state = PlayerStates.DEAD
 			
 		PlayerStates.DEAD:
 			pass
-			#add_child(sword_placeholder)
-			#attack_timer.start()
-			#is_sword_exists = true
 	
 
 
@@ -205,6 +210,8 @@ func on_player_damage_taken(damage: int, element:ElementTypes):
 	if not current_element_resistance == element:
 		health -=damage
 		health_bar.value = health
+		audio_stream_hurt_player.stream = preload("uid://df3123yfie12i") #player hurt sfx
+		audio_stream_hurt_player.play()
 		check_health()
 	else:
 		print("damage negated") #add some effect or something to show that damage is negated
