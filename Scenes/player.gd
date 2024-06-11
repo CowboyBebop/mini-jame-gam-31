@@ -27,6 +27,8 @@ var is_inside_slow_area = false
 var current_player_state:PlayerStates = PlayerStates.IDLE
 var current_element_resistance:ElementTypes = ElementTypes.NONE
 
+var player_particle_process_material: ParticleProcessMaterial
+
 @export var dash_timer: Timer
 @export var dash_cooldown_timer: Timer
 @export var sword_area_2d: Area2D
@@ -38,7 +40,10 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 
 @export var ui_canvas_script: CardUICanvas
 @export var health_bar: ProgressBar 
+@export var player_shader: ShaderMaterial
 
+
+@onready var immunity_particles: GPUParticles2D = $ImmunityParticles
 @onready var sword_collider: CollisionPolygon2D = $SwordArea2D/SwordCollider
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @onready var attack_timer: Timer = $AttackTimer
@@ -51,14 +56,18 @@ var current_element_resistance:ElementTypes = ElementTypes.NONE
 
 func _ready():
 	player = self
+	
+	player_shader = player_sprite.material
+	player_particle_process_material = immunity_particles.process_material as ParticleProcessMaterial
+	
 	ui_canvas_script.card_swapped.connect(_on_ui_card_swapped)
-	#ui_canvas_script.card_swapped.connect(_on_card_change_check_slow)
 	player_hurt_box.damage_taken.connect(on_player_damage_taken)
 	player_hurt_box.slow_area_changed.connect(_on_player_slow_area_changed)
 	
 	health = MAX_HEALTH
 	health_bar.value = MAX_HEALTH
-	#remove_child(sword_placeholder)
+	
+	
 	
 
 func _physics_process(_delta):
@@ -70,7 +79,7 @@ func _physics_process(_delta):
 	else:
 		direction = Vector2.ZERO
 	dash_input = Input.is_action_pressed("dash")
-	
+
 	match current_player_state:
 		PlayerStates.IDLE:
 			animation_player.play("idle")
@@ -220,8 +229,23 @@ func on_player_damage_taken(damage_taken: int, element:ElementTypes):
 
 func _on_ui_card_swapped(element_type_int:int):
 	current_element_resistance = element_type_int as ElementTypes
-	print(ElementTypes.keys()[current_element_resistance])
+	#print(ElementTypes.keys()[current_element_resistance])
 	
+	match element_type_int:
+		1:
+			player_shader.set_shader_parameter("outline_color",Color.AQUA)
+			#(player_sprite.material as ParticleProcessMaterial).color = Color.AQUA
+			player_particle_process_material.color = Color.AQUA
+		2:
+			player_shader.set_shader_parameter("outline_color",Color.ORANGE_RED)
+			player_particle_process_material.color = Color.ORANGE_RED
+		3:
+			player_shader.set_shader_parameter("outline_color",Color.DARK_ORANGE)
+			player_particle_process_material.color = Color.DARK_ORANGE
+		4:
+			player_shader.set_shader_parameter("outline_color",Color.GREEN_YELLOW)
+			player_particle_process_material.color = Color.GREEN_YELLOW
+
 func _on_player_slow_area_changed(changed_to:bool):
 	is_inside_slow_area = changed_to
 
@@ -232,14 +256,6 @@ func calculate_slow_effect():
 	else:
 		current_speed = NORMAL_SPEED
 
-
-#func _on_card_change_check_slow(element_type_int:int):
-	#print("check")
-	##if current_element_resistance == ElementTypes.ICE:
-		##current_speed = NORMAL_SPEED
-	##else:
-		##current_speed = SLOW_SPEED
-		##
 func add_health(heal:int):
 	health += heal
 	health_bar.value = health
