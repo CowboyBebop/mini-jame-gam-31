@@ -23,6 +23,7 @@ var direction: Vector2 = Vector2.ZERO
 var is_dashing: bool = false
 var is_sword_exists: bool = false
 var is_inside_slow_area = false
+var last_direction
 
 var current_player_state:PlayerStates = PlayerStates.IDLE
 var current_element_resistance:ElementTypes = ElementTypes.NONE
@@ -185,6 +186,12 @@ func toggle_dash_particles(switch_to:bool):
 			dash_particles_left.emitting = true
 		elif direction.x > 0.6:
 			dash_particles_right.emitting = true
+		elif direction.y > 0.6 or direction.y < -0.6:
+			if is_flipped:
+				dash_particles_left.emitting = true
+			else:
+				dash_particles_right.emitting = true
+				
 
 func check_flipping():
 	#flip to left + flip to right respectively
