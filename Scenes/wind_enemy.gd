@@ -10,6 +10,7 @@ var health:float = 0
 var current_enemy_state = EnemyStates.IDLE
 var is_flipped: bool = false
 var is_on_cooldown: bool = false
+var is_colliding_with_wall: bool = false
 var direction_to_player: Vector2 = Vector2.ZERO
 var distance_to_player: float = 0
 
@@ -52,22 +53,17 @@ func _physics_process(_delta: float) -> void:
 		EnemyStates.CHARGE:
 			check_flipping()
 			animation_player.play("charge")
-			#velocity = direction_to_player * SPEED
-			#if distance_to_player <= attack_distance:
-				#current_enemy_state = EnemyStates.ATTACK
-				
+			
 		EnemyStates.DASH:
 			check_flipping()
 			animation_player.play("dash")
 			
 			var distance_to_dash_target:float = (position_to_dash_to - global_position).length()
-			#velocity = velocity.move_toward(velocity_to_move_to, 100)
 			
-				
-			#print("velocity: ", velocity)
-			
-			#print("distance_to_dash_target: ", distance_to_dash_target)
+			print("distance_to_dash_target: ", distance_to_dash_target)
+			print("colliding?", get_slide_collision_count() > 0)
 			if(distance_to_dash_target < 100):
+				
 				velocity = Vector2.ZERO
 				global_position = global_position.move_toward(position_to_dash_to, distance_to_dash_target/8)
 				#print("distance_to_dash_target: ", distance_to_dash_target)
@@ -76,21 +72,11 @@ func _physics_process(_delta: float) -> void:
 					current_enemy_state = EnemyStates.CHARGE
 			else:
 				velocity = (position_to_dash_to - global_position).normalized() * DASH_SPEED
-				
-			#velocity = velocity.move_toward(DASH_SPEED * direction_to_player, 100)
-			
-			#velocity = Vector2.ZERO
-			#
-			#if not is_on_cooldown:
-				#shoot_projectile()
-				#attack_timer.start()
-				#is_on_cooldown = true
-				#
-			#if distance_to_player > attack_distance:
-				#current_enemy_state = EnemyStates.TRIGGERED
-			
+				print("velocity: ", velocity.length())
+				#if velocity.length() < 1:
+					#velocity = Vector2.ZERO
+					#current_enemy_state = EnemyStates.CHARGE
 	
-	#print(distance_to_player, attack_distance, distance_to_player < attack_distance)
 	
 	move_and_slide()
 
@@ -122,7 +108,6 @@ func _on_damage_taken(damage:int) -> void:
 	
 func check_health():
 	if health <= 0:
-		# do death anim here
 		#animation_player.play("death")
 		level_trigger.remove_enemy_from_level(self)
 		queue_free()
@@ -136,3 +121,14 @@ func dash_start():
 	current_enemy_state = EnemyStates.DASH
 
 
+
+
+
+func _on_collider_area_2d_body_entered(body: Node2D) -> void:
+	velocity = Vector2.ZERO
+	current_enemy_state = EnemyStates.CHARGE
+	#is_colliding_with_wall = true
+
+
+func _on_collider_area_2d_body_exited(body: Node2D) -> void:
+	is_colliding_with_wall = false

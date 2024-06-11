@@ -49,14 +49,9 @@ func _physics_process(_delta: float) -> void:
 			
 			if distance_to_player >= margin_distance:
 				velocity = direction_to_player * SPEED
-				print("player in distance: ",distance_to_player)
-			#else:
-				#velocity = Vector2.ZERO
 			
 			if distance_to_player <= attack_distance:
 				check_flipping()
-				print("player in distance: ",distance_to_player)
-				#if attack_cooldown_timer.is_stopped():
 				current_enemy_state = EnemyStates.ATTACK
 				
 		EnemyStates.ATTACK:
