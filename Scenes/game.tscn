@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://xg8xhs60r0fg"]
+[gd_scene load_steps=26 format=3 uid="uid://xg8xhs60r0fg"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_fl02j"]
 [ext_resource type="PackedScene" uid="uid://cubnym6hycq0g" path="res://Scenes/player.tscn" id="1_kw5oa"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dmhqwg5u48ief" path="res://Scenes/fire_enemy.tscn" id="8_llbal"]
 [ext_resource type="AudioStream" uid="uid://b5hsfsp0lpx4k" path="res://Sounds/intro.ogg" id="12_6yjbf"]
 [ext_resource type="AudioStream" uid="uid://c7jsmuroinmkx" path="res://Sounds/track.ogg" id="13_dc7iy"]
+[ext_resource type="PackedScene" uid="uid://dw4jkd1byi0hb" path="res://Scenes/particle_preload.tscn" id="14_jh2ld"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td4ok"]
 size = Vector2(29.2571, 144.623)
@@ -1614,6 +1615,10 @@ position = Vector2(1693, -305)
 margin_distance = 15.0
 level_trigger = NodePath("../LevelTrigger")
 
+[node name="WindEnemy6" parent="." node_paths=PackedStringArray("level_trigger") instance=ExtResource("5_sq1vi")]
+position = Vector2(1671, -123)
+level_trigger = NodePath("../LevelTrigger")
+
 [node name="LevelTrigger2" type="Area2D" parent="." node_paths=PackedStringArray("gate_1", "gate_2", "gate_1_collider", "gate_2_collider")]
 position = Vector2(2007, -906)
 scale = Vector2(1.09375, 2.40625)
@@ -1768,8 +1773,8 @@ position = Vector2(3100, -897)
 scale = Vector2(1.09375, 2.40625)
 collision_layer = 8
 script = ExtResource("2_owia3")
-gate_1 = NodePath("../LevelTrigger/Gate1")
-gate_2 = NodePath("../LevelTrigger/Gate2")
+gate_1 = NodePath("Gate1")
+gate_2 = NodePath("Gate2")
 gate_1_collider = NodePath("../LevelTrigger/Gate1/CollisionShape2D")
 gate_2_collider = NodePath("../LevelTrigger/Gate2/CollisionShape2D")
 
@@ -1921,8 +1926,8 @@ position = Vector2(3100, -897)
 scale = Vector2(1.09375, 2.40625)
 collision_layer = 8
 script = ExtResource("2_owia3")
-gate_1 = NodePath("../LevelTrigger/Gate1")
-gate_2 = NodePath("../LevelTrigger/Gate2")
+gate_1 = NodePath("Gate1")
+gate_2 = NodePath("Gate2")
 gate_1_collider = NodePath("../LevelTrigger/Gate1/CollisionShape2D")
 gate_2_collider = NodePath("../LevelTrigger/Gate2/CollisionShape2D")
 
@@ -2079,8 +2084,8 @@ position = Vector2(3100, -897)
 scale = Vector2(1.09375, 2.40625)
 collision_layer = 8
 script = ExtResource("2_owia3")
-gate_1 = NodePath("../LevelTrigger/Gate1")
-gate_2 = NodePath("../LevelTrigger/Gate2")
+gate_1 = NodePath("Gate1")
+gate_2 = NodePath("Gate2")
 gate_1_collider = NodePath("../LevelTrigger/Gate1/CollisionShape2D")
 gate_2_collider = NodePath("../LevelTrigger/Gate2/CollisionShape2D")
 
@@ -2236,8 +2241,8 @@ position = Vector2(3100, -897)
 scale = Vector2(1.09375, 2.40625)
 collision_layer = 8
 script = ExtResource("2_owia3")
-gate_1 = NodePath("../LevelTrigger/Gate1")
-gate_2 = NodePath("../LevelTrigger/Gate2")
+gate_1 = NodePath("Gate1")
+gate_2 = NodePath("Gate2")
 gate_1_collider = NodePath("../LevelTrigger/Gate1/CollisionShape2D")
 gate_2_collider = NodePath("../LevelTrigger/Gate2/CollisionShape2D")
 
@@ -2487,6 +2492,9 @@ value = 3.0
 libraries = {
 "": SubResource("AnimationLibrary_mhoy1")
 }
+
+[node name="particle preload" parent="." instance=ExtResource("14_jh2ld")]
+position = Vector2(296, -397)
 
 [connection signal="timeout" from="GameRestartTimer" to="." method="_on_game_restart_timer_timeout"]
 [connection signal="area_entered" from="LevelTrigger" to="LevelTrigger" method="_on_area_entered"]

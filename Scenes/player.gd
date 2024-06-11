@@ -195,7 +195,6 @@ func _on_attack_timer_timeout() -> void:
 	pass # Replace with function body.
 
 
-
 func _on_sword_area_2d_area_entered(area: Area2D) -> void:
 	print("colliding", sword_collider, sword_collider.disabled)
 	sword_collider.set_deferred("disabled", true)
@@ -269,3 +268,7 @@ func play_attack_sound():
 		4:
 			audio_stream_attack.stream = preload("uid://ycuirx0btw6r")
 			audio_stream_attack.play()
+
+
+func _on_sword_area_2d_tree_exited() -> void:
+	print("exited")

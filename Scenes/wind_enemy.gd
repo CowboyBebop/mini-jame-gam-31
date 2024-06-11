@@ -20,8 +20,8 @@ var direction_to_dash: Vector2 = Vector2.ZERO
 
 @export var attack_distance:float
 @export var attack_timer: Timer
-@export var level_trigger: LevelTrigger
 @export var enemy_health_bar: ProgressBar
+@export var level_trigger: LevelTrigger
 
 
 @onready var hurt_box: HurtBox = $HurtBox

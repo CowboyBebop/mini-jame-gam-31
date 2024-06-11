@@ -17,20 +17,20 @@ particles_anim_loop = false
 _data = [Vector2(0, 1), 0.0, 0.194359, 0, 0, Vector2(1, 0), -2.05987, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_x0ah6"]
+[sub_resource type="CurveTexture" id="CurveTexture_enl0y"]
 curve = SubResource("Curve_yxvto")
 
 [sub_resource type="Gradient" id="Gradient_tftsu"]
 colors = PackedColorArray(3.56168e-06, 0.631207, 0.779492, 1, 0.815279, 0.887635, 0.991975, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_wut6u"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_15wog"]
 gradient = SubResource("Gradient_tftsu")
 
 [sub_resource type="Curve" id="Curve_5hwav"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.68357), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_g0ga7"]
+[sub_resource type="CurveTexture" id="CurveTexture_hxnnv"]
 curve = SubResource("Curve_5hwav")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvi28"]
@@ -45,9 +45,9 @@ radial_velocity_max = 0.5
 gravity = Vector3(0, -1.5, 0)
 scale_min = 2.0
 scale_max = 2.0
-scale_curve = SubResource("CurveTexture_g0ga7")
-color_ramp = SubResource("GradientTexture1D_wut6u")
-alpha_curve = SubResource("CurveTexture_x0ah6")
+scale_curve = SubResource("CurveTexture_hxnnv")
+color_ramp = SubResource("GradientTexture1D_15wog")
+alpha_curve = SubResource("CurveTexture_enl0y")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fp6lg"]
 radius = 6.0

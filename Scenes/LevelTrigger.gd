@@ -14,6 +14,7 @@ var level_enemies: Array[Node2D]
 var has_started_level:bool = false
 
 func _ready() -> void:
+	print(self)
 	pass
 
 func add_enemy_to_level(enemy:Node2D):

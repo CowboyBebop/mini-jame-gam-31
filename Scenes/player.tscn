@@ -19,7 +19,7 @@ shader_parameter/modulate = Color(1, 1, 1, 1)
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_rfus2"]
+[sub_resource type="CurveTexture" id="CurveTexture_f7k8t"]
 curve = SubResource("Curve_spu1l")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_25ayd"]
@@ -28,7 +28,7 @@ initial_velocity_min = 16.65
 initial_velocity_max = 16.65
 gravity = Vector3(0, 0, 0)
 color = Color(0.808998, 0.808998, 0.808998, 1)
-alpha_curve = SubResource("CurveTexture_rfus2")
+alpha_curve = SubResource("CurveTexture_f7k8t")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_irpos"]
 radius = 2.5
@@ -594,6 +594,7 @@ volume_db = -12.0
 max_polyphony = 2
 
 [connection signal="area_entered" from="SwordArea2D" to="." method="_on_sword_area_2d_area_entered"]
+[connection signal="tree_exited" from="SwordArea2D" to="." method="_on_sword_area_2d_tree_exited"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
