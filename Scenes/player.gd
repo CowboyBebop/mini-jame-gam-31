@@ -13,7 +13,6 @@ const NORMAL_SPEED:float = 140
 const DASH_SPEED:float = 400
 const MAX_HEALTH:float = 3
 
-
 var damage:int = 1
 var current_speed :float = 140
 var health:float = 3
@@ -23,7 +22,7 @@ var direction: Vector2 = Vector2.ZERO
 var is_dashing: bool = false
 var is_sword_exists: bool = false
 var is_inside_slow_area = false
-var last_direction
+var last_direction: Vector2 = Vector2.ZERO
 
 var current_player_state:PlayerStates = PlayerStates.IDLE
 var current_element_resistance:ElementTypes = ElementTypes.NONE
@@ -43,11 +42,12 @@ var player_particle_process_material: ParticleProcessMaterial
 @export var health_bar: ProgressBar 
 @export var player_shader: ShaderMaterial
 
-
+@onready var hurt_box_collider_2d: CollisionShape2D = $PlayerHurtBox/HurtBoxCollider2D
 @onready var immunity_particles: GPUParticles2D = $ImmunityParticles
 @onready var sword_collider: CollisionPolygon2D = $SwordArea2D/SwordCollider
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @onready var attack_timer: Timer = $AttackTimer
+@onready var dash_invincibility_timer: Timer = $DashInvincibilityTimer
 
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreams/AudioStreamPlayer2D
 @onready var audio_stream_hurt_player: AudioStreamPlayer2D = $AudioStreams/AudioStreamHurtPlayer
@@ -67,18 +67,16 @@ func _ready():
 	
 	health = MAX_HEALTH
 	health_bar.value = MAX_HEALTH
-	
-	
-	
 
 func _physics_process(_delta):
 	calculate_slow_effect()
 	
-	
 	if !is_ignoring_input:
 		direction = Input.get_vector("move_left", "move_right","move_up","move_down")
+		last_direction = direction
 	else:
 		direction = Vector2.ZERO
+		
 	dash_input = Input.is_action_pressed("dash")
 
 	match current_player_state:
@@ -88,7 +86,6 @@ func _physics_process(_delta):
 			velocity = velocity.move_toward(Vector2.ZERO, current_speed)
 			if Input.is_action_just_pressed("attack"):
 				current_player_state = PlayerStates.ATTACK
-				
 				
 			if direction:
 				check_flipping()
@@ -106,7 +103,7 @@ func _physics_process(_delta):
 				velocity = Vector2.ZERO
 				current_player_state = PlayerStates.ATTACK
 			else:
-				velocity = direction * current_speed
+					velocity = direction * current_speed
 			
 			if direction:
 				if dash_input and dash_cooldown_timer.is_stopped():
@@ -120,19 +117,23 @@ func _physics_process(_delta):
 			if dash_timer.is_stopped():
 				audio_stream_dash.stream = preload("uid://c11u33l7v7wmk")
 				audio_stream_dash.play()
-				start_dash_timer()
-			var dash_velocity:Vector2 = DASH_SPEED * direction
+				toggle_dash_particles(true)
+				dash_timer.start()
+				is_ignoring_input = true;
+				if dash_invincibility_timer.is_stopped():
+					dash_invincibility_timer.start()
+					hurt_box_collider_2d.disabled = true
+				
+			var dash_velocity:Vector2 = DASH_SPEED * last_direction
+			print(DASH_SPEED," ",last_direction, " ", dash_velocity)
 			velocity = velocity.move_toward(dash_velocity, current_speed)
 			
 			move_and_slide()
 			
 		PlayerStates.ATTACK:
-			print(" velocity ", velocity)
+			velocity = last_direction * 15
 			animation_player.play("attack")
-			
 			check_flipping()
-			
-			
 			
 			print("direction: ", direction, direction == Vector2(0,0), 
 			" ignoring input? ", is_ignoring_input,
@@ -158,16 +159,10 @@ func _physics_process(_delta):
 	
 
 
-func start_dash_timer():
-	print("dash timer started")
-	toggle_dash_particles(true)
-	
-	dash_timer.start()
-
-
 func _on_dash_timer_timeout() -> void:
 	print("dash timer finished")
 	toggle_dash_particles(false)
+	is_ignoring_input = false;
 	
 	dash_cooldown_timer.start()
 	if direction:
@@ -202,9 +197,6 @@ func check_flipping():
 		scale.x = -1
 		is_flipped = false
 
-func _on_dash_cooldown_timer_timeout():
-	pass # Replace with function body.
-
 func _on_attack_timer_timeout() -> void:
 	is_sword_exists = false
 	sword_collider.disabled = false
@@ -236,7 +228,6 @@ func on_player_damage_taken(damage_taken: int, element:ElementTypes):
 
 func _on_ui_card_swapped(element_type_int:int):
 	current_element_resistance = element_type_int as ElementTypes
-	#print(ElementTypes.keys()[current_element_resistance])
 	
 	match element_type_int:
 		1:
@@ -292,6 +283,5 @@ func play_attack_sound():
 			audio_stream_attack.stream = preload("uid://ycuirx0btw6r")
 			audio_stream_attack.play()
 
-
-func _on_sword_area_2d_tree_exited() -> void:
-	print("exited")
+func _on_dash_invincibility_timer_timeout() -> void:
+	hurt_box_collider_2d.disabled = false
