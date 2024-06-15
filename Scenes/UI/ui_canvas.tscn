@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bl5yvl48s5h3o"]
+[gd_scene load_steps=12 format=3 uid="uid://bl5yvl48s5h3o"]
 
 [ext_resource type="Script" path="res://Scenes/UI/card_ui_canvas.gd" id="1_xd1q2"]
 [ext_resource type="Texture2D" uid="uid://blmeswgv8ie03" path="res://Sprites/Placeholders/Playing Cards/card-back1.png" id="2_ahas1"]
+[ext_resource type="Texture2D" uid="uid://r0onhjl4o0wb" path="res://Sprites/Placeholders/Circle/Circle-0001.png" id="3_7ya60"]
 [ext_resource type="Texture2D" uid="uid://cqn21od6fytre" path="res://Sprites/Placeholders/Playing Cards/card-back2.png" id="3_ocnev"]
 [ext_resource type="Texture2D" uid="uid://b4yknrt78518r" path="res://Sprites/Placeholders/Playing Cards/card-back3.png" id="4_dxbqt"]
 [ext_resource type="Texture2D" uid="uid://dsboet4t3sclr" path="res://Sprites/Placeholders/Playing Cards/card-back4.png" id="5_140o6"]
@@ -30,9 +31,14 @@ blend_mode = 1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_87w2f"]
 
-[node name="UICanvas" type="CanvasLayer" node_paths=PackedStringArray("animation_player")]
+[node name="UICanvas" type="CanvasLayer" node_paths=PackedStringArray("animation_player", "card_swap_cooldown_timer", "texture_progress_bar1", "texture_progress_bar2", "texture_progress_bar3", "texture_progress_bar4")]
 script = ExtResource("1_xd1q2")
 animation_player = NodePath("AnimationPlayer")
+card_swap_cooldown_timer = NodePath("CardSwapCooldownTimer")
+texture_progress_bar1 = NodePath("Control/Card1TextureRect/TextureProgressBar")
+texture_progress_bar2 = NodePath("Control/Card2TextureRect/TextureProgressBar2")
+texture_progress_bar3 = NodePath("Control/Card3TextureRect/TextureProgressBar3")
+texture_progress_bar4 = NodePath("Control/Card4TextureRect/TextureProgressBar4")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -95,7 +101,7 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="Card1TextureRect" type="TextureRect" parent="Control"]
-modulate = Color(1, 1, 1, 0.301961)
+self_modulate = Color(1, 1, 1, 0.301961)
 layout_mode = 2
 offset_left = -222.0
 offset_top = -100.0
@@ -104,8 +110,22 @@ offset_bottom = 44.0
 texture = ExtResource("2_ahas1")
 stretch_mode = 2
 
-[node name="Card2TextureRect" type="TextureRect" parent="Control"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Control/Card1TextureRect"]
 modulate = Color(1, 1, 1, 0.301961)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 28.0
+offset_top = -52.0
+offset_right = 60.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 40.0
+fill_mode = 4
+texture_progress = ExtResource("3_7ya60")
+
+[node name="Card2TextureRect" type="TextureRect" parent="Control"]
+self_modulate = Color(1, 1, 1, 0.301961)
 material = SubResource("CanvasItemMaterial_5rpu5")
 layout_mode = 2
 offset_left = -106.0
@@ -115,8 +135,19 @@ offset_bottom = 44.0
 texture = ExtResource("3_ocnev")
 stretch_mode = 2
 
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="Control/Card2TextureRect"]
+modulate = Color(1, 1, 1, 0.301961)
+layout_mode = 0
+offset_left = 28.0
+offset_top = -52.0
+offset_right = 60.0
+offset_bottom = -20.0
+value = 30.0
+fill_mode = 4
+texture_progress = ExtResource("3_7ya60")
+
 [node name="Card3TextureRect" type="TextureRect" parent="Control"]
-modulate = Color(0.870588, 0.427451, 0.14902, 0.301961)
+self_modulate = Color(0.870588, 0.427451, 0.14902, 0.301961)
 material = SubResource("CanvasItemMaterial_hyd25")
 layout_mode = 2
 offset_left = 10.0
@@ -126,8 +157,19 @@ offset_bottom = 44.0
 texture = ExtResource("5_140o6")
 stretch_mode = 2
 
+[node name="TextureProgressBar3" type="TextureProgressBar" parent="Control/Card3TextureRect"]
+modulate = Color(1, 1, 1, 0.301961)
+layout_mode = 0
+offset_left = 28.0
+offset_top = -52.0
+offset_right = 60.0
+offset_bottom = -20.0
+value = 30.0
+fill_mode = 4
+texture_progress = ExtResource("3_7ya60")
+
 [node name="Card4TextureRect" type="TextureRect" parent="Control"]
-modulate = Color(1, 0.984314, 0, 0.301961)
+self_modulate = Color(1, 0.984314, 0, 0.301961)
 layout_mode = 2
 offset_left = 126.0
 offset_top = -100.0
@@ -136,6 +178,17 @@ offset_bottom = 44.0
 texture = ExtResource("4_dxbqt")
 stretch_mode = 2
 
+[node name="TextureProgressBar4" type="TextureProgressBar" parent="Control/Card4TextureRect"]
+modulate = Color(1, 1, 1, 0.301961)
+layout_mode = 0
+offset_left = 28.0
+offset_top = -52.0
+offset_right = 60.0
+offset_bottom = -20.0
+value = 30.0
+fill_mode = 4
+texture_progress = ExtResource("3_7ya60")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": ExtResource("6_6mq1n"),
@@ -143,3 +196,8 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="CardSwapCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="CardSwapCooldownTimer" to="." method="_on_card_swap_cooldown_timer_timeout"]
