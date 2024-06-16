@@ -12,8 +12,11 @@ signal card_swapped(element_type)
 @export var texture_progress_bar3: TextureProgressBar 
 @export var texture_progress_bar4: TextureProgressBar 
 
+
+
 var current_card_selected = CardSelected.NONE
 var card_entered:bool = false
+var is_input_ignored:bool = false
 var num_key_pressed:int = -1
 
 static var card_ui_cancas:CardUICanvas
@@ -31,7 +34,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	#return any number key pressed between 1-4 but not anything else
-	num_key_pressed = get_card_input()
+	if !is_input_ignored:	
+		num_key_pressed = get_card_input()
 	
 	texture_progress_bar1.value = card_swap_cooldown_timer.time_left
 	texture_progress_bar2.value = card_swap_cooldown_timer.time_left
@@ -41,7 +45,6 @@ func _process(_delta: float) -> void:
 	
 	match current_card_selected:
 		CardSelected.NONE:
-			
 			current_card_selected = num_key_pressed as Player.ElementTypes
 			
 		CardSelected.CARD1:
@@ -52,6 +55,12 @@ func _process(_delta: float) -> void:
 				card_swap_cooldown_timer.start()
 				print("timer started")
 				card_entered = true
+			
+			if !card_swap_cooldown_timer.is_stopped():
+				is_input_ignored = true
+			else:
+				is_input_ignored = false
+			
 			
 			if num_key_pressed != current_card_selected:
 				if card_swap_cooldown_timer.is_stopped():
@@ -64,7 +73,13 @@ func _process(_delta: float) -> void:
 				card_swapped.emit(current_card_selected)
 				animation_player.play("card_2_enter")
 				card_swap_cooldown_timer.start()
+				is_input_ignored = true
 				card_entered = true
+			
+			if !card_swap_cooldown_timer.is_stopped():
+				is_input_ignored = true
+			else:
+				is_input_ignored = false
 			
 			if num_key_pressed != current_card_selected:
 				if card_swap_cooldown_timer.is_stopped():
@@ -77,7 +92,13 @@ func _process(_delta: float) -> void:
 				card_swapped.emit(current_card_selected)
 				animation_player.play("card_3_enter")
 				card_swap_cooldown_timer.start()
+				is_input_ignored = true
 				card_entered = true
+			
+			if !card_swap_cooldown_timer.is_stopped():
+				is_input_ignored = true
+			else:
+				is_input_ignored = false
 			
 			if num_key_pressed != current_card_selected:
 				if card_swap_cooldown_timer.is_stopped():
@@ -90,7 +111,13 @@ func _process(_delta: float) -> void:
 				card_swapped.emit(current_card_selected)
 				animation_player.play("card_4_enter")
 				card_swap_cooldown_timer.start()
+				is_input_ignored = true
 				card_entered = true
+			
+			if !card_swap_cooldown_timer.is_stopped():
+				is_input_ignored = true
+			else:
+				is_input_ignored = false
 			
 			if num_key_pressed != current_card_selected:
 				if card_swap_cooldown_timer.is_stopped():
@@ -135,4 +162,5 @@ func change_selected_card():
 
 
 func _on_card_swap_cooldown_timer_timeout() -> void:
+	is_input_ignored = false
 	print("ended")

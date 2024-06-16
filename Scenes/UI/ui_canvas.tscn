@@ -200,4 +200,12 @@ libraries = {
 [node name="CardSwapCooldownTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Card1ActiveTimer" type="Timer" parent="."]
+
+[node name="Card2ActiveTimer" type="Timer" parent="."]
+
+[node name="Card3ActiveTimer" type="Timer" parent="."]
+
+[node name="Card4ActiveTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="CardSwapCooldownTimer" to="." method="_on_card_swap_cooldown_timer_timeout"]
