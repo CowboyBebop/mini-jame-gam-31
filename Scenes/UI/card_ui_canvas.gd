@@ -65,7 +65,7 @@ func _process(_delta: float) -> void:
 			if num_key_pressed != current_card_selected:
 				if card_swap_cooldown_timer.is_stopped():
 					animation_player.play("card_1_exit")
-				
+			
 			
 		CardSelected.CARD2:
 			
