@@ -7,7 +7,6 @@ extends Node2D
 @onready var card_audio_stream_player: AudioStreamPlayer2D = $Player/CardAudioStreamPlayer
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	CardUICanvas.card_ui_cancas.card_swapped.connect(_on_card_swapped)

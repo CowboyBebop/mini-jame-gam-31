@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bl5yvl48s5h3o"]
+[gd_scene load_steps=13 format=3 uid="uid://bl5yvl48s5h3o"]
 
 [ext_resource type="Script" path="res://Scenes/UI/card_ui_canvas.gd" id="1_xd1q2"]
 [ext_resource type="Texture2D" uid="uid://blmeswgv8ie03" path="res://Sprites/Placeholders/Playing Cards/card-back1.png" id="2_ahas1"]
 [ext_resource type="Texture2D" uid="uid://r0onhjl4o0wb" path="res://Sprites/Placeholders/Circle/Circle-0001.png" id="3_7ya60"]
+[ext_resource type="Texture2D" uid="uid://dmu5nmltjomhs" path="res://Scenes/Elements.png" id="3_dbb7t"]
 [ext_resource type="Texture2D" uid="uid://cqn21od6fytre" path="res://Sprites/Placeholders/Playing Cards/card-back2.png" id="3_ocnev"]
 [ext_resource type="Texture2D" uid="uid://b4yknrt78518r" path="res://Sprites/Placeholders/Playing Cards/card-back3.png" id="4_dxbqt"]
 [ext_resource type="Texture2D" uid="uid://dsboet4t3sclr" path="res://Sprites/Placeholders/Playing Cards/card-back4.png" id="5_140o6"]
@@ -110,6 +111,15 @@ offset_bottom = 44.0
 texture = ExtResource("2_ahas1")
 stretch_mode = 2
 
+[node name="IceElementSprite" type="Sprite2D" parent="Control/Card1TextureRect"]
+self_modulate = Color(0.584314, 0.913725, 1, 0.509804)
+position = Vector2(48, 40)
+scale = Vector2(2, 2)
+texture = ExtResource("3_dbb7t")
+hframes = 16
+vframes = 8
+frame = 54
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Control/Card1TextureRect"]
 modulate = Color(1, 1, 1, 0.301961)
 layout_mode = 1
@@ -146,6 +156,15 @@ value = 30.0
 fill_mode = 4
 texture_progress = ExtResource("3_7ya60")
 
+[node name="FireElementSprite" type="Sprite2D" parent="Control/Card2TextureRect"]
+self_modulate = Color(0.819608, 0.619608, 0.529412, 0.509804)
+position = Vector2(48, 40)
+scale = Vector2(2, 2)
+texture = ExtResource("3_dbb7t")
+hframes = 16
+vframes = 8
+frame = 48
+
 [node name="Card3TextureRect" type="TextureRect" parent="Control"]
 self_modulate = Color(0.870588, 0.427451, 0.14902, 0.301961)
 material = SubResource("CanvasItemMaterial_hyd25")
@@ -168,6 +187,15 @@ value = 30.0
 fill_mode = 4
 texture_progress = ExtResource("3_7ya60")
 
+[node name="EarthElementSprite" type="Sprite2D" parent="Control/Card3TextureRect"]
+self_modulate = Color(1, 0.803922, 0.678431, 0.509804)
+position = Vector2(48, 40)
+scale = Vector2(2, 2)
+texture = ExtResource("3_dbb7t")
+hframes = 16
+vframes = 8
+frame = 40
+
 [node name="Card4TextureRect" type="TextureRect" parent="Control"]
 self_modulate = Color(1, 0.984314, 0, 0.301961)
 layout_mode = 2
@@ -188,6 +216,15 @@ offset_bottom = -20.0
 value = 30.0
 fill_mode = 4
 texture_progress = ExtResource("3_7ya60")
+
+[node name="WindElementSprite" type="Sprite2D" parent="Control/Card4TextureRect"]
+self_modulate = Color(0.890196, 1, 0.635294, 0.509804)
+position = Vector2(48, 40)
+scale = Vector2(2, 2)
+texture = ExtResource("3_dbb7t")
+hframes = 16
+vframes = 8
+frame = 34
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
