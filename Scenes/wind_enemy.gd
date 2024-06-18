@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 enum EnemyStates {IDLE,CHARGE,DASH}
 
+signal enemy_died
+
 const SPEED = 40
 const DASH_SPEED = 500
 const MAX_HEALTH:float = 4.0
@@ -32,8 +34,9 @@ var direction_to_dash: Vector2 = Vector2.ZERO
 
 
 func _ready():
-	level_trigger.add_enemy_to_level(self)
-	level_trigger.area_entered.connect(_on_level_trigger_area_entered)
+	if level_trigger:
+		level_trigger.add_enemy_to_level(self)
+		level_trigger.area_entered.connect(_on_level_trigger_area_entered)
 	hurt_box.damage_taken.connect(_on_damage_taken)
 	health = MAX_HEALTH
 	enemy_health_bar.max_value = MAX_HEALTH
@@ -83,6 +86,9 @@ func _physics_process(_delta: float) -> void:
 func _on_level_trigger_area_entered(_body:Node2D):
 	current_enemy_state = EnemyStates.CHARGE
 
+func trigger_enemy():
+	current_enemy_state = EnemyStates.CHARGE
+
 func check_flipping():
 	if direction_to_player.x < -0.6 and  !is_flipped:
 		scale.x = -1
@@ -109,7 +115,9 @@ func _on_damage_taken(damage:int) -> void:
 func check_health():
 	if health <= 0:
 		#animation_player.play("death")
-		level_trigger.remove_enemy_from_level(self)
+		if level_trigger:
+			level_trigger.remove_enemy_from_level(self)
+		enemy_died.emit()
 		queue_free()
 	
 	
