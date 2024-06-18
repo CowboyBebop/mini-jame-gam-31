@@ -63,8 +63,6 @@ func _physics_process(_delta: float) -> void:
 			
 			var distance_to_dash_target:float = (position_to_dash_to - global_position).length()
 			
-			print("distance_to_dash_target: ", distance_to_dash_target)
-			print("colliding?", get_slide_collision_count() > 0)
 			if(distance_to_dash_target < 100):
 				
 				velocity = Vector2.ZERO
@@ -110,7 +108,6 @@ func _on_damage_taken(damage:int) -> void:
 	health -= damage
 	enemy_health_bar.value = health
 	check_health()
-	print("damage taken: ", health)
 	
 func check_health():
 	if health <= 0:
@@ -125,7 +122,6 @@ func dash_start():
 	starting_dash_pos = global_position
 	direction_to_dash = starting_dash_pos.direction_to(Player.player.global_position)
 	position_to_dash_to = Player.player.global_position + direction_to_dash * (100) # a slight offset beyond player pos
-	#print("Player.player.global_position: ", Player.player.global_position, "position_to_dash_to: ", position_to_dash_to)
 	current_enemy_state = EnemyStates.DASH
 
 

@@ -125,7 +125,7 @@ func _physics_process(_delta):
 					hurt_box_collider_2d.disabled = true
 				
 			var dash_velocity:Vector2 = DASH_SPEED * last_direction
-			print(DASH_SPEED," ",last_direction, " ", dash_velocity)
+			
 			velocity = velocity.move_toward(dash_velocity, current_speed)
 			
 			move_and_slide()
@@ -135,13 +135,12 @@ func _physics_process(_delta):
 			animation_player.play("attack")
 			check_flipping()
 			
-			print("direction: ", direction, direction == Vector2(0,0), 
-			" ignoring input? ", is_ignoring_input,
-			" velocity ", velocity)
+			# print("direction: ", direction, direction == Vector2(0,0), 
+			# " ignoring input? ", is_ignoring_input,
+			# " velocity ", velocity)
 			
 			if direction:
 				if dash_input and dash_cooldown_timer.is_stopped():
-					print("passed")
 					current_player_state = PlayerStates.DASH
 				else:
 					current_player_state = PlayerStates.RUN
@@ -160,7 +159,6 @@ func _physics_process(_delta):
 
 
 func _on_dash_timer_timeout() -> void:
-	print("dash timer finished")
 	toggle_dash_particles(false)
 	is_ignoring_input = false;
 	
@@ -204,7 +202,7 @@ func _on_attack_timer_timeout() -> void:
 
 
 func _on_sword_area_2d_area_entered(area: Area2D) -> void:
-	print("colliding", sword_collider, sword_collider.disabled)
+	# print("colliding", sword_collider, sword_collider.disabled)
 	sword_collider.set_deferred("disabled", true)
 	
 	#word_collider.disabled = true
@@ -215,7 +213,7 @@ func _on_attack_animation_end():
 	current_player_state = PlayerStates.IDLE
 	
 func on_player_damage_taken(damage_taken: int, element:ElementTypes):
-	print("player damaged")
+	# print("player damaged")
 	if not current_element_resistance == element:
 		health -=damage_taken
 		health_bar.value = health
@@ -223,7 +221,8 @@ func on_player_damage_taken(damage_taken: int, element:ElementTypes):
 		audio_stream_hurt_player.play()
 		check_health()
 	else:
-		print("damage negated") #add some effect or something to show that damage is negated
+		pass
+		# print("damage negated") #add some effect or something to show that damage is negated
 
 
 func _on_ui_card_swapped(element_type_int:int):
@@ -261,7 +260,6 @@ func add_health(heal:int):
 func check_health():
 	if health <= 0 and not current_player_state == PlayerStates.DYING and not current_player_state == PlayerStates.DEAD:
 		current_player_state = PlayerStates.DYING
-		print("died")
 
 func played_death_anim_finished():
 	player_died.emit()

@@ -2596,7 +2596,7 @@ level_trigger = NodePath("../LevelTrigger6")
 
 [node name="Player" parent="." node_paths=PackedStringArray("ui_canvas_script", "health_bar") instance=ExtResource("1_kw5oa")]
 z_index = 4
-position = Vector2(819, -218)
+position = Vector2(834, -218)
 ui_canvas_script = NodePath("../UICanvas")
 health_bar = NodePath("../UICanvas/HealthBar")
 
